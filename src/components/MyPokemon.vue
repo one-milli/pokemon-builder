@@ -16,7 +16,7 @@ const status = ref([
     { label: "S", base: 102, ev: 0, iv: 31 }
 ])
 
-const moveIds = ref({ 'slot1': 1, 'slot2': 2, 'slot3': 3, 'slot4': 4 })
+const moveIds = ref({ slot1: 1, slot2: 2, slot3: 3, slot4: 4 })
 
 const selectedNature = ref({ label: "いじっぱり", boost: "A", drop: "C" })
 
@@ -35,6 +35,15 @@ const stats = computed(() => {
     }
 })
 
+const allMoves = ref([
+    { id: 1, label: "じしん", type: "じめん", power: 100, accuracy: 100, pp: 10 },
+    { id: 2, label: "げきりん", type: "ドラゴン", power: 120, accuracy: 100, pp: 5 },
+    { id: 3, label: "アイアンヘッド", type: "はがね", power: 80, accuracy: 100, pp: 15 },
+    { id: 4, label: "スケイルショット", type: "ドラゴン", power: 25, accuracy: 100, pp: 15 },
+    { id: 5, label: "かみくだく", type: "あく", power: 80, accuracy: 100, pp: 15 },
+    { id: 6, label: "きりさく", type: "ノーマル", power: 80, accuracy: 100, pp: 15 },
+])
+
 // methods //
 
 const calc_stat = (label, base, ev, iv, level, nature) => {
@@ -45,6 +54,10 @@ const calc_stat = (label, base, ev, iv, level, nature) => {
         natureMag = 0.9
     }
     return Math.floor(Math.floor(Math.floor((base * 2 + iv + Math.floor(ev / 4)) * level * 0.01) + 5) * natureMag)
+}
+
+const findMove = (id) => {
+    return allMoves.value.find((move) => move.id == id)
 }
 
 const handleChangeNature = (newNature) => {
@@ -96,10 +109,34 @@ const handleChangeMove = (newMove, slot) => {
             <div class="moves">
                 <div>わざ</div>
                 <div>
-                    <SelectMove :selectedMoveId="moveIds.slot1" @changeMove="(move) => handleChangeMove(move, 1)" />
-                    <SelectMove :selectedMoveId="moveIds.slot2" @changeMove="(move) => handleChangeMove(move, 2)" />
-                    <SelectMove :selectedMoveId="moveIds.slot3" @changeMove="(move) => handleChangeMove(move, 3)" />
-                    <SelectMove :selectedMoveId="moveIds.slot4" @changeMove="(move) => handleChangeMove(move, 4)" />
+                    <div class="move">
+                        <SelectMove :selectedMoveId="moveIds.slot1" @changeMove="(move) => handleChangeMove(move, 1)" />
+                        <div>
+                            <span>{{ findMove(moveIds.slot1).type }}</span>
+                            <span>威力: {{ findMove(moveIds.slot1).power }}</span>
+                        </div>
+                    </div>
+                    <div class="move">
+                        <SelectMove :selectedMoveId="moveIds.slot2" @changeMove="(move) => handleChangeMove(move, 2)" />
+                        <div>
+                            <span>{{ findMove(moveIds.slot2).type }}</span>
+                            <span>威力: {{ findMove(moveIds.slot2).power }}</span>
+                        </div>
+                    </div>
+                    <div class="move">
+                        <SelectMove :selectedMoveId="moveIds.slot3" @changeMove="(move) => handleChangeMove(move, 3)" />
+                        <div>
+                            <span>{{ findMove(moveIds.slot3).type }}</span>
+                            <span>威力: {{ findMove(moveIds.slot3).power }}</span>
+                        </div>
+                    </div>
+                    <div class="move">
+                        <SelectMove :selectedMoveId="moveIds.slot4" @changeMove="(move) => handleChangeMove(move, 4)" />
+                        <div>
+                            <span>{{ findMove(moveIds.slot4).type }}</span>
+                            <span>威力: {{ findMove(moveIds.slot4).power }}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -163,5 +200,9 @@ span {
 .moves {
     display: flex;
     flex-direction: row;
+}
+
+.move {
+    display: flex;
 }
 </style>
