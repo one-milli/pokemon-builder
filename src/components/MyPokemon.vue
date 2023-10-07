@@ -1,6 +1,7 @@
 <script setup>
 import { computed, ref } from 'vue'
 import SelectNature from './SelectNature.vue'
+import SelectMove from './SelectMove.vue'
 
 const name = ref("ガブリアス")
 
@@ -14,6 +15,8 @@ const status = ref([
     { label: "D", base: 85, ev: 0, iv: 31 },
     { label: "S", base: 102, ev: 0, iv: 31 }
 ])
+
+const moveIds = ref({ 'slot1': 1, 'slot2': 2, 'slot3': 3, 'slot4': 4 })
 
 const selectedNature = ref({ label: "いじっぱり", boost: "A", drop: "C" })
 
@@ -47,6 +50,10 @@ const calc_stat = (label, base, ev, iv, level, nature) => {
 const handleChangeNature = (newNature) => {
     selectedNature.value = newNature
 }
+
+const handleChangeMove = (newMove, slot) => {
+    moveIds.value['slot' + slot] = newMove
+}
 </script>
 
 <template>
@@ -57,19 +64,19 @@ const handleChangeNature = (newNature) => {
         <div class="details">
             <div class="name">{{ name }}</div>
             <div class="segment">
-                <span>Lv.<input type="number" min="0" max="100" v-model="level"></span>
-                <span>性格</span>
+                <div>Lv.<input type="number" min="0" max="100" v-model="level"></div>
+                <div>性格</div>
                 <SelectNature :selectedNature="selectedNature" @changeNature="handleChangeNature" />
             </div>
             <div class="segment">
-                <span>種族値</span>
+                <div>種族値</div>
                 <template v-for="(stat, index) in status" :key="index">
                     <span>{{ stat.label }} :</span>
                     <span>{{ stat.base }}</span>
                 </template>
             </div>
             <div class="segment">
-                <span>実数値</span>
+                <div>実数値</div>
                 <span>H :</span><span>{{ stats.hp }}</span>
                 <span>A :</span><span>{{ stats.atk }}</span>
                 <span>B :</span><span>{{ stats.def }}</span>
@@ -78,13 +85,22 @@ const handleChangeNature = (newNature) => {
                 <span>S :</span><span>{{ stats.spd }}</span>
             </div>
             <div class="segment">
-                <span>努力値</span>
+                <div>努力値</div>
                 <template v-for="(stat, index) in status" :key="index">
                     <span>{{ stat.label }}</span>
                     <input type="number" min="0" max="252" step="4" v-model="stat.ev">
                 </template>
                 <span class="totalEv">合計{{ evsTotal }}</span>
                 <span class="remainEv">余り{{ 510 - evsTotal }}</span>
+            </div>
+            <div class="moves">
+                <div>わざ</div>
+                <div>
+                    <SelectMove :selectedMoveId="moveIds.slot1" @changeMove="(move) => handleChangeMove(move, 1)" />
+                    <SelectMove :selectedMoveId="moveIds.slot2" @changeMove="(move) => handleChangeMove(move, 2)" />
+                    <SelectMove :selectedMoveId="moveIds.slot3" @changeMove="(move) => handleChangeMove(move, 3)" />
+                    <SelectMove :selectedMoveId="moveIds.slot4" @changeMove="(move) => handleChangeMove(move, 4)" />
+                </div>
             </div>
         </div>
         <div class="icon">
@@ -142,5 +158,10 @@ span {
 .totalEv,
 .remainEv {
     width: 60px;
+}
+
+.moves {
+    display: flex;
+    flex-direction: row;
 }
 </style>
