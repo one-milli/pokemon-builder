@@ -3,7 +3,7 @@ import { computed, ref } from 'vue'
 import SelectNature from './SelectNature.vue'
 import SelectMove from './SelectMove.vue'
 
-const name = ref("ガブリアス")
+const name = ref("クレセリア")
 
 const level = ref(50)
 
@@ -18,7 +18,7 @@ const status = ref([
 
 const moveIds = ref({ slot1: 1, slot2: 2, slot3: 3, slot4: 4 })
 
-const selectedNature = ref({ label: "いじっぱり", boost: "A", drop: "C" })
+const selectedNature = ref({ label: "ずぶとい", boost: "B", drop: "A" })
 
 const evsTotal = computed(() => {
     return status.value.reduce((sum, stat) => sum + stat.ev, 0)
@@ -72,7 +72,7 @@ const handleChangeMove = (newMove, slot) => {
 <template>
     <div class="mypokemon">
         <div class="icon">
-            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/445.png" alt="ガブリアス">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/488.png" alt="クレセリア">
         </div>
         <div class="details">
             <div class="name">{{ name }}</div>
@@ -106,8 +106,41 @@ const handleChangeMove = (newMove, slot) => {
                 <span class="totalEv">合計{{ evsTotal }}</span>
                 <span class="remainEv">余り{{ 510 - evsTotal }}</span>
             </div>
+            <h3>与ダメージ</h3>
             <div class="moves">
-                <div>わざ</div>
+                <div>
+                    <div class="move">
+                        <SelectMove :selectedMoveId="moveIds.slot1" @changeMove="(move) => handleChangeMove(move, 1)" />
+                        <div>
+                            <span>{{ findMove(moveIds.slot1).type }}</span>
+                            <span>威力: {{ findMove(moveIds.slot1).power }}</span>
+                        </div>
+                    </div>
+                    <div class="move">
+                        <SelectMove :selectedMoveId="moveIds.slot2" @changeMove="(move) => handleChangeMove(move, 2)" />
+                        <div>
+                            <span>{{ findMove(moveIds.slot2).type }}</span>
+                            <span>威力: {{ findMove(moveIds.slot2).power }}</span>
+                        </div>
+                    </div>
+                    <div class="move">
+                        <SelectMove :selectedMoveId="moveIds.slot3" @changeMove="(move) => handleChangeMove(move, 3)" />
+                        <div>
+                            <span>{{ findMove(moveIds.slot3).type }}</span>
+                            <span>威力: {{ findMove(moveIds.slot3).power }}</span>
+                        </div>
+                    </div>
+                    <div class="move">
+                        <SelectMove :selectedMoveId="moveIds.slot4" @changeMove="(move) => handleChangeMove(move, 4)" />
+                        <div>
+                            <span>{{ findMove(moveIds.slot4).type }}</span>
+                            <span>威力: {{ findMove(moveIds.slot4).power }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h3>被ダメージ</h3>
+            <div class="moves">
                 <div>
                     <div class="move">
                         <SelectMove :selectedMoveId="moveIds.slot1" @changeMove="(move) => handleChangeMove(move, 1)" />

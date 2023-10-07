@@ -1,9 +1,13 @@
 <script setup>
 import MyPokemon from './components/MyPokemon.vue';
+import PotentialEnemy from './components/PotentialEnemy.vue';
 </script>
 
 <template>
   <MyPokemon />
+  <h2>VS</h2>
+  <PotentialEnemy />
+  <PotentialEnemy />
 </template>
 
 <style scoped>
