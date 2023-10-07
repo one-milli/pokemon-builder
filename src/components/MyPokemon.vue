@@ -1,6 +1,8 @@
 <script setup>
 import { computed, ref } from 'vue'
-import NatureSelect from './NatureSelect.vue'
+import SelectNature from './SelectNature.vue'
+
+const name = ref("ガブリアス")
 
 const level = ref(50)
 
@@ -11,30 +13,6 @@ const status = ref([
     { label: "C", base: 80, ev: 0, iv: 31 },
     { label: "D", base: 85, ev: 0, iv: 31 },
     { label: "S", base: 102, ev: 0, iv: 31 }
-])
-
-const natures = ref([
-    { label: "さみしがり", boost: "A", drop: "B" },
-    { label: "いじっぱり", boost: "A", drop: "C" },
-    { label: "やんちゃ", boost: "A", drop: "D" },
-    { label: "ゆうかん", boost: "A", drop: "S" },
-    { label: "ずぶとい", boost: "B", drop: "A" },
-    { label: "わんぱく", boost: "B", drop: "C" },
-    { label: "のうてんき", boost: "B", drop: "D" },
-    { label: "のんき", boost: "B", drop: "S" },
-    { label: "ひかえめ", boost: "C", drop: "A" },
-    { label: "おっとり", boost: "C", drop: "B" },
-    { label: "うっかりや", boost: "C", drop: "D" },
-    { label: "れいせい", boost: "C", drop: "S" },
-    { label: "おだやか", boost: "D", drop: "A" },
-    { label: "おとなしい", boost: "D", drop: "B" },
-    { label: "しんちょう", boost: "D", drop: "C" },
-    { label: "なまいき", boost: "D", drop: "S" },
-    { label: "おくびょう", boost: "S", drop: "A" },
-    { label: "せっかち", boost: "S", drop: "B" },
-    { label: "ようき", boost: "S", drop: "C" },
-    { label: "むじゃき", boost: "S", drop: "D" },
-    { label: "まじめ", boost: "", drop: "" },
 ])
 
 const selectedNature = ref({ label: "いじっぱり", boost: "A", drop: "C" })
@@ -54,9 +32,9 @@ const stats = computed(() => {
     }
 })
 
-// function //
+// methods //
 
-function calc_stat(label, base, ev, iv, level, nature) {
+const calc_stat = (label, base, ev, iv, level, nature) => {
     let natureMag = 1
     if (label == nature.boost) {
         natureMag = 1.1
@@ -66,6 +44,9 @@ function calc_stat(label, base, ev, iv, level, nature) {
     return Math.floor(Math.floor(Math.floor((base * 2 + iv + Math.floor(ev / 4)) * level * 0.01) + 5) * natureMag)
 }
 
+const handleChangeNature = (newNature) => {
+    selectedNature.value = newNature
+}
 </script>
 
 <template>
@@ -74,13 +55,11 @@ function calc_stat(label, base, ev, iv, level, nature) {
             <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/445.png" alt="ガブリアス">
         </div>
         <div class="details">
-            <div class="name">ガブリアス</div>
+            <div class="name">{{ name }}</div>
             <div class="segment">
                 <span>Lv.<input type="number" min="0" max="100" v-model="level"></span>
                 <span>性格</span>
-                <select v-model="selectedNature">
-                    <option v-for="nature in natures" :value="nature">{{ nature.label }}</option>
-                </select>
+                <SelectNature :selectedNature="selectedNature" @changeNature="handleChangeNature" />
             </div>
             <div class="segment">
                 <span>種族値</span>
@@ -127,22 +106,24 @@ span {
     flex-direction: row;
     align-items: center;
     margin: 3em;
-    padding: 2em;
+    padding: 1em;
     border: solid;
 }
 
-
 .icon {
-    border: solid;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 120px;
-    height: 120px;
+    width: 150px;
+    height: 150px;
     color: #fff;
     line-height: 50px;
     font-size: 30px;
-    margin: 10px;
+}
+
+.icon img {
+    width: 120px;
+    height: 120px;
 }
 
 .segment * {
@@ -152,7 +133,6 @@ span {
 .details input {
     width: 4em;
 }
-
 
 .name {
     font-size: 1.5em;
