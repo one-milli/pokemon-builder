@@ -1,7 +1,7 @@
 <script setup>
 import { computed, ref } from 'vue'
-import SelectNature from './SelectNature.vue'
-import SelectMove from './SelectMove.vue'
+import SelectNature from './selector/SelectNature.vue'
+import SelectMove from './selector/SelectMove.vue'
 
 const name = ref("クレセリア")
 
@@ -80,6 +80,7 @@ const handleChangeMove = (newMove, slot) => {
                 <div>Lv.<input type="number" min="0" max="100" v-model="level"></div>
                 <div>性格</div>
                 <SelectNature :selectedNature="selectedNature" @changeNature="handleChangeNature" />
+                <div>特性</div>
             </div>
             <div class="segment">
                 <div>種族値</div>
@@ -105,6 +106,12 @@ const handleChangeMove = (newMove, slot) => {
                 </template>
                 <span class="totalEv">合計{{ evsTotal }}</span>
                 <span class="remainEv">余り{{ 510 - evsTotal }}</span>
+            </div>
+            <div>
+                <div>もちもの</div>
+                <select>
+                    <option value="">きあいのタスキ</option>
+                </select>
             </div>
             <h3>与ダメージ</h3>
             <div class="moves">
