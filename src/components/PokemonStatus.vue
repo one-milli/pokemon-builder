@@ -4,26 +4,18 @@ import SelectItem from './selector/SelectItem.vue'
 import SelectNature from './selector/SelectNature.vue'
 
 const props = defineProps({
+    name: String,
+    level: Number,
+    status: Array,
+    selectedNature: Object,
+    selectedItem: Object,
 })
 
-const name = ref("ガブリアス")
-
-const level = ref(50)
-
-const status = ref([
-    { label: "H", base: 108, ev: 0, iv: 31 },
-    { label: "A", base: 130, ev: 0, iv: 31 },
-    { label: "B", base: 95, ev: 0, iv: 31 },
-    { label: "C", base: 80, ev: 0, iv: 31 },
-    { label: "D", base: 85, ev: 0, iv: 31 },
-    { label: "S", base: 102, ev: 0, iv: 31 }
-])
-
-const moveIds = ref({ slot1: 1, slot2: 2, slot3: 3, slot4: 4 })
-
-const selectedNature = ref({ label: "いじっぱり", boost: "A", drop: "C" })
-
-const selectedItem = ref({ label: "いのちのたま", status: ["A", "C"], boost: 1.3, conditionId: 1 })
+const name = ref(props.name)
+const level = ref(props.level)
+const status = ref(props.status)
+const selectedNature = ref(props.selectedNature)
+const selectedItem = ref(props.selectedItem)
 
 const evsTotal = computed(() => {
     return status.value.reduce((sum, stat) => sum + stat.ev, 0)
