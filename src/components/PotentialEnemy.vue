@@ -1,8 +1,7 @@
 <script setup>
 import { computed, ref } from 'vue'
-import SelectItem from './selector/SelectItem.vue'
+import PokemonStatus from './PokemonStatus.vue'
 import SelectMove from './selector/SelectMove.vue'
-import SelectNature from './selector/SelectNature.vue'
 
 const name = ref("クレセリア")
 
@@ -63,10 +62,6 @@ const findMove = (id) => {
     return allMoves.value.find((move) => move.id == id)
 }
 
-const handleChangeNature = (newNature) => {
-    selectedNature.value = newNature
-}
-
 const handleChangeMove = (newMove, slot) => {
     moveIds.value['slot' + slot] = newMove
 }
@@ -79,42 +74,7 @@ const handleChangeMove = (newMove, slot) => {
             -->
         </div>
         <div class="details">
-            <div class="name">{{ name }}</div>
-            <div class="segment">
-                <div>Lv.<input type="number" min="0" max="100" v-model="level"></div>
-                <div>性格</div>
-                <SelectNature :selectedNature="selectedNature" @changeNature="handleChangeNature" />
-                <div>特性</div>
-            </div>
-            <div class="segment">
-                <div>種族値</div>
-                <template v-for="(stat, index) in status" :key="index">
-                    <span>{{ stat.label }} :</span>
-                    <span>{{ stat.base }}</span>
-                </template>
-            </div>
-            <div class="segment">
-                <div>実数値</div>
-                <span>H :</span><span>{{ stats.hp }}</span>
-                <span>A :</span><span>{{ stats.atk }}</span>
-                <span>B :</span><span>{{ stats.def }}</span>
-                <span>C :</span><span>{{ stats.spatk }}</span>
-                <span>D :</span><span>{{ stats.spdef }}</span>
-                <span>S :</span><span>{{ stats.spd }}</span>
-            </div>
-            <div class="segment">
-                <div>努力値</div>
-                <template v-for="(stat, index) in status" :key="index">
-                    <span>{{ stat.label }}</span>
-                    <input type="number" min="0" max="252" step="4" v-model="stat.ev">
-                </template>
-                <span class="totalEv">合計{{ evsTotal }}</span>
-                <span class="remainEv">余り{{ 510 - evsTotal }}</span>
-            </div>
-            <div>
-                <div>もちもの</div>
-                <SelectItem :selectedItem="selectedItem" @changeItem="handleChangeItem" />
-            </div>
+            <PokemonStatus />
             <h3>与ダメージ</h3>
             <div class="moves">
                 <div>
