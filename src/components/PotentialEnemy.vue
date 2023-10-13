@@ -1,7 +1,8 @@
 <script setup>
 import { computed, ref } from 'vue'
-import SelectNature from './selector/SelectNature.vue'
+import SelectItem from './selector/SelectItem.vue'
 import SelectMove from './selector/SelectMove.vue'
+import SelectNature from './selector/SelectNature.vue'
 
 const name = ref("クレセリア")
 
@@ -19,6 +20,8 @@ const status = ref([
 const moveIds = ref({ slot1: 1, slot2: 2, slot3: 3, slot4: 4 })
 
 const selectedNature = ref({ label: "ずぶとい", boost: "B", drop: "A" })
+
+const selectedItem = ref({ label: "いのちのたま", status: ["A", "C"], boost: 1.3, conditionId: 1 })
 
 const evsTotal = computed(() => {
     return status.value.reduce((sum, stat) => sum + stat.ev, 0)
@@ -72,7 +75,8 @@ const handleChangeMove = (newMove, slot) => {
 <template>
     <div class="mypokemon">
         <div class="icon">
-            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/488.png" alt="クレセリア">
+            <!--<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/488.png" alt="クレセリア">
+            -->
         </div>
         <div class="details">
             <div class="name">{{ name }}</div>
@@ -109,9 +113,7 @@ const handleChangeMove = (newMove, slot) => {
             </div>
             <div>
                 <div>もちもの</div>
-                <select>
-                    <option value="">きあいのタスキ</option>
-                </select>
+                <SelectItem :selectedItem="selectedItem" @changeItem="handleChangeItem" />
             </div>
             <h3>与ダメージ</h3>
             <div class="moves">
