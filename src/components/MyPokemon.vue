@@ -17,8 +17,13 @@ const status = [
     { label: "D", base: 85, ev: 0, iv: 31 },
     { label: "S", base: 102, ev: 0, iv: 31 }
 ]
-const selectedNature = { label: "いじっぱり", boost: "A", drop: "C" }
+const abilities = [
+    { label: "すながくれ", type: 0 },
+    { label: "さめはだ", type: 0 },
+]
+const selectedAbility = { label: "さめはだ", type: 0 }
 const selectedItem = { label: "いのちのたま", status: ["A", "C"], boost: 1.3, conditionId: 1 }
+const selectedNature = { label: "いじっぱり", boost: "A", drop: "C" }
 const allMoves = props.allMoves
 
 const moveIds = ref({ slot1: 1, slot2: 2, slot3: 3, slot4: 4 })
@@ -41,8 +46,8 @@ const handleChangeMove = (newMove, slot) => {
             -->
         </div>
         <div class="details">
-            <PokemonStatus :name="name" :level="level" :status="status" :selectedNature="selectedNature"
-                :selectedItem="selectedItem" />
+            <PokemonStatus :name="name" :level="level" :status="status" :abilities="abilities"
+                :selectedAbility="selectedAbility" :selectedItem="selectedItem" :selectedNature="selectedNature" />
             <div class="moves">
                 <div>わざ</div>
                 <div>
@@ -130,4 +135,5 @@ span {
 
 .move {
     display: flex;
-}</style>
+}
+</style>

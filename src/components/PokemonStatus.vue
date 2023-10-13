@@ -1,5 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue'
+import SelectAbility from './selector/SelectAbility.vue';
 import SelectItem from './selector/SelectItem.vue'
 import SelectNature from './selector/SelectNature.vue'
 
@@ -7,15 +8,19 @@ const props = defineProps({
     name: String,
     level: Number,
     status: Array,
-    selectedNature: Object,
+    abilities: Array,
+    selectedAbility: Object,
     selectedItem: Object,
+    selectedNature: Object,
 })
 
 const name = ref(props.name)
 const level = ref(props.level)
 const status = ref(props.status)
-const selectedNature = ref(props.selectedNature)
+const abilities = ref(props.abilities)
+const selectedAbility = ref(props.selectedAbility)
 const selectedItem = ref(props.selectedItem)
+const selectedNature = ref(props.selectedNature)
 
 const evsTotal = computed(() => {
     return status.value.reduce((sum, stat) => sum + stat.ev, 0)
@@ -56,6 +61,7 @@ const handleChangeNature = (newNature) => {
         <div>性格</div>
         <SelectNature :selectedNature="selectedNature" @changeNature="handleChangeNature" />
         <div>特性</div>
+        <SelectAbility :abilities="abilities" :selectedAbility="selectedAbility" />
     </div>
     <div class="segment">
         <div>種族値</div>
