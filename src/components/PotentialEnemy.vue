@@ -10,12 +10,12 @@ const props = defineProps({
 const name = "クレセリア"
 const level = 50
 const status = [
-    { label: "H", base: 108, ev: 0, iv: 31 },
-    { label: "A", base: 130, ev: 0, iv: 31 },
-    { label: "B", base: 130, ev: 0, iv: 31 },
-    { label: "C", base: 80, ev: 0, iv: 31 },
-    { label: "D", base: 85, ev: 0, iv: 31 },
-    { label: "S", base: 102, ev: 0, iv: 31 }
+    { label: "H", base: 120, ev: 0, iv: 31 },
+    { label: "A", base: 70, ev: 0, iv: 31 },
+    { label: "B", base: 110, ev: 0, iv: 31 },
+    { label: "C", base: 75, ev: 0, iv: 31 },
+    { label: "D", base: 120, ev: 0, iv: 31 },
+    { label: "S", base: 85, ev: 0, iv: 31 }
 ]
 const abilities = [
     { label: "ふゆう", type: 1 },
