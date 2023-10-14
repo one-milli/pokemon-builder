@@ -42,8 +42,7 @@ const handleChangeMove = (newMove, slot) => {
 <template>
     <div class="mypokemon">
         <div class="icon">
-            <!--<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/445.png" alt="ガブリアス">
-            -->
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/445.png" alt="ガブリアス">
         </div>
         <div class="details">
             <PokemonStatus :name="name" :level="level" :status="status" :abilities="abilities"
