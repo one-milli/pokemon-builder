@@ -13,6 +13,21 @@ const myPokemon = ref(props.myPokemon)
 const enemyPokemon = ref(props.enemyPokemon)
 const allMoves = props.allMoves
 
+const statusRank = ref({
+    A: 0,
+    B: 0,
+    C: 0,
+    D: 0,
+    S: 0,
+})
+const enemyStatusRank = ref({
+    A: 0,
+    B: 0,
+    C: 0,
+    D: 0,
+    S: 0,
+})
+
 // methods //
 
 const findMove = (id) => {
@@ -33,6 +48,33 @@ const handleChangeMove = (newMove, slot) => {
             <PokemonStatus :name="enemyPokemon.name" :level="enemyPokemon.level" :status="enemyPokemon.status"
                 :abilities="enemyPokemon.abilities" :selectedAbility="enemyPokemon.selectedAbility"
                 :selectedItem="enemyPokemon.selectedItem" :selectedNature="enemyPokemon.selectedNature" />
+            <div>ランク補正</div>
+            <div>
+                <span>自分</span>
+                <span>A</span>
+                <input type="number" min="-6" max="6" v-model="statusRank.A">
+                <span>B</span>
+                <input type="number" min="-6" max="6" v-model="statusRank.B">
+                <span>C</span>
+                <input type="number" min="-6" max="6" v-model="statusRank.C">
+                <span>D</span>
+                <input type="number" min="-6" max="6" v-model="statusRank.D">
+                <span>S</span>
+                <input type="number" min="-6" max="6" v-model="statusRank.S">
+            </div>
+            <div>
+                <span>相手</span>
+                <span>A</span>
+                <input type="number" min="-6" max="6" v-model="enemyStatusRank.A">
+                <span>B</span>
+                <input type="number" min="-6" max="6" v-model="enemyStatusRank.B">
+                <span>C</span>
+                <input type="number" min="-6" max="6" v-model="enemyStatusRank.C">
+                <span>D</span>
+                <input type="number" min="-6" max="6" v-model="enemyStatusRank.D">
+                <span>S</span>
+                <input type="number" min="-6" max="6" v-model="enemyStatusRank.S">
+            </div>
             <div>与ダメージ</div>
             <div class="moves">
                 <div>
