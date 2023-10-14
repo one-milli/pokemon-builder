@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from 'vue'
 import MyPokemon from './components/MyPokemon.vue';
 import PotentialEnemy from './components/PotentialEnemy.vue';
 
@@ -11,13 +12,54 @@ const allMoves = [
   { id: 6, label: "きりさく", type: "ノーマル", power: 80, accuracy: 100, pp: 15 },
   { id: 7, label: "ムーンフォース", type: "フェアリー", power: 90, accuracy: 100, pp: 15 },
 ]
+
+const myPokemon = ref({
+  name: "ガブリアス",
+  level: 50,
+  status: [
+    { label: "H", base: 108, ev: 0, iv: 31 },
+    { label: "A", base: 130, ev: 0, iv: 31 },
+    { label: "B", base: 95, ev: 0, iv: 31 },
+    { label: "C", base: 80, ev: 0, iv: 31 },
+    { label: "D", base: 85, ev: 0, iv: 31 },
+    { label: "S", base: 102, ev: 0, iv: 31 }
+  ],
+  abilities: [
+    { label: "すながくれ", type: 0 },
+    { label: "さめはだ", type: 0 },
+  ],
+  selectedAbility: { label: "さめはだ", type: 0 },
+  selectedItem: { label: "いのちのたま", status: ["A", "C"], boost: 1.3, conditionId: 1 },
+  selectedNature: { label: "いじっぱり", boost: "A", drop: "C" },
+  moveIds: { slot1: 1, slot2: 2, slot3: 3, slot4: 4 }
+})
+
+const enemyPokemon = ref({
+  name: "クレセリア",
+  level: 50,
+  status: [
+    { label: "H", base: 120, ev: 0, iv: 31 },
+    { label: "A", base: 70, ev: 0, iv: 31 },
+    { label: "B", base: 110, ev: 0, iv: 31 },
+    { label: "C", base: 75, ev: 0, iv: 31 },
+    { label: "D", base: 120, ev: 0, iv: 31 },
+    { label: "S", base: 85, ev: 0, iv: 31 }
+  ],
+  abilities: [
+    { label: "ふゆう", type: 1 },
+  ],
+  selectedAbility: { label: "ふゆう", type: 1 },
+  selectedItem: { label: "とつげきチョッキ", status: ["D"], boost: 1.5, conditionId: 1 },
+  selectedNature: { label: "ずぶとい", boost: "B", drop: "A" },
+  enemyMoveIds: { slot1: 7, slot2: 2, slot3: 3, slot4: 4 }
+})
 </script>
 
 <template>
-  <MyPokemon :allMoves="allMoves" />
+  <MyPokemon :myPokemon="myPokemon" :allMoves="allMoves" />
   <h2>VS</h2>
-  <PotentialEnemy :allMoves="allMoves" />
-  <PotentialEnemy :allMoves="allMoves" />
+  <PotentialEnemy :myPokemon="myPokemon" :enemyPokemon="enemyPokemon" :allMoves="allMoves" />
+  <PotentialEnemy :myPokemon="myPokemon" :enemyPokemon="enemyPokemon" :allMoves="allMoves" />
 </template>
 
 <style scoped>
