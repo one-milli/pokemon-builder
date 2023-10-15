@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import PokemonStatus from './PokemonStatus.vue'
 import SelectMove from './selector/SelectMove.vue'
 import HpBar from './HpBar.vue';
@@ -42,6 +42,14 @@ const enemyCalculatedStatus = ref({
 const findMove = (id) => {
     return allMoves.find((move) => move.id == id)
 }
+
+const myMoves = computed(() => {
+    return Object.keys(myPokemon.value.moveIds).map((key) => findMove(myPokemon.value.moveIds[key]))
+})
+
+const enemyMoves = computed(() => {
+    return Object.keys(enemyPokemon.value.enemyMoveIds).map((key) => findMove(enemyPokemon.value.enemyMoveIds[key]))
+})
 
 const handleChangeMove = (newMove, slot) => {
     enemyPokemon.value.enemyMoveIds['slot' + slot] = newMove
@@ -88,64 +96,27 @@ const handleChangeStatus = (newStatus) => {
             <div>与ダメージ</div>
             <div class="moves">
                 <div>
-                    <div class="move">
-                        <span>{{ findMove(myPokemon.moveIds.slot1).label }}</span>
-                        <span>{{ findMove(myPokemon.moveIds.slot1).type }}</span>
-                        <span>威力: {{ findMove(myPokemon.moveIds.slot1).power }}</span>
-                        <HpBar :attacker="myPokemon" :defender="enemyPokemon" :move="findMove(myPokemon.moveIds.slot1)"
-                            :attackerStatusRank="statusRank" :defenderStatusRank="enemyStatusRank" />
-                    </div>
-                    <div class="move">
-                        <span>{{ findMove(myPokemon.moveIds.slot2).label }}</span>
-                        <span>{{ findMove(myPokemon.moveIds.slot2).type }}</span>
-                        <span>威力: {{ findMove(myPokemon.moveIds.slot2).power }}</span>
-                    </div>
-                    <div class="move">
-                        <span>{{ findMove(myPokemon.moveIds.slot3).label }}</span>
-                        <span>{{ findMove(myPokemon.moveIds.slot3).type }}</span>
-                        <span>威力: {{ findMove(myPokemon.moveIds.slot3).power }}</span>
-                    </div>
-                    <div class="move">
-                        <span>{{ findMove(myPokemon.moveIds.slot4).label }}</span>
-                        <span>{{ findMove(myPokemon.moveIds.slot4).type }}</span>
-                        <span>威力: {{ findMove(myPokemon.moveIds.slot4).power }}</span>
+                    <div class="move" v-for="(move, index) in myMoves" :key="index">
+                        <span>{{ move.label }}</span>
+                        <span>{{ move.type }}</span>
+                        <span>威力: {{ move.power }}</span>
+                        <HpBar :attacker="myPokemon" :defender="enemyPokemon" :move="move" :attackerStatusRank="statusRank"
+                            :defenderStatusRank="enemyStatusRank" />
                     </div>
                 </div>
             </div>
             <div>被ダメージ</div>
             <div class="moves">
                 <div>
-                    <div class="move">
-                        <SelectMove :allMoves="allMoves" :selectedMoveId="enemyPokemon.enemyMoveIds.slot1"
-                            @changeMove="(move) => handleChangeMove(move, 1)" />
+                    <div class="move" v-for="(move, index) in enemyMoves" :key="`enemy-${index}`">
+                        <SelectMove :allMoves="allMoves" :selectedMoveId="enemyPokemon.enemyMoveIds[`slot${index + 1}`]"
+                            @changeMove="(newMove) => handleChangeMove(newMove, index + 1)" />
                         <div>
-                            <span>{{ findMove(enemyPokemon.enemyMoveIds.slot1).type }}</span>
-                            <span>威力: {{ findMove(enemyPokemon.enemyMoveIds.slot1).power }}</span>
+                            <span>{{ move.type }}</span>
+                            <span>威力: {{ move.power }}</span>
                         </div>
-                    </div>
-                    <div class="move">
-                        <SelectMove :allMoves="allMoves" :selectedMoveId="enemyPokemon.enemyMoveIds.slot2"
-                            @changeMove="(move) => handleChangeMove(move, 2)" />
-                        <div>
-                            <span>{{ findMove(enemyPokemon.enemyMoveIds.slot2).type }}</span>
-                            <span>威力: {{ findMove(enemyPokemon.enemyMoveIds.slot2).power }}</span>
-                        </div>
-                    </div>
-                    <div class="move">
-                        <SelectMove :allMoves="allMoves" :selectedMoveId="enemyPokemon.enemyMoveIds.slot3"
-                            @changeMove="(move) => handleChangeMove(move, 3)" />
-                        <div>
-                            <span>{{ findMove(enemyPokemon.enemyMoveIds.slot3).type }}</span>
-                            <span>威力: {{ findMove(enemyPokemon.enemyMoveIds.slot3).power }}</span>
-                        </div>
-                    </div>
-                    <div class="move">
-                        <SelectMove :allMoves="allMoves" :selectedMoveId="enemyPokemon.enemyMoveIds.slot4"
-                            @changeMove="(move) => handleChangeMove(move, 4)" />
-                        <div>
-                            <span>{{ findMove(enemyPokemon.enemyMoveIds.slot4).type }}</span>
-                            <span>威力: {{ findMove(enemyPokemon.enemyMoveIds.slot4).power }}</span>
-                        </div>
+                        <HpBar :attacker="enemyPokemon" :defender="myPokemon" :move="move" :attackerStatusRank="statusRank"
+                            :defenderStatusRank="enemyStatusRank" />
                     </div>
                 </div>
             </div>
