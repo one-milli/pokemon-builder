@@ -11,6 +11,14 @@ const props = defineProps({
 const myPokemon = ref(props.myPokemon)
 const allMoves = props.allMoves
 
+const calculatedStatus = ref({
+    hp: 0,
+    atk: 0,
+    def: 0,
+    spatk: 0,
+    spdef: 0,
+    spd: 0,
+})
 // methods //
 
 const findMove = (id) => {
@@ -20,6 +28,9 @@ const findMove = (id) => {
 const handleChangeMove = (newMove, slot) => {
     myPokemon.value.moveIds['slot' + slot] = newMove
 }
+const handleChangeStatus = (newStatus) => {
+    calculatedStatus.value = newStatus
+}
 </script>
 
 <template>
@@ -28,9 +39,7 @@ const handleChangeMove = (newMove, slot) => {
             <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/445.png" alt="ガブリアス">
         </div>
         <div class="details">
-            <PokemonStatus :name="myPokemon.name" :level="myPokemon.level" :status="myPokemon.status"
-                :abilities="myPokemon.abilities" :selectedAbility="myPokemon.selectedAbility"
-                :selectedItem="myPokemon.selectedItem" :selectedNature="myPokemon.selectedNature" />
+            <PokemonStatus :pokemon="myPokemon" @changeStatus="handleChangeStatus" />
             <div class="moves">
                 <div>わざ</div>
                 <div>

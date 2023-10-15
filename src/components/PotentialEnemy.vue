@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue'
 import PokemonStatus from './PokemonStatus.vue'
 import SelectMove from './selector/SelectMove.vue'
+import HpBar from './HpBar.vue';
 
 const props = defineProps({
     myPokemon: Object,
@@ -27,6 +28,14 @@ const enemyStatusRank = ref({
     D: 0,
     S: 0,
 })
+const enemyCalculatedStatus = ref({
+    hp: 0,
+    atk: 0,
+    def: 0,
+    spatk: 0,
+    spdef: 0,
+    spd: 0,
+})
 
 // methods //
 
@@ -37,6 +46,9 @@ const findMove = (id) => {
 const handleChangeMove = (newMove, slot) => {
     enemyPokemon.value.enemyMoveIds['slot' + slot] = newMove
 }
+const handleChangeStatus = (newStatus) => {
+    enemyCalculatedStatus.value = newStatus
+}
 </script>
 
 <template>
@@ -45,9 +57,7 @@ const handleChangeMove = (newMove, slot) => {
             <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/488.png" alt="クレセリア">
         </div>
         <div class="details">
-            <PokemonStatus :name="enemyPokemon.name" :level="enemyPokemon.level" :status="enemyPokemon.status"
-                :abilities="enemyPokemon.abilities" :selectedAbility="enemyPokemon.selectedAbility"
-                :selectedItem="enemyPokemon.selectedItem" :selectedNature="enemyPokemon.selectedNature" />
+            <PokemonStatus :pokemon="enemyPokemon" @changeStatus="handleChangeStatus" />
             <div>ランク補正</div>
             <div>
                 <span>自分</span>
@@ -79,32 +89,26 @@ const handleChangeMove = (newMove, slot) => {
             <div class="moves">
                 <div>
                     <div class="move">
-                        <div>
-                            <span>{{ findMove(myPokemon.moveIds.slot1).label }}</span>
-                            <span>{{ findMove(myPokemon.moveIds.slot1).type }}</span>
-                            <span>威力: {{ findMove(myPokemon.moveIds.slot1).power }}</span>
-                        </div>
+                        <span>{{ findMove(myPokemon.moveIds.slot1).label }}</span>
+                        <span>{{ findMove(myPokemon.moveIds.slot1).type }}</span>
+                        <span>威力: {{ findMove(myPokemon.moveIds.slot1).power }}</span>
+                        <HpBar :attacker="myPokemon" :defender="enemyPokemon" :move="findMove(myPokemon.moveIds.slot1)"
+                            :attackerStatusRank="statusRank" :defenderStatusRank="enemyStatusRank" />
                     </div>
                     <div class="move">
-                        <div>
-                            <span>{{ findMove(myPokemon.moveIds.slot2).label }}</span>
-                            <span>{{ findMove(myPokemon.moveIds.slot2).type }}</span>
-                            <span>威力: {{ findMove(myPokemon.moveIds.slot2).power }}</span>
-                        </div>
+                        <span>{{ findMove(myPokemon.moveIds.slot2).label }}</span>
+                        <span>{{ findMove(myPokemon.moveIds.slot2).type }}</span>
+                        <span>威力: {{ findMove(myPokemon.moveIds.slot2).power }}</span>
                     </div>
                     <div class="move">
-                        <div>
-                            <span>{{ findMove(myPokemon.moveIds.slot3).label }}</span>
-                            <span>{{ findMove(myPokemon.moveIds.slot3).type }}</span>
-                            <span>威力: {{ findMove(myPokemon.moveIds.slot3).power }}</span>
-                        </div>
+                        <span>{{ findMove(myPokemon.moveIds.slot3).label }}</span>
+                        <span>{{ findMove(myPokemon.moveIds.slot3).type }}</span>
+                        <span>威力: {{ findMove(myPokemon.moveIds.slot3).power }}</span>
                     </div>
                     <div class="move">
-                        <div>
-                            <span>{{ findMove(myPokemon.moveIds.slot4).label }}</span>
-                            <span>{{ findMove(myPokemon.moveIds.slot4).type }}</span>
-                            <span>威力: {{ findMove(myPokemon.moveIds.slot4).power }}</span>
-                        </div>
+                        <span>{{ findMove(myPokemon.moveIds.slot4).label }}</span>
+                        <span>{{ findMove(myPokemon.moveIds.slot4).type }}</span>
+                        <span>威力: {{ findMove(myPokemon.moveIds.slot4).power }}</span>
                     </div>
                 </div>
             </div>
