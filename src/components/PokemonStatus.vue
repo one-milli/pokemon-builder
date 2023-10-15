@@ -8,13 +8,7 @@ const props = defineProps({
     pokemon: Object,
 })
 
-const name = ref(props.pokemon.name)
-const level = ref(props.pokemon.level)
 const status = ref(props.pokemon.status)
-const abilities = ref(props.pokemon.abilities)
-const selectedAbility = ref(props.pokemon.selectedAbility)
-const selectedItem = ref(props.pokemon.selectedItem)
-const selectedNature = ref(props.pokemon.selectedNature)
 
 const evsTotal = computed(() => {
     return status.value.reduce((sum, stat) => sum + stat.ev, 0)
@@ -22,12 +16,12 @@ const evsTotal = computed(() => {
 
 const calculatedStatus = computed(() => {
     return {
-        hp: calc_stat(status.value[0].label, status.value[0].base, status.value[0].ev, status.value[0].iv, level.value, selectedNature.value),
-        atk: calc_stat(status.value[1].label, status.value[1].base, status.value[1].ev, status.value[1].iv, level.value, selectedNature.value),
-        def: calc_stat(status.value[2].label, status.value[2].base, status.value[2].ev, status.value[2].iv, level.value, selectedNature.value),
-        spatk: calc_stat(status.value[3].label, status.value[3].base, status.value[3].ev, status.value[3].iv, level.value, selectedNature.value),
-        spdef: calc_stat(status.value[4].label, status.value[4].base, status.value[4].ev, status.value[4].iv, level.value, selectedNature.value),
-        spd: calc_stat(status.value[5].label, status.value[5].base, status.value[5].ev, status.value[5].iv, level.value, selectedNature.value)
+        hp: calc_stat(status.value[0].label, status.value[0].base, status.value[0].ev, status.value[0].iv, props.pokemon.level, props.pokemon.selectedNature),
+        atk: calc_stat(status.value[1].label, status.value[1].base, status.value[1].ev, status.value[1].iv, props.pokemon.level, props.pokemon.selectedNature),
+        def: calc_stat(status.value[2].label, status.value[2].base, status.value[2].ev, status.value[2].iv, props.pokemon.level, props.pokemon.selectedNature),
+        spatk: calc_stat(status.value[3].label, status.value[3].base, status.value[3].ev, status.value[3].iv, props.pokemon.level, props.pokemon.selectedNature),
+        spdef: calc_stat(status.value[4].label, status.value[4].base, status.value[4].ev, status.value[4].iv, props.pokemon.level, props.pokemon.selectedNature),
+        spd: calc_stat(status.value[5].label, status.value[5].base, status.value[5].ev, status.value[5].iv, props.pokemon.level, props.pokemon.selectedNature)
     }
 })
 
@@ -42,13 +36,13 @@ const calc_stat = (label, base, ev, iv, level, nature) => {
 }
 
 const handleChangeNature = (newNature) => {
-    selectedNature.value = newNature
+    props.pokemon.selectedNature = newNature
 }
 const handleChangeItem = (newItem) => {
-    selectedItem.value = newItem
+    props.pokemon.selectedItem = newItem
 }
 const handleChangeAbility = (newAbility) => {
-    selectedAbility.value = newAbility
+    props.pokemon.selectedAbility = newAbility
 }
 
 const emit = defineEmits()
@@ -58,13 +52,14 @@ const handleChangeStatus = () => {
 </script>
 
 <template>
-    <div class="name">{{ name }}</div>
+    <div class="name">{{ props.pokemon.name }}</div>
     <div class="segment">
-        <div>Lv.<input type="number" min="0" max="100" v-model="level"></div>
+        <div>Lv.<input type="number" min="0" max="100" v-model="props.pokemon.level"></div>
         <div>性格</div>
-        <SelectNature :selectedNature="selectedNature" @changeNature="handleChangeNature" />
+        <SelectNature :selectedNature="props.pokemon.selectedNature" @changeNature="handleChangeNature" />
         <div>特性</div>
-        <SelectAbility :abilities="abilities" :selectedAbility="selectedAbility" @changeAbility="handleChangeAbility" />
+        <SelectAbility :abilities="props.pokemon.abilities" :selectedAbility="props.pokemon.selectedAbility"
+            @changeAbility="handleChangeAbility" />
     </div>
     <div class="segment">
         <div>種族値</div>
@@ -93,9 +88,9 @@ const handleChangeStatus = () => {
     </div>
     <div>
         <div>もちもの</div>
-        <SelectItem :selectedItem="selectedItem" @changeItem="handleChangeItem" />
-        <span>{{ selectedItem.status }}</span>
-        <span>{{ selectedItem.boost }}</span>
+        <SelectItem :selectedItem="props.pokemon.selectedItem" @changeItem="handleChangeItem" />
+        <span>{{ props.pokemon.selectedItem.status }}</span>
+        <span>{{ props.pokemon.selectedItem.boost }}</span>
     </div>
 </template>
 

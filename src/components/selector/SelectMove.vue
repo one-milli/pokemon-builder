@@ -5,11 +5,10 @@ const props = defineProps({
     allMoves: Array,
     selectedMoveId: Number
 })
-const emit = defineEmits()
 
 const selectedMoveId = ref(props.selectedMoveId)
-const allMoves = props.allMoves
 
+const emit = defineEmits()
 const selectedMove = computed({
     get: () => props.selectedMoveId,
     set: (value) => {
@@ -23,7 +22,7 @@ const selectedMove = computed({
 <template>
     <div>
         <select v-model="selectedMove">
-            <option v-for="move in allMoves" :key="move.id" :value="move.id">{{ move.label }}</option>
+            <option v-for="move in props.allMoves" :key="move.id" :value="move.id">{{ move.label }}</option>
         </select>
     </div>
 </template>
