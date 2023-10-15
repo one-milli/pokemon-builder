@@ -19,11 +19,14 @@ const calculatedStatus = ref({
     spdef: 0,
     spd: 0,
 })
-// methods //
 
 const findMove = (id) => {
     return allMoves.find((move) => move.id == id)
 }
+
+const myMoves = computed(() => {
+    return Object.keys(props.myPokemon.moveIds).map((key) => findMove(props.myPokemon.moveIds[key]))
+})
 
 const handleChangeMove = (newMove, slot) => {
     myPokemon.value.moveIds['slot' + slot] = newMove
@@ -43,36 +46,12 @@ const handleChangeStatus = (newStatus) => {
             <div class="moves">
                 <div>わざ</div>
                 <div>
-                    <div class="move">
-                        <SelectMove :allMoves="allMoves" :selectedMoveId="myPokemon.moveIds.slot1"
-                            @changeMove="(move) => handleChangeMove(move, 1)" />
+                    <div class="move" v-for="(move, index) in myMoves" :key="index">
+                        <SelectMove :allMoves="allMoves" :selectedMoveId="props.myPokemon.moveIds[`slot${index + 1}`]"
+                            @changeMove="(newMove) => handleChangeMove(newMove, index + 1)" />
                         <div>
-                            <span>{{ findMove(myPokemon.moveIds.slot1).type }}</span>
-                            <span>威力: {{ findMove(myPokemon.moveIds.slot1).power }}</span>
-                        </div>
-                    </div>
-                    <div class="move">
-                        <SelectMove :allMoves="allMoves" :selectedMoveId="myPokemon.moveIds.slot2"
-                            @changeMove="(move) => handleChangeMove(move, 2)" />
-                        <div>
-                            <span>{{ findMove(myPokemon.moveIds.slot2).type }}</span>
-                            <span>威力: {{ findMove(myPokemon.moveIds.slot2).power }}</span>
-                        </div>
-                    </div>
-                    <div class="move">
-                        <SelectMove :allMoves="allMoves" :selectedMoveId="myPokemon.moveIds.slot3"
-                            @changeMove="(move) => handleChangeMove(move, 3)" />
-                        <div>
-                            <span>{{ findMove(myPokemon.moveIds.slot3).type }}</span>
-                            <span>威力: {{ findMove(myPokemon.moveIds.slot3).power }}</span>
-                        </div>
-                    </div>
-                    <div class="move">
-                        <SelectMove :allMoves="allMoves" :selectedMoveId="myPokemon.moveIds.slot4"
-                            @changeMove="(move) => handleChangeMove(move, 4)" />
-                        <div>
-                            <span>{{ findMove(myPokemon.moveIds.slot4).type }}</span>
-                            <span>威力: {{ findMove(myPokemon.moveIds.slot4).power }}</span>
+                            <span>{{ move.type }}</span>
+                            <span>威力: {{ move.power }}</span>
                         </div>
                     </div>
                 </div>

@@ -31,8 +31,6 @@ const calculatedStatus = computed(() => {
     }
 })
 
-// methods //
-
 const calc_stat = (label, base, ev, iv, level, nature) => {
     let natureMag = 1
     if (label == nature.boost) {

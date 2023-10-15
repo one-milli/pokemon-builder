@@ -10,10 +10,6 @@ const props = defineProps({
     allMoves: Array
 })
 
-const myPokemon = ref(props.myPokemon)
-const enemyPokemon = ref(props.enemyPokemon)
-const allMoves = props.allMoves
-
 const statusRank = ref({
     A: 0,
     B: 0,
@@ -37,22 +33,20 @@ const enemyCalculatedStatus = ref({
     spd: 0,
 })
 
-// methods //
-
 const findMove = (id) => {
-    return allMoves.find((move) => move.id == id)
+    return props.allMoves.find((move) => move.id == id)
 }
 
 const myMoves = computed(() => {
-    return Object.keys(myPokemon.value.moveIds).map((key) => findMove(myPokemon.value.moveIds[key]))
+    return Object.keys(props.myPokemon.moveIds).map((key) => findMove(props.myPokemon.moveIds[key]))
 })
 
 const enemyMoves = computed(() => {
-    return Object.keys(enemyPokemon.value.enemyMoveIds).map((key) => findMove(enemyPokemon.value.enemyMoveIds[key]))
+    return Object.keys(props.enemyPokemon.enemyMoveIds).map((key) => findMove(props.enemyPokemon.enemyMoveIds[key]))
 })
 
 const handleChangeMove = (newMove, slot) => {
-    enemyPokemon.value.enemyMoveIds['slot' + slot] = newMove
+    props.enemyPokemon.enemyMoveIds['slot' + slot] = newMove
 }
 const handleChangeStatus = (newStatus) => {
     enemyCalculatedStatus.value = newStatus
@@ -65,7 +59,7 @@ const handleChangeStatus = (newStatus) => {
             <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/488.png" alt="クレセリア">
         </div>
         <div class="details">
-            <PokemonStatus :pokemon="enemyPokemon" @changeStatus="handleChangeStatus" />
+            <PokemonStatus :pokemon="props.enemyPokemon" @changeStatus="handleChangeStatus" />
             <div>ランク補正</div>
             <div>
                 <span>自分</span>
@@ -100,8 +94,8 @@ const handleChangeStatus = (newStatus) => {
                         <span>{{ move.label }}</span>
                         <span>{{ move.type }}</span>
                         <span>威力: {{ move.power }}</span>
-                        <HpBar :attacker="myPokemon" :defender="enemyPokemon" :move="move" :attackerStatusRank="statusRank"
-                            :defenderStatusRank="enemyStatusRank" />
+                        <HpBar :attacker="props.myPokemon" :defender="props.enemyPokemon" :move="move"
+                            :attackerStatusRank="statusRank" :defenderStatusRank="enemyStatusRank" />
                     </div>
                 </div>
             </div>
@@ -109,14 +103,15 @@ const handleChangeStatus = (newStatus) => {
             <div class="moves">
                 <div>
                     <div class="move" v-for="(move, index) in enemyMoves" :key="`enemy-${index}`">
-                        <SelectMove :allMoves="allMoves" :selectedMoveId="enemyPokemon.enemyMoveIds[`slot${index + 1}`]"
+                        <SelectMove :allMoves="props.allMoves"
+                            :selectedMoveId="props.enemyPokemon.enemyMoveIds[`slot${index + 1}`]"
                             @changeMove="(newMove) => handleChangeMove(newMove, index + 1)" />
                         <div>
                             <span>{{ move.type }}</span>
                             <span>威力: {{ move.power }}</span>
                         </div>
-                        <HpBar :attacker="enemyPokemon" :defender="myPokemon" :move="move" :attackerStatusRank="statusRank"
-                            :defenderStatusRank="enemyStatusRank" />
+                        <HpBar :attacker="props.enemyPokemon" :defender="props.myPokemon" :move="move"
+                            :attackerStatusRank="statusRank" :defenderStatusRank="enemyStatusRank" />
                     </div>
                 </div>
             </div>
