@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, inject, ref } from 'vue'
 import PokemonStatus from './PokemonStatus.vue'
 import SelectMove from './selector/SelectMove.vue'
 import HpBar from './HpBar.vue';
@@ -7,8 +7,9 @@ import HpBar from './HpBar.vue';
 const props = defineProps({
     myPokemon: Object,
     enemyPokemon: Object,
-    allMoves: Array
 })
+
+const allMoves = inject('allMoves')
 
 const statusRank = ref({
     A: 0,
@@ -34,7 +35,7 @@ const enemyCalculatedStatus = ref({
 })
 
 const findMove = (id) => {
-    return props.allMoves.find((move) => move.id == id)
+    return allMoves.find((move) => move.id == id)
 }
 
 const myMoves = computed(() => {
@@ -103,8 +104,7 @@ const handleChangeStatus = (newStatus) => {
             <div class="moves">
                 <div>
                     <div class="move" v-for="(move, index) in enemyMoves" :key="`enemy-${index}`">
-                        <SelectMove :allMoves="props.allMoves"
-                            :selectedMoveId="props.enemyPokemon.enemyMoveIds[`slot${index + 1}`]"
+                        <SelectMove :selectedMoveId="props.enemyPokemon.enemyMoveIds[`slot${index + 1}`]"
                             @changeMove="(newMove) => handleChangeMove(newMove, index + 1)" />
                         <div>
                             <span>{{ move.type }}</span>

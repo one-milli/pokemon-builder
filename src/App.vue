@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { provide, ref } from 'vue'
 import MyPokemon from './components/MyPokemon.vue';
 import PotentialEnemy from './components/PotentialEnemy.vue';
 
@@ -53,13 +53,15 @@ const enemyPokemon = ref({
   selectedNature: { label: "ずぶとい", boost: "B", drop: "A" },
   enemyMoveIds: { slot1: 7, slot2: 2, slot3: 3, slot4: 4 }
 })
+
+provide('allMoves', allMoves)
 </script>
 
 <template>
-  <MyPokemon :myPokemon="myPokemon" :allMoves="allMoves" />
+  <MyPokemon :myPokemon="myPokemon" />
   <h2>VS</h2>
-  <PotentialEnemy :myPokemon="myPokemon" :enemyPokemon="enemyPokemon" :allMoves="allMoves" />
-  <PotentialEnemy :myPokemon="myPokemon" :enemyPokemon="enemyPokemon" :allMoves="allMoves" />
+  <PotentialEnemy :myPokemon="myPokemon" :enemyPokemon="enemyPokemon" />
+  <PotentialEnemy :myPokemon="myPokemon" :enemyPokemon="enemyPokemon" />
 </template>
 
 <style scoped>

@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, inject, ref } from 'vue'
 import PokemonStatus from './PokemonStatus.vue'
 import SelectMove from './selector/SelectMove.vue'
 
@@ -9,7 +9,7 @@ const props = defineProps({
 })
 
 const myPokemon = ref(props.myPokemon)
-const allMoves = props.allMoves
+const allMoves = inject('allMoves')
 
 const calculatedStatus = ref({
     hp: 0,
