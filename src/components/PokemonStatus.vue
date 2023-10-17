@@ -80,8 +80,14 @@ const handleChangeStatus = () => {
     <div>
         <div>もちもの</div>
         <SelectItem :selectedItem="props.pokemon.pokemon.selectedItem" @changeItem="handleChangeItem" />
-        <span>{{ props.pokemon.pokemon.selectedItem.status }}</span>
-        <span>{{ props.pokemon.pokemon.selectedItem.boost }}</span>
+        <span>
+            (
+            <template v-for="st in props.pokemon.pokemon.selectedItem.status">
+                {{ st + " " }}
+            </template>
+            {{ props.pokemon.pokemon.selectedItem.boost }}倍
+            )
+        </span>
     </div>
 </template>
 
