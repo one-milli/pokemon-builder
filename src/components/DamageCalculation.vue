@@ -67,7 +67,7 @@ const enemyMoves = computed(() => {
     </div>
     <div>与ダメージ</div>
     <div class="moves">
-        <div>
+        <div class="move4">
             <div class="move" v-for="(move, index) in myMoves" :key="index">
                 <span>{{ move.label }}</span>
                 <span>{{ move.type }}</span>
@@ -76,14 +76,14 @@ const enemyMoves = computed(() => {
         </div>
         <div>
             <div class="move" v-for="(move, index) in myMoves" :key="index">
-                <HpBar :attacker="props.myPokemon.pokemon" :defender="props.enemyPokemon.pokemon" :move="move"
+                <HpBar :attacker="props.myPokemon" :defender="props.enemyPokemon" :move="move"
                     :attackerStatusRank="statusRank" :defenderStatusRank="enemyStatusRank" />
             </div>
         </div>
     </div>
     <div>被ダメージ</div>
     <div class="moves">
-        <div>
+        <div class="move4">
             <div class="move" v-for="(move, index) in enemyMoves" :key="index">
                 <span>{{ move.label }}</span>
                 <span>{{ move.type }}</span>
@@ -92,7 +92,7 @@ const enemyMoves = computed(() => {
         </div>
         <div>
             <div class="move" v-for="(move, index) in enemyMoves" :key="index">
-                <HpBar :attacker="props.myPokemon.pokemon" :defender="props.enemyPokemon.pokemon" :move="move"
+                <HpBar :attacker="props.enemyPokemon" :defender="props.myPokemon" :move="move"
                     :attackerStatusRank="statusRank" :defenderStatusRank="enemyStatusRank" />
             </div>
         </div>
@@ -111,6 +111,10 @@ span {
 .moves {
     display: flex;
     flex-direction: row;
+}
+
+.move4 {
+    margin: 0 20px 0 0;
 }
 
 .move {
