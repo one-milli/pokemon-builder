@@ -69,8 +69,8 @@ const enemyMoves = computed(() => {
     <div class="moves">
         <div class="move4">
             <div class="move" v-for="(move, index) in myMoves" :key="index">
+                <div class="type">{{ move.type }}</div>
                 <span>{{ move.label }}</span>
-                <span>{{ move.type }}</span>
                 <span>威力: {{ move.power }}</span>
             </div>
         </div>
@@ -85,8 +85,8 @@ const enemyMoves = computed(() => {
     <div class="moves">
         <div class="move4">
             <div class="move" v-for="(move, index) in enemyMoves" :key="index">
+                <div class="type">{{ move.type }}</div>
                 <span>{{ move.label }}</span>
-                <span>{{ move.type }}</span>
                 <span>威力: {{ move.power }}</span>
             </div>
         </div>
@@ -119,5 +119,15 @@ span {
 
 .move {
     display: flex;
+}
+
+.type {
+    width: 40px;
+    border: solid 1px;
+    border-radius: 5px;
+    font-size: 0.6em;
+    text-align: center;
+    padding: 2px;
+    margin: 3px 8px;
 }
 </style>

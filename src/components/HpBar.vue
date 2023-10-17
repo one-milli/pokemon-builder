@@ -55,13 +55,16 @@ const gaugeColorClass = computed(() => {
         <div :class="gaugeColorClass" :style="{ width: hpPercentage }"></div>
     </div>
     <span>{{ String(minDamage) + "~" + String(maxDamage) + " / " + String(maxHp) }}</span>
+    <span>&nbsp;</span>
+    <span>({{ String(Math.floor(100 * minDamage / maxHp)) + "~" + String(Math.floor(100 * maxDamage / maxHp))
+        + "%" }})</span>
 </template>
 
 <style scoped>
 .gauge-container {
     width: 200px;
     height: 20px;
-    margin: 2px 10px;
+    margin: 3px 10px;
     background-color: #ddd;
     position: relative;
     border-radius: 6px;
@@ -76,6 +79,7 @@ const gaugeColorClass = computed(() => {
 .max-damage {
     background-color: gray;
     z-index: 9;
+    border-radius: 0 4px 4px 0;
 }
 
 .min-damage {
