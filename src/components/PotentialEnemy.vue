@@ -43,11 +43,11 @@ const myMoves = computed(() => {
 })
 
 const enemyMoves = computed(() => {
-    return Object.keys(props.enemyPokemon.enemyMoveIds).map((key) => findMove(props.enemyPokemon.enemyMoveIds[key]))
+    return Object.keys(props.enemyPokemon.moveIds).map((key) => findMove(props.enemyPokemon.moveIds[key]))
 })
 
 const handleChangeMove = (newMove, slot) => {
-    props.enemyPokemon.enemyMoveIds['slot' + slot] = newMove
+    props.enemyPokemon.moveIds['slot' + slot] = newMove
 }
 const handleChangeStatus = (newStatus) => {
     enemyCalculatedStatus.value = newStatus
@@ -104,7 +104,7 @@ const handleChangeStatus = (newStatus) => {
             <div class="moves">
                 <div>
                     <div class="move" v-for="(move, index) in enemyMoves" :key="`enemy-${index}`">
-                        <SelectMove :selectedMoveId="props.enemyPokemon.enemyMoveIds[`slot${index + 1}`]"
+                        <SelectMove :selectedMoveId="props.enemyPokemon.moveIds[`slot${index + 1}`]"
                             @changeMove="(newMove) => handleChangeMove(newMove, index + 1)" />
                         <div>
                             <span>{{ move.type }}</span>
