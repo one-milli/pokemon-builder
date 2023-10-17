@@ -15,6 +15,10 @@ const { myPokemons } = storeToRefs(myPokemonsStore)
 
 const allMoves = inject('allMoves')
 
+const iconSrc = computed(() => {
+    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${props.enemyPokemon.id}.png`
+})
+
 const statusRank = ref({
     A: 0,
     B: 0,
@@ -61,7 +65,7 @@ const handleChangeStatus = (newStatus) => {
 <template>
     <div class="mypokemon">
         <div class="icon">
-            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/488.png" alt="クレセリア">
+            <img :src="iconSrc" :alt="props.enemyPokemon.name">
         </div>
         <div class="details">
             <PokemonStatus :pokemon="props.enemyPokemon" @changeStatus="handleChangeStatus" />

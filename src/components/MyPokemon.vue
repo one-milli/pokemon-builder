@@ -5,6 +5,7 @@ import SelectMove from './selector/SelectMove.vue'
 import { useMyPokemonsStore } from '../store/myPokemons'
 import { storeToRefs } from 'pinia'
 
+
 const props = defineProps({
     allMoves: Array
 })
@@ -12,6 +13,10 @@ const myPokemonsStore = useMyPokemonsStore()
 const { myPokemons } = storeToRefs(myPokemonsStore)
 
 const allMoves = inject('allMoves')
+
+const iconSrc = computed(() => {
+    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${myPokemons.value[0].pokemon.id}.png`
+})
 
 const calculatedStatus = ref({
     hp: 0,
@@ -31,7 +36,7 @@ const myMoves = computed(() => {
 })
 
 const handleChangeMove = (newMove, slot) => {
-    myPokemon.value.moveIds['slot' + slot] = newMove
+    myPokemons.value[0].pokemon.moveIds['slot' + slot] = newMove
 }
 const handleChangeStatus = (newStatus) => {
     calculatedStatus.value = newStatus
@@ -41,7 +46,7 @@ const handleChangeStatus = (newStatus) => {
 <template>
     <div class="mypokemon">
         <div class="icon">
-            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/445.png" alt="ガブリアス">
+            <img :src="iconSrc" :alt="myPokemons[0].pokemon.name">
         </div>
         <div class="details">
             <PokemonStatus :pokemon="myPokemons[0].pokemon" @changeStatus="handleChangeStatus" />

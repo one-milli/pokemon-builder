@@ -28,7 +28,7 @@ provide('allMoves', allMoves)
   <MyPokemon />
   <h2>VS</h2>
   <template v-for="enemyPokemon in enemyPokemons">
-    <PotentialEnemy :myPokemon="myPokemons[0].pokemon" :enemyPokemon="enemyPokemon.pokemon" />
+    <PotentialEnemy :enemyPokemon="enemyPokemon.pokemon" />
   </template>
 </template>
 

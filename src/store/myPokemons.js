@@ -6,6 +6,7 @@ export const useMyPokemonsStore = defineStore("myPokemons", {
       {
         buildId: 1,
         pokemon: {
+          id: 445,
           name: "ガブリアス",
           level: 50,
           status: [
