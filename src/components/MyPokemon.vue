@@ -7,7 +7,6 @@ import { storeToRefs } from 'pinia'
 
 const props = defineProps({
     id: Number,
-    allMoves: Array
 })
 const myPokemonsStore = useMyPokemonsStore()
 const { myPokemons } = storeToRefs(myPokemonsStore)
