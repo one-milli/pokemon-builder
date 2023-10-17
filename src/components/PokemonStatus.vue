@@ -33,7 +33,7 @@ const handleChangeAbility = (newAbility) => {
     props.pokemon.pokemon.selectedAbility = newAbility
 }
 
-const emit = defineEmits()
+const emit = defineEmits(['changeStatus'])
 const handleChangeStatus = () => {
     emit('changeStatus')
 }
