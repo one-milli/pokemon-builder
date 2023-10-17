@@ -1,7 +1,12 @@
 <script setup>
 import { provide, ref } from 'vue'
-import MyPokemon from './components/MyPokemon.vue';
-import PotentialEnemy from './components/PotentialEnemy.vue';
+import MyPokemon from './components/MyPokemon.vue'
+import PotentialEnemy from './components/PotentialEnemy.vue'
+import { useMyPokemonsStore } from './store/myPokemons'
+import { useEnemyPokemonsStore } from './store/enemyPokemons'
+
+const myPokemonsStore = useMyPokemonsStore()
+const enemyPokemonsStore = useEnemyPokemonsStore()
 
 const allMoves = [
   { id: 1, label: "じしん", type: "じめん", power: 100, accuracy: 100, pp: 10 },
