@@ -2,7 +2,8 @@
 import { onMounted, provide, ref } from 'vue'
 import MyPokemon from './components/MyPokemon.vue'
 import PotentialEnemy from './components/PotentialEnemy.vue'
-import FortMoves from './components/FortMoves.vue'
+import FourMoves from './components/FourMoves.vue'
+import DamageCalculation from './components/DamageCalculation.vue'
 import { useMyPokemonsStore } from './store/myPokemons'
 import { useEnemyPokemonsStore } from './store/enemyPokemons'
 import { storeToRefs } from 'pinia'
@@ -39,12 +40,14 @@ onMounted(() => {
 
 <template>
   <MyPokemon :pokemon="myPokemons[myPokemonId]">
-    <FortMoves :pokemon="myPokemons[myPokemonId]" />
+    <FourMoves :pokemon="myPokemons[myPokemonId]" />
   </MyPokemon>
   <h2>VS</h2>
   <template v-for="enemyPokemon in enemyPokemons">
-    <PotentialEnemy :myPokemonId="myPokemonId" :enemyPokemonId="enemyPokemon.enemyId"
-      :enemyPokemon="enemyPokemon.pokemon" />
+    <PotentialEnemy :pokemon="enemyPokemon">
+      <FourMoves :pokemon="enemyPokemon" />
+      <DamageCalculation :myPokemon="myPokemons[myPokemonId]" :enemyPokemon="enemyPokemon" />
+    </PotentialEnemy>
   </template>
 </template>
 

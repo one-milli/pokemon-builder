@@ -2,8 +2,6 @@
 import { computed, inject, onMounted, ref } from 'vue'
 import PokemonStatus from './PokemonStatus.vue'
 import { useMyPokemonsStore } from '../store/myPokemons'
-import { useEnemyPokemonsStore } from '../store/enemyPokemons';
-import { storeToRefs } from 'pinia'
 
 const props = defineProps({
     pokemon: Object,
@@ -19,7 +17,7 @@ const iconSrc = computed(() => {
 <template>
     <div class="mypokemon">
         <div class="icon">
-            <img :src="iconSrc" :alt="props.pokemon.name">
+            <img :src="iconSrc" :alt="props.pokemon.pokemon.name">
         </div>
         <div class="details">
             <PokemonStatus :pokemon="props.pokemon.pokemon" @changeStatus="updateStatus(props.pokemon.buildId)" />
