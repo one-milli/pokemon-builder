@@ -28,7 +28,6 @@ const allMoves = [
 provide('allMoves', allMoves)
 
 const myPokemonId = ref(0);
-console.log(enemyPokemons.value)
 
 onMounted(() => {
   updateStatus(myPokemonId.value)
