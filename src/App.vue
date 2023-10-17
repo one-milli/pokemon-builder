@@ -12,9 +12,6 @@ const enemyPokemonsStore = useEnemyPokemonsStore()
 const { myPokemons } = storeToRefs(myPokemonsStore)
 const { enemyPokemons } = storeToRefs(enemyPokemonsStore)
 
-const myPokemon = myPokemons.value[0].pokemon
-const enemyPokemon = enemyPokemons.value[0].pokemon
-
 const allMoves = [
   { id: 1, label: "じしん", type: "じめん", power: 100, accuracy: 100, pp: 10 },
   { id: 2, label: "げきりん", type: "ドラゴン", power: 120, accuracy: 100, pp: 5 },
@@ -28,10 +25,11 @@ provide('allMoves', allMoves)
 </script>
 
 <template>
-  <MyPokemon :myPokemon="myPokemon" />
+  <MyPokemon />
   <h2>VS</h2>
-  <PotentialEnemy :myPokemon="myPokemon" :enemyPokemon="enemyPokemon" />
-  <PotentialEnemy :myPokemon="myPokemon" :enemyPokemon="enemyPokemon" />
+  <template v-for="enemyPokemon in enemyPokemons">
+    <PotentialEnemy :myPokemon="myPokemons[0].pokemon" :enemyPokemon="enemyPokemon.pokemon" />
+  </template>
 </template>
 
 <style scoped>

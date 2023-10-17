@@ -3,11 +3,15 @@ import { computed, inject, ref } from 'vue'
 import PokemonStatus from './PokemonStatus.vue'
 import SelectMove from './selector/SelectMove.vue'
 import HpBar from './HpBar.vue';
+import { useMyPokemonsStore } from '../store/myPokemons'
+import { storeToRefs } from 'pinia'
 
 const props = defineProps({
-    myPokemon: Object,
     enemyPokemon: Object,
 })
+
+const myPokemonsStore = useMyPokemonsStore()
+const { myPokemons } = storeToRefs(myPokemonsStore)
 
 const allMoves = inject('allMoves')
 
@@ -39,7 +43,7 @@ const findMove = (id) => {
 }
 
 const myMoves = computed(() => {
-    return Object.keys(props.myPokemon.moveIds).map((key) => findMove(props.myPokemon.moveIds[key]))
+    return Object.keys(myPokemons.value[0].pokemon.moveIds).map((key) => findMove(myPokemons.value[0].pokemon.moveIds[key]))
 })
 
 const enemyMoves = computed(() => {
@@ -61,6 +65,7 @@ const handleChangeStatus = (newStatus) => {
         </div>
         <div class="details">
             <PokemonStatus :pokemon="props.enemyPokemon" @changeStatus="handleChangeStatus" />
+            <slot></slot>
             <div>ランク補正</div>
             <div>
                 <span>自分</span>
@@ -95,7 +100,7 @@ const handleChangeStatus = (newStatus) => {
                         <span>{{ move.label }}</span>
                         <span>{{ move.type }}</span>
                         <span>威力: {{ move.power }}</span>
-                        <HpBar :attacker="props.myPokemon" :defender="props.enemyPokemon" :move="move"
+                        <HpBar :attacker="myPokemons[0].pokemon" :defender="props.enemyPokemon" :move="move"
                             :attackerStatusRank="statusRank" :defenderStatusRank="enemyStatusRank" />
                     </div>
                 </div>
@@ -110,7 +115,7 @@ const handleChangeStatus = (newStatus) => {
                             <span>{{ move.type }}</span>
                             <span>威力: {{ move.power }}</span>
                         </div>
-                        <HpBar :attacker="props.enemyPokemon" :defender="props.myPokemon" :move="move"
+                        <HpBar :attacker="props.enemyPokemon" :defender="myPokemons[0].pokemon" :move="move"
                             :attackerStatusRank="statusRank" :defenderStatusRank="enemyStatusRank" />
                     </div>
                 </div>

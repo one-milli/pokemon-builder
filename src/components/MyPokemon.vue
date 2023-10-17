@@ -2,13 +2,15 @@
 import { computed, inject, ref } from 'vue'
 import PokemonStatus from './PokemonStatus.vue'
 import SelectMove from './selector/SelectMove.vue'
+import { useMyPokemonsStore } from '../store/myPokemons'
+import { storeToRefs } from 'pinia'
 
 const props = defineProps({
-    myPokemon: Object,
     allMoves: Array
 })
+const myPokemonsStore = useMyPokemonsStore()
+const { myPokemons } = storeToRefs(myPokemonsStore)
 
-const myPokemon = ref(props.myPokemon)
 const allMoves = inject('allMoves')
 
 const calculatedStatus = ref({
@@ -25,7 +27,7 @@ const findMove = (id) => {
 }
 
 const myMoves = computed(() => {
-    return Object.keys(props.myPokemon.moveIds).map((key) => findMove(props.myPokemon.moveIds[key]))
+    return Object.keys(myPokemons.value[0].pokemon.moveIds).map((key) => findMove(myPokemons.value[0].pokemon.moveIds[key]))
 })
 
 const handleChangeMove = (newMove, slot) => {
@@ -42,12 +44,12 @@ const handleChangeStatus = (newStatus) => {
             <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/445.png" alt="ガブリアス">
         </div>
         <div class="details">
-            <PokemonStatus :pokemon="myPokemon" @changeStatus="handleChangeStatus" />
+            <PokemonStatus :pokemon="myPokemons[0].pokemon" @changeStatus="handleChangeStatus" />
             <div class="moves">
                 <div>わざ</div>
                 <div>
                     <div class="move" v-for="(move, index) in myMoves" :key="index">
-                        <SelectMove :allMoves="allMoves" :selectedMoveId="props.myPokemon.moveIds[`slot${index + 1}`]"
+                        <SelectMove :allMoves="allMoves" :selectedMoveId="myPokemons[0].pokemon.moveIds[`slot${index + 1}`]"
                             @changeMove="(newMove) => handleChangeMove(newMove, index + 1)" />
                         <div>
                             <span>{{ move.type }}</span>
