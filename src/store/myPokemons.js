@@ -59,4 +59,9 @@ export const useMyPokemonsStore = defineStore("myPokemons", {
       },
     ],
   }),
+  actions: {
+    handleChangeMove(newMove, slot, buildId) {
+      this.myPokemons[buildId].pokemon.moveIds["slot" + slot] = newMove;
+    },
+  },
 });

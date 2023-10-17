@@ -7,15 +7,17 @@ import { storeToRefs } from 'pinia'
 
 
 const props = defineProps({
+    id: Number,
     allMoves: Array
 })
 const myPokemonsStore = useMyPokemonsStore()
 const { myPokemons } = storeToRefs(myPokemonsStore)
+const { handleChangeMove } = myPokemonsStore
 
 const allMoves = inject('allMoves')
 
 const iconSrc = computed(() => {
-    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${myPokemons.value[0].pokemon.id}.png`
+    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${myPokemons.value[props.id].pokemon.id}.png`
 })
 
 const calculatedStatus = ref({
@@ -32,12 +34,9 @@ const findMove = (id) => {
 }
 
 const myMoves = computed(() => {
-    return Object.keys(myPokemons.value[0].pokemon.moveIds).map((key) => findMove(myPokemons.value[0].pokemon.moveIds[key]))
+    return Object.keys(myPokemons.value[props.id].pokemon.moveIds).map((key) => findMove(myPokemons.value[props.id].pokemon.moveIds[key]))
 })
 
-const handleChangeMove = (newMove, slot) => {
-    myPokemons.value[0].pokemon.moveIds['slot' + slot] = newMove
-}
 const handleChangeStatus = (newStatus) => {
     calculatedStatus.value = newStatus
 }
@@ -46,16 +45,17 @@ const handleChangeStatus = (newStatus) => {
 <template>
     <div class="mypokemon">
         <div class="icon">
-            <img :src="iconSrc" :alt="myPokemons[0].pokemon.name">
+            <img :src="iconSrc" :alt="myPokemons[props.id].pokemon.name">
         </div>
         <div class="details">
-            <PokemonStatus :pokemon="myPokemons[0].pokemon" @changeStatus="handleChangeStatus" />
+            <PokemonStatus :pokemon="myPokemons[props.id].pokemon" @changeStatus="handleChangeStatus" />
             <div class="moves">
                 <div>わざ</div>
                 <div>
                     <div class="move" v-for="(move, index) in myMoves" :key="index">
-                        <SelectMove :allMoves="allMoves" :selectedMoveId="myPokemons[0].pokemon.moveIds[`slot${index + 1}`]"
-                            @changeMove="(newMove) => handleChangeMove(newMove, index + 1)" />
+                        <SelectMove :allMoves="allMoves"
+                            :selectedMoveId="myPokemons[props.id].pokemon.moveIds[`slot${index + 1}`]"
+                            @changeMove="(newMove) => handleChangeMove(newMove, index + 1, props.id)" />
                         <div>
                             <span>{{ move.type }}</span>
                             <span>威力: {{ move.power }}</span>

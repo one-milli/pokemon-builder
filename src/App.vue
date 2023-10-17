@@ -2,14 +2,11 @@
 import { onMounted, provide, ref } from 'vue'
 import MyPokemon from './components/MyPokemon.vue'
 import PotentialEnemy from './components/PotentialEnemy.vue'
-import { useMyPokemonsStore } from './store/myPokemons'
 import { useEnemyPokemonsStore } from './store/enemyPokemons'
 import { storeToRefs } from 'pinia'
 
-const myPokemonsStore = useMyPokemonsStore()
+//DB代わり
 const enemyPokemonsStore = useEnemyPokemonsStore()
-
-const { myPokemons } = storeToRefs(myPokemonsStore)
 const { enemyPokemons } = storeToRefs(enemyPokemonsStore)
 
 const allMoves = [
@@ -22,13 +19,15 @@ const allMoves = [
   { id: 7, label: "ムーンフォース", type: "フェアリー", power: 90, accuracy: 100, pp: 15 },
 ]
 provide('allMoves', allMoves)
+
+const myPokemonId = ref(0);
 </script>
 
 <template>
-  <MyPokemon />
+  <MyPokemon :id="myPokemonId" />
   <h2>VS</h2>
   <template v-for="enemyPokemon in enemyPokemons">
-    <PotentialEnemy :enemyPokemon="enemyPokemon.pokemon" />
+    <PotentialEnemy :myPokemonId="myPokemonId" :enemyPokemon="enemyPokemon.pokemon" />
   </template>
 </template>
 

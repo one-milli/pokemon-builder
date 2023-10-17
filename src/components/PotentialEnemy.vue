@@ -7,6 +7,7 @@ import { useMyPokemonsStore } from '../store/myPokemons'
 import { storeToRefs } from 'pinia'
 
 const props = defineProps({
+    myPokemonId: Number,
     enemyPokemon: Object,
 })
 
@@ -47,7 +48,7 @@ const findMove = (id) => {
 }
 
 const myMoves = computed(() => {
-    return Object.keys(myPokemons.value[0].pokemon.moveIds).map((key) => findMove(myPokemons.value[0].pokemon.moveIds[key]))
+    return Object.keys(myPokemons.value[props.myPokemonId].pokemon.moveIds).map((key) => findMove(myPokemons.value[props.myPokemonId].pokemon.moveIds[key]))
 })
 
 const enemyMoves = computed(() => {
@@ -104,7 +105,7 @@ const handleChangeStatus = (newStatus) => {
                         <span>{{ move.label }}</span>
                         <span>{{ move.type }}</span>
                         <span>威力: {{ move.power }}</span>
-                        <HpBar :attacker="myPokemons[0].pokemon" :defender="props.enemyPokemon" :move="move"
+                        <HpBar :attacker="myPokemons[props.myPokemonId].pokemon" :defender="props.enemyPokemon" :move="move"
                             :attackerStatusRank="statusRank" :defenderStatusRank="enemyStatusRank" />
                     </div>
                 </div>
@@ -119,7 +120,7 @@ const handleChangeStatus = (newStatus) => {
                             <span>{{ move.type }}</span>
                             <span>威力: {{ move.power }}</span>
                         </div>
-                        <HpBar :attacker="props.enemyPokemon" :defender="myPokemons[0].pokemon" :move="move"
+                        <HpBar :attacker="props.enemyPokemon" :defender="myPokemons[props.myPokemonId].pokemon" :move="move"
                             :attackerStatusRank="statusRank" :defenderStatusRank="enemyStatusRank" />
                     </div>
                 </div>
