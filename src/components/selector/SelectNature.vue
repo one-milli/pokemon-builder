@@ -2,10 +2,10 @@
 import { ref } from 'vue'
 
 const props = defineProps({
-    selectedNature: Object
+    pokemon: Object
 })
 
-const selectedNature = ref(props.selectedNature)
+const selectedNature = ref(props.pokemon.pokemon.selectedNature)
 const natures = ref([
     { label: "さみしがり", boost: "A", drop: "B" },
     { label: "いじっぱり", boost: "A", drop: "C" },

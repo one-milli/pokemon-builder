@@ -9,8 +9,8 @@ const props = defineProps({
     isEnemy: Boolean,
 })
 const myPokemonsStore = useMyPokemonsStore()
-const enemyPokemonStore = useEnemyPokemonsStore()
-const store = props.isEnemy ? enemyPokemonStore : myPokemonsStore
+const enemyPokemonsStore = useEnemyPokemonsStore()
+const store = props.isEnemy ? enemyPokemonsStore : myPokemonsStore
 const { handleChangeMove } = store
 
 const allMoves = inject('allMoves')

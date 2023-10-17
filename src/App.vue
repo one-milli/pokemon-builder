@@ -1,7 +1,6 @@
 <script setup>
 import { onMounted, provide, ref } from 'vue'
 import MyPokemon from './components/MyPokemon.vue'
-import PotentialEnemy from './components/PotentialEnemy.vue'
 import FourMoves from './components/FourMoves.vue'
 import DamageCalculation from './components/DamageCalculation.vue'
 import { useMyPokemonsStore } from './store/myPokemons'
@@ -35,10 +34,10 @@ const myPokemonId = ref(0);
   </MyPokemon>
   <h2>VS</h2>
   <template v-for="enemyPokemon in enemyPokemons">
-    <PotentialEnemy :pokemon="enemyPokemon">
+    <MyPokemon :pokemon="enemyPokemon" :isEnemy="true">
       <FourMoves :pokemon="enemyPokemon" :isEnemy="true" />
       <DamageCalculation :myPokemon="myPokemons[myPokemonId]" :enemyPokemon="enemyPokemon" />
-    </PotentialEnemy>
+    </MyPokemon>
   </template>
 </template>
 

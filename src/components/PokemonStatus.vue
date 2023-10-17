@@ -3,25 +3,34 @@ import { computed, ref } from 'vue'
 import SelectAbility from './selector/SelectAbility.vue';
 import SelectItem from './selector/SelectItem.vue'
 import SelectNature from './selector/SelectNature.vue'
+import { useMyPokemonsStore } from '../store/myPokemons'
+import { useEnemyPokemonsStore } from '../store/enemyPokemons';
 
 const props = defineProps({
     pokemon: Object,
+    isEnemy: Boolean,
 })
 
-const status = ref(props.pokemon.status)
+const myPokemonsStore = useMyPokemonsStore()
+const enemyPokemonsStore = useEnemyPokemonsStore()
+const store = props.isEnemy ? enemyPokemonsStore : myPokemonsStore
+const { updateStatus } = store
+
+const status = ref(props.pokemon.pokemon.status)
 
 const evsTotal = computed(() => {
     return status.value.reduce((sum, stat) => sum + stat.ev, 0)
 })
 
 const handleChangeNature = (newNature) => {
-    props.pokemon.selectedNature = newNature
+    props.pokemon.pokemon.selectedNature = newNature
+    updateStatus(props.pokemon.id)
 }
 const handleChangeItem = (newItem) => {
-    props.pokemon.selectedItem = newItem
+    props.pokemon.pokemon.selectedItem = newItem
 }
 const handleChangeAbility = (newAbility) => {
-    props.pokemon.selectedAbility = newAbility
+    props.pokemon.pokemon.selectedAbility = newAbility
 }
 
 const emit = defineEmits()
@@ -31,13 +40,13 @@ const handleChangeStatus = () => {
 </script>
 
 <template>
-    <div class="name">{{ props.pokemon.name }}</div>
+    <div class="name">{{ props.pokemon.pokemon.name }}</div>
     <div class="segment">
-        <div>Lv.<input type="number" min="0" max="100" v-model="props.pokemon.level"></div>
+        <div>Lv.<input type="number" min="0" max="100" v-model="props.pokemon.pokemon.level"></div>
         <div>性格</div>
-        <SelectNature :selectedNature="props.pokemon.selectedNature" @changeNature="handleChangeNature" />
+        <SelectNature :pokemon="props.pokemon" @changeNature="handleChangeNature" />
         <div>特性</div>
-        <SelectAbility :abilities="props.pokemon.abilities" :selectedAbility="props.pokemon.selectedAbility"
+        <SelectAbility :abilities="props.pokemon.pokemon.abilities" :selectedAbility="props.pokemon.pokemon.selectedAbility"
             @changeAbility="handleChangeAbility" />
     </div>
     <div class="segment">
@@ -49,12 +58,12 @@ const handleChangeStatus = () => {
     </div>
     <div class="segment">
         <div>実数値</div>
-        <span>H :</span><span>{{ props.pokemon.status[0].calc }}</span>
-        <span>A :</span><span>{{ props.pokemon.status[1].calc }}</span>
-        <span>B :</span><span>{{ props.pokemon.status[2].calc }}</span>
-        <span>C :</span><span>{{ props.pokemon.status[3].calc }}</span>
-        <span>D :</span><span>{{ props.pokemon.status[4].calc }}</span>
-        <span>S :</span><span>{{ props.pokemon.status[5].calc }}</span>
+        <span>H :</span><span>{{ props.pokemon.pokemon.status[0].calc }}</span>
+        <span>A :</span><span>{{ props.pokemon.pokemon.status[1].calc }}</span>
+        <span>B :</span><span>{{ props.pokemon.pokemon.status[2].calc }}</span>
+        <span>C :</span><span>{{ props.pokemon.pokemon.status[3].calc }}</span>
+        <span>D :</span><span>{{ props.pokemon.pokemon.status[4].calc }}</span>
+        <span>S :</span><span>{{ props.pokemon.pokemon.status[5].calc }}</span>
     </div>
     <div class="segment">
         <div>努力値</div>
@@ -67,9 +76,9 @@ const handleChangeStatus = () => {
     </div>
     <div>
         <div>もちもの</div>
-        <SelectItem :selectedItem="props.pokemon.selectedItem" @changeItem="handleChangeItem" />
-        <span>{{ props.pokemon.selectedItem.status }}</span>
-        <span>{{ props.pokemon.selectedItem.boost }}</span>
+        <SelectItem :selectedItem="props.pokemon.pokemon.selectedItem" @changeItem="handleChangeItem" />
+        <span>{{ props.pokemon.pokemon.selectedItem.status }}</span>
+        <span>{{ props.pokemon.pokemon.selectedItem.boost }}</span>
     </div>
 </template>
 
