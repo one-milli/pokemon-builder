@@ -38,14 +38,6 @@ const enemyStatusRank = ref({
     D: 0,
     S: 0,
 })
-const enemyCalculatedStatus = ref({
-    hp: 0,
-    atk: 0,
-    def: 0,
-    spatk: 0,
-    spdef: 0,
-    spd: 0,
-})
 
 const findMove = (id) => {
     return allMoves.find((move) => move.id == id)
