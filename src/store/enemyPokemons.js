@@ -4,7 +4,7 @@ export const useEnemyPokemonsStore = defineStore("enemyPokemons", {
   state: () => ({
     enemyPokemons: [
       {
-        enemyId: 0,
+        id: 0,
         pokemon: {
           id: 488,
           name: "クレセリア",
@@ -37,7 +37,7 @@ export const useEnemyPokemonsStore = defineStore("enemyPokemons", {
         },
       },
       {
-        enemyId: 1,
+        id: 1,
         pokemon: {
           id: 149,
           name: "カイリュー",
@@ -88,20 +88,20 @@ export const useEnemyPokemonsStore = defineStore("enemyPokemons", {
         ) * natureMag
       );
     },
-    updateStatusEnemy(enemyId) {
-      this.enemyPokemons[enemyId].pokemon.status.forEach((status) => {
+    updateStatus(id) {
+      this.enemyPokemons[id].pokemon.status.forEach((status) => {
         status.calc = this.calcStatus(
           status.label,
           status.base,
           status.ev,
           status.iv,
-          this.enemyPokemons[enemyId].pokemon.level,
-          this.enemyPokemons[enemyId].pokemon.selectedNature
+          this.enemyPokemons[id].pokemon.level,
+          this.enemyPokemons[id].pokemon.selectedNature
         );
       });
     },
-    handleChangeMoveEnemy(newMove, slot, enemyId) {
-      this.enemyPokemons[enemyId].pokemon.moveIds["slot" + slot] = newMove;
+    handleChangeMove(newMove, slot, id) {
+      this.enemyPokemons[id].pokemon.moveIds["slot" + slot] = newMove;
     },
   },
 });

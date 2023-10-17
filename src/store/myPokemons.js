@@ -4,7 +4,7 @@ export const useMyPokemonsStore = defineStore("myPokemons", {
   state: () => ({
     myPokemons: [
       {
-        buildId: 0,
+        id: 0,
         pokemon: {
           id: 445,
           name: "ガブリアス",
@@ -33,7 +33,7 @@ export const useMyPokemonsStore = defineStore("myPokemons", {
         },
       },
       {
-        buildId: 1,
+        id: 1,
         pokemon: {
           name: "クレセリア",
           level: 50,
@@ -73,20 +73,20 @@ export const useMyPokemonsStore = defineStore("myPokemons", {
         ) * natureMag
       );
     },
-    updateStatus(buildId) {
-      this.myPokemons[buildId].pokemon.status.forEach((status) => {
+    updateStatus(id) {
+      this.myPokemons[id].pokemon.status.forEach((status) => {
         status.calc = this.calcStatus(
           status.label,
           status.base,
           status.ev,
           status.iv,
-          this.myPokemons[buildId].pokemon.level,
-          this.myPokemons[buildId].pokemon.selectedNature
+          this.myPokemons[id].pokemon.level,
+          this.myPokemons[id].pokemon.selectedNature
         );
       });
     },
-    handleChangeMove(newMove, slot, buildId) {
-      this.myPokemons[buildId].pokemon.moveIds["slot" + slot] = newMove;
+    handleChangeMove(newMove, slot, id) {
+      this.myPokemons[id].pokemon.moveIds["slot" + slot] = newMove;
     },
   },
 });

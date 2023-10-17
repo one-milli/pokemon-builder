@@ -11,10 +11,8 @@ import { storeToRefs } from 'pinia'
 //DB代わり
 const myPokemonsStore = useMyPokemonsStore()
 const { myPokemons } = storeToRefs(myPokemonsStore)
-const { updateStatus } = myPokemonsStore
 const enemyPokemonsStore = useEnemyPokemonsStore()
 const { enemyPokemons } = storeToRefs(enemyPokemonsStore)
-const { updateStatusEnemy } = enemyPokemonsStore
 
 const allMoves = [
   { id: 1, label: "じしん", type: "じめん", power: 100, accuracy: 100, pp: 10 },
@@ -29,12 +27,6 @@ provide('allMoves', allMoves)
 
 const myPokemonId = ref(0);
 
-onMounted(() => {
-  updateStatus(myPokemonId.value)
-  enemyPokemons.value.forEach(e => {
-    updateStatusEnemy(e.enemyId)
-  });
-})
 </script>
 
 <template>
@@ -44,7 +36,7 @@ onMounted(() => {
   <h2>VS</h2>
   <template v-for="enemyPokemon in enemyPokemons">
     <PotentialEnemy :pokemon="enemyPokemon">
-      <FourMoves :pokemon="enemyPokemon" />
+      <FourMoves :pokemon="enemyPokemon" :isEnemy="true" />
       <DamageCalculation :myPokemon="myPokemons[myPokemonId]" :enemyPokemon="enemyPokemon" />
     </PotentialEnemy>
   </template>

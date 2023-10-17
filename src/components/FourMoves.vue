@@ -2,12 +2,16 @@
 import { computed, inject, onMounted, ref } from 'vue'
 import SelectMove from './selector/SelectMove.vue'
 import { useMyPokemonsStore } from '../store/myPokemons'
+import { useEnemyPokemonsStore } from '../store/enemyPokemons';
 
 const props = defineProps({
     pokemon: Object,
+    isEnemy: Boolean,
 })
 const myPokemonsStore = useMyPokemonsStore()
-const { handleChangeMove } = myPokemonsStore
+const enemyPokemonStore = useEnemyPokemonsStore()
+const store = props.isEnemy ? enemyPokemonStore : myPokemonsStore
+const { handleChangeMove } = store
 
 const allMoves = inject('allMoves')
 
@@ -25,7 +29,7 @@ const myMoves = computed(() => {
         <div>
             <div class="move" v-for="(move, index) in myMoves" :key="index">
                 <SelectMove :allMoves="allMoves" :selectedMoveId="props.pokemon.pokemon.moveIds[`slot${index + 1}`]"
-                    @changeMove="(newMove) => handleChangeMove(newMove, index + 1, props.pokemon.buildId)" />
+                    @changeMove="(newMove) => handleChangeMove(newMove, index + 1, props.pokemon.id)" />
                 <div>
                     <span>{{ move.type }}</span>
                     <span>威力: {{ move.power }}</span>

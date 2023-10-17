@@ -7,7 +7,11 @@ const props = defineProps({
     pokemon: Object,
 })
 const enemyPokemonsStore = useEnemyPokemonsStore()
-const { updateStatusEnemy } = enemyPokemonsStore
+const { updateStatus } = enemyPokemonsStore
+
+onMounted(() => {
+    updateStatus(props.pokemon.id)
+})
 
 const iconSrc = computed(() => {
     return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${props.pokemon.pokemon.id}.png`
@@ -20,7 +24,7 @@ const iconSrc = computed(() => {
             <img :src="iconSrc" :alt="props.pokemon.pokemon.name">
         </div>
         <div class="details">
-            <PokemonStatus :pokemon="props.pokemon.pokemon" @changeStatus="updateStatusEnemy(props.pokemon.enemyId)" />
+            <PokemonStatus :pokemon="props.pokemon.pokemon" @changeStatus="updateStatus(props.pokemon.id)" />
             <slot></slot>
         </div>
         <div class="icon">
