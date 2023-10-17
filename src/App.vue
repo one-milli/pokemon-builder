@@ -27,7 +27,8 @@ const myPokemonId = ref(0);
   <MyPokemon :id="myPokemonId" />
   <h2>VS</h2>
   <template v-for="enemyPokemon in enemyPokemons">
-    <PotentialEnemy :myPokemonId="myPokemonId" :enemyPokemon="enemyPokemon.pokemon" />
+    <PotentialEnemy :myPokemonId="myPokemonId" :enemyPokemonId="enemyPokemon.enemyId"
+      :enemyPokemon="enemyPokemon.pokemon" />
   </template>
 </template>
 

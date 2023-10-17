@@ -1,18 +1,22 @@
 <script setup>
-import { computed, inject, ref } from 'vue'
+import { computed, inject, onMounted, ref } from 'vue'
 import PokemonStatus from './PokemonStatus.vue'
 import SelectMove from './selector/SelectMove.vue'
 import HpBar from './HpBar.vue';
 import { useMyPokemonsStore } from '../store/myPokemons'
+import { useEnemyPokemonsStore } from '../store/enemyPokemons';
 import { storeToRefs } from 'pinia'
 
 const props = defineProps({
     myPokemonId: Number,
+    enemyPokemonId: Number,
     enemyPokemon: Object,
 })
 
 const myPokemonsStore = useMyPokemonsStore()
 const { myPokemons } = storeToRefs(myPokemonsStore)
+const enemyPokemonsStore = useEnemyPokemonsStore()
+const { updateStatusEnemy, handleChangeMoveEnemy } = enemyPokemonsStore
 
 const allMoves = inject('allMoves')
 
@@ -55,12 +59,9 @@ const enemyMoves = computed(() => {
     return Object.keys(props.enemyPokemon.moveIds).map((key) => findMove(props.enemyPokemon.moveIds[key]))
 })
 
-const handleChangeMove = (newMove, slot) => {
-    props.enemyPokemon.moveIds['slot' + slot] = newMove
-}
-const handleChangeStatus = (newStatus) => {
-    enemyCalculatedStatus.value = newStatus
-}
+onMounted(() => {
+    updateStatusEnemy(props.enemyPokemonId)
+})
 </script>
 
 <template>
@@ -69,7 +70,7 @@ const handleChangeStatus = (newStatus) => {
             <img :src="iconSrc" :alt="props.enemyPokemon.name">
         </div>
         <div class="details">
-            <PokemonStatus :pokemon="props.enemyPokemon" @changeStatus="handleChangeStatus" />
+            <PokemonStatus :pokemon="props.enemyPokemon" @changeStatus="updateStatusEnemy(enemyPokemonId)" />
             <slot></slot>
             <div>ランク補正</div>
             <div>
@@ -115,7 +116,7 @@ const handleChangeStatus = (newStatus) => {
                 <div>
                     <div class="move" v-for="(move, index) in enemyMoves" :key="`enemy-${index}`">
                         <SelectMove :selectedMoveId="props.enemyPokemon.moveIds[`slot${index + 1}`]"
-                            @changeMove="(newMove) => handleChangeMove(newMove, index + 1)" />
+                            @changeMove="(newMove) => handleChangeMoveEnemy(newMove, index + 1, props.enemyPokemonId)" />
                         <div>
                             <span>{{ move.type }}</span>
                             <span>威力: {{ move.power }}</span>

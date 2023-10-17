@@ -4,18 +4,18 @@ export const useEnemyPokemonsStore = defineStore("enemyPokemons", {
   state: () => ({
     enemyPokemons: [
       {
-        enemyId: 1,
+        enemyId: 0,
         pokemon: {
           id: 488,
           name: "クレセリア",
           level: 50,
           status: [
-            { label: "H", base: 120, ev: 0, iv: 31 },
-            { label: "A", base: 70, ev: 0, iv: 31 },
-            { label: "B", base: 110, ev: 0, iv: 31 },
-            { label: "C", base: 75, ev: 0, iv: 31 },
-            { label: "D", base: 120, ev: 0, iv: 31 },
-            { label: "S", base: 85, ev: 0, iv: 31 },
+            { label: "H", calc: 0, base: 120, ev: 0, iv: 31 },
+            { label: "A", calc: 0, base: 70, ev: 0, iv: 31 },
+            { label: "B", calc: 0, base: 110, ev: 0, iv: 31 },
+            { label: "C", calc: 0, base: 75, ev: 0, iv: 31 },
+            { label: "D", calc: 0, base: 120, ev: 0, iv: 31 },
+            { label: "S", calc: 0, base: 85, ev: 0, iv: 31 },
           ],
           abilities: [{ label: "ふゆう", type: 1 }],
           selectedAbility: { label: "ふゆう", type: 1 },
@@ -37,18 +37,18 @@ export const useEnemyPokemonsStore = defineStore("enemyPokemons", {
         },
       },
       {
-        enemyId: 2,
+        enemyId: 1,
         pokemon: {
           id: 149,
           name: "カイリュー",
           level: 50,
           status: [
-            { label: "H", base: 91, ev: 252, iv: 31 },
-            { label: "A", base: 134, ev: 192, iv: 31 },
-            { label: "B", base: 95, ev: 0, iv: 31 },
-            { label: "C", base: 100, ev: 0, iv: 31 },
-            { label: "D", base: 100, ev: 0, iv: 31 },
-            { label: "S", base: 80, ev: 0, iv: 31 },
+            { label: "H", calc: 0, base: 91, ev: 252, iv: 31 },
+            { label: "A", calc: 0, base: 134, ev: 192, iv: 31 },
+            { label: "B", calc: 0, base: 95, ev: 0, iv: 31 },
+            { label: "C", calc: 0, base: 100, ev: 0, iv: 31 },
+            { label: "D", calc: 0, base: 100, ev: 0, iv: 31 },
+            { label: "S", calc: 0, base: 80, ev: 0, iv: 31 },
           ],
           abilities: [
             { label: "せいしんりょく", type: 0 },
@@ -74,4 +74,34 @@ export const useEnemyPokemonsStore = defineStore("enemyPokemons", {
       },
     ],
   }),
+  actions: {
+    calcStatus(label, base, ev, iv, level, nature) {
+      let natureMag = 1;
+      if (label == nature.boost) {
+        natureMag = 1.1;
+      } else if (label == nature.drop) {
+        natureMag = 0.9;
+      }
+      return Math.floor(
+        Math.floor(
+          Math.floor((base * 2 + iv + Math.floor(ev / 4)) * level * 0.01) + 5
+        ) * natureMag
+      );
+    },
+    updateStatusEnemy(enemyId) {
+      this.enemyPokemons[enemyId].pokemon.status.forEach((status) => {
+        status.calc = this.calcStatus(
+          status.label,
+          status.base,
+          status.ev,
+          status.iv,
+          this.enemyPokemons[enemyId].pokemon.level,
+          this.enemyPokemons[enemyId].pokemon.selectedNature
+        );
+      });
+    },
+    handleChangeMoveEnemy(newMove, slot, enemyId) {
+      this.enemyPokemons[enemyId].pokemon.moveIds["slot" + slot] = newMove;
+    },
+  },
 });

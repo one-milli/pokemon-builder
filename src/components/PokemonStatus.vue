@@ -14,27 +14,6 @@ const evsTotal = computed(() => {
     return status.value.reduce((sum, stat) => sum + stat.ev, 0)
 })
 
-const calculatedStatus = computed(() => {
-    return {
-        hp: calc_stat(status.value[0].label, status.value[0].base, status.value[0].ev, status.value[0].iv, props.pokemon.level, props.pokemon.selectedNature),
-        atk: calc_stat(status.value[1].label, status.value[1].base, status.value[1].ev, status.value[1].iv, props.pokemon.level, props.pokemon.selectedNature),
-        def: calc_stat(status.value[2].label, status.value[2].base, status.value[2].ev, status.value[2].iv, props.pokemon.level, props.pokemon.selectedNature),
-        spatk: calc_stat(status.value[3].label, status.value[3].base, status.value[3].ev, status.value[3].iv, props.pokemon.level, props.pokemon.selectedNature),
-        spdef: calc_stat(status.value[4].label, status.value[4].base, status.value[4].ev, status.value[4].iv, props.pokemon.level, props.pokemon.selectedNature),
-        spd: calc_stat(status.value[5].label, status.value[5].base, status.value[5].ev, status.value[5].iv, props.pokemon.level, props.pokemon.selectedNature)
-    }
-})
-
-const calc_stat = (label, base, ev, iv, level, nature) => {
-    let natureMag = 1
-    if (label == nature.boost) {
-        natureMag = 1.1
-    } else if (label == nature.drop) {
-        natureMag = 0.9
-    }
-    return Math.floor(Math.floor(Math.floor((base * 2 + iv + Math.floor(ev / 4)) * level * 0.01) + 5) * natureMag)
-}
-
 const handleChangeNature = (newNature) => {
     props.pokemon.selectedNature = newNature
 }
@@ -47,7 +26,7 @@ const handleChangeAbility = (newAbility) => {
 
 const emit = defineEmits()
 const handleChangeStatus = () => {
-    emit('changeStatus', calculatedStatus.value)
+    emit('changeStatus')
 }
 </script>
 
@@ -70,12 +49,12 @@ const handleChangeStatus = () => {
     </div>
     <div class="segment">
         <div>実数値</div>
-        <span>H :</span><span>{{ calculatedStatus.hp }}</span>
-        <span>A :</span><span>{{ calculatedStatus.atk }}</span>
-        <span>B :</span><span>{{ calculatedStatus.def }}</span>
-        <span>C :</span><span>{{ calculatedStatus.spatk }}</span>
-        <span>D :</span><span>{{ calculatedStatus.spdef }}</span>
-        <span>S :</span><span>{{ calculatedStatus.spd }}</span>
+        <span>H :</span><span>{{ props.pokemon.status[0].calc }}</span>
+        <span>A :</span><span>{{ props.pokemon.status[1].calc }}</span>
+        <span>B :</span><span>{{ props.pokemon.status[2].calc }}</span>
+        <span>C :</span><span>{{ props.pokemon.status[3].calc }}</span>
+        <span>D :</span><span>{{ props.pokemon.status[4].calc }}</span>
+        <span>S :</span><span>{{ props.pokemon.status[5].calc }}</span>
     </div>
     <div class="segment">
         <div>努力値</div>

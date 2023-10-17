@@ -4,7 +4,7 @@ export const useMyPokemonsStore = defineStore("myPokemons", {
   state: () => ({
     myPokemons: [
       {
-        buildId: 1,
+        buildId: 0,
         pokemon: {
           id: 445,
           name: "ガブリアス",
@@ -33,7 +33,7 @@ export const useMyPokemonsStore = defineStore("myPokemons", {
         },
       },
       {
-        buildId: 2,
+        buildId: 1,
         pokemon: {
           name: "クレセリア",
           level: 50,
