@@ -1,10 +1,9 @@
 <script setup>
-import { computed, inject, ref } from 'vue'
+import { computed, inject, onMounted, ref } from 'vue'
 import PokemonStatus from './PokemonStatus.vue'
 import SelectMove from './selector/SelectMove.vue'
 import { useMyPokemonsStore } from '../store/myPokemons'
 import { storeToRefs } from 'pinia'
-
 
 const props = defineProps({
     id: Number,
@@ -12,21 +11,12 @@ const props = defineProps({
 })
 const myPokemonsStore = useMyPokemonsStore()
 const { myPokemons } = storeToRefs(myPokemonsStore)
-const { handleChangeMove } = myPokemonsStore
+const { updateStatus, handleChangeMove } = myPokemonsStore
 
 const allMoves = inject('allMoves')
 
 const iconSrc = computed(() => {
     return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${myPokemons.value[props.id].pokemon.id}.png`
-})
-
-const calculatedStatus = ref({
-    hp: 0,
-    atk: 0,
-    def: 0,
-    spatk: 0,
-    spdef: 0,
-    spd: 0,
 })
 
 const findMove = (id) => {
@@ -37,9 +27,9 @@ const myMoves = computed(() => {
     return Object.keys(myPokemons.value[props.id].pokemon.moveIds).map((key) => findMove(myPokemons.value[props.id].pokemon.moveIds[key]))
 })
 
-const handleChangeStatus = (newStatus) => {
-    calculatedStatus.value = newStatus
-}
+onMounted(() => {
+    updateStatus(props.id)
+})
 </script>
 
 <template>
@@ -48,7 +38,7 @@ const handleChangeStatus = (newStatus) => {
             <img :src="iconSrc" :alt="myPokemons[props.id].pokemon.name">
         </div>
         <div class="details">
-            <PokemonStatus :pokemon="myPokemons[props.id].pokemon" @changeStatus="handleChangeStatus" />
+            <PokemonStatus :pokemon="myPokemons[props.id].pokemon" @changeStatus="updateStatus(props.id)" />
             <div class="moves">
                 <div>わざ</div>
                 <div>
