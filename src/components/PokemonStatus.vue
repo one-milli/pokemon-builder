@@ -42,7 +42,10 @@ const handleChangeStatus = () => {
 <template>
     <div class="name">{{ props.pokemon.pokemon.name }}</div>
     <div class="segment">
-        <div>Lv.<input type="number" min="0" max="100" v-model="props.pokemon.pokemon.level"></div>
+        <div>
+            Lv.<input type="number" min="0" max="100" v-model="props.pokemon.pokemon.level"
+                @change="updateStatus(props.pokemon.id)">
+        </div>
         <div>性格</div>
         <SelectNature :pokemon="props.pokemon" @changeNature="handleChangeNature" />
         <div>特性</div>
