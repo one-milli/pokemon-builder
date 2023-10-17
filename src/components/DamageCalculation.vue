@@ -72,6 +72,10 @@ const enemyMoves = computed(() => {
                 <span>{{ move.label }}</span>
                 <span>{{ move.type }}</span>
                 <span>威力: {{ move.power }}</span>
+            </div>
+        </div>
+        <div>
+            <div class="move" v-for="(move, index) in myMoves" :key="index">
                 <HpBar :attacker="props.myPokemon.pokemon" :defender="props.enemyPokemon.pokemon" :move="move"
                     :attackerStatusRank="statusRank" :defenderStatusRank="enemyStatusRank" />
             </div>
@@ -84,6 +88,10 @@ const enemyMoves = computed(() => {
                 <span>{{ move.label }}</span>
                 <span>{{ move.type }}</span>
                 <span>威力: {{ move.power }}</span>
+            </div>
+        </div>
+        <div>
+            <div class="move" v-for="(move, index) in enemyMoves" :key="index">
                 <HpBar :attacker="props.myPokemon.pokemon" :defender="props.enemyPokemon.pokemon" :move="move"
                     :attackerStatusRank="statusRank" :defenderStatusRank="enemyStatusRank" />
             </div>

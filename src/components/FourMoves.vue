@@ -40,6 +40,14 @@ const myMoves = computed(() => {
 </template>
 
 <style scoped>
+div {
+    text-align: left;
+}
+
+span {
+    margin: 0 5px;
+}
+
 .moves {
     display: flex;
     flex-direction: row;

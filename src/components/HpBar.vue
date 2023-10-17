@@ -10,10 +10,10 @@ const props = defineProps({
 })
 
 const attackerAttack = computed(() => {
-    return props.attacker.status[1].base * (props.attackerStatusRank.A + 2) / 2
+    return props.attacker.status[1].calc * (props.attackerStatusRank.A + 2) / 2
 })
 const defenderDefense = computed(() => {
-    return props.defender.status[2].base * (props.defenderStatusRank.D + 2) / 2
+    return props.defender.status[2].calc * (props.defenderStatusRank.D + 2) / 2
 })
 
 const maxDamage = computed(() => {
