@@ -2,12 +2,18 @@
 import { onMounted, provide, ref } from 'vue'
 import MyPokemon from './components/MyPokemon.vue'
 import PotentialEnemy from './components/PotentialEnemy.vue'
+import FortMoves from './components/FortMoves.vue'
+import { useMyPokemonsStore } from './store/myPokemons'
 import { useEnemyPokemonsStore } from './store/enemyPokemons'
 import { storeToRefs } from 'pinia'
 
 //DB代わり
+const myPokemonsStore = useMyPokemonsStore()
+const { myPokemons } = storeToRefs(myPokemonsStore)
+const { updateStatus } = myPokemonsStore
 const enemyPokemonsStore = useEnemyPokemonsStore()
 const { enemyPokemons } = storeToRefs(enemyPokemonsStore)
+const { updateStatusEnemy } = enemyPokemonsStore
 
 const allMoves = [
   { id: 1, label: "じしん", type: "じめん", power: 100, accuracy: 100, pp: 10 },
@@ -21,10 +27,20 @@ const allMoves = [
 provide('allMoves', allMoves)
 
 const myPokemonId = ref(0);
+console.log(enemyPokemons.value)
+
+onMounted(() => {
+  updateStatus(myPokemonId.value)
+  enemyPokemons.value.forEach(e => {
+    updateStatusEnemy(e.enemyId)
+  });
+})
 </script>
 
 <template>
-  <MyPokemon :id="myPokemonId" />
+  <MyPokemon :pokemon="myPokemons[myPokemonId]">
+    <FortMoves :pokemon="myPokemons[myPokemonId]" />
+  </MyPokemon>
   <h2>VS</h2>
   <template v-for="enemyPokemon in enemyPokemons">
     <PotentialEnemy :myPokemonId="myPokemonId" :enemyPokemonId="enemyPokemon.enemyId"

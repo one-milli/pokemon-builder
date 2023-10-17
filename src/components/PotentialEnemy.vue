@@ -51,9 +51,6 @@ const enemyMoves = computed(() => {
     return Object.keys(props.enemyPokemon.moveIds).map((key) => findMove(props.enemyPokemon.moveIds[key]))
 })
 
-onMounted(() => {
-    updateStatusEnemy(props.enemyPokemonId)
-})
 </script>
 
 <template>
