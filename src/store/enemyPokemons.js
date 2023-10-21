@@ -72,6 +72,42 @@ export const useEnemyPokemonsStore = defineStore("enemyPokemons", {
           },
         },
       },
+      {
+        id: 2,
+        pokemon: {
+          id: 500,
+          name: "エンブオー",
+          level: 50,
+          status: [
+            { label: "H", calc: 0, base: 110, ev: 252, iv: 31 },
+            { label: "A", calc: 0, base: 123, ev: 192, iv: 31 },
+            { label: "B", calc: 0, base: 65, ev: 0, iv: 31 },
+            { label: "C", calc: 0, base: 100, ev: 0, iv: 31 },
+            { label: "D", calc: 0, base: 65, ev: 0, iv: 31 },
+            { label: "S", calc: 0, base: 65, ev: 0, iv: 31 },
+          ],
+          abilities: [
+            { label: "もうか", type: 1 },
+            { label: "すてみ", type: 1 },
+          ],
+          selectedAbility: { label: "すてみ", type: 1 },
+          selectedItem: {
+            label: "こだわりハチマキ",
+            status: ["A"],
+            boost: 1.5,
+            conditionId: 1,
+          },
+          selectedNature: { label: "ずぶとい", boost: "B", drop: "A" },
+          moveIds: { slot1: 8, slot2: 9, slot3: 10, slot4: 1 },
+          statusRank: {
+            A: 0,
+            B: 0,
+            C: 0,
+            D: 0,
+            S: 0,
+          },
+        },
+      },
     ],
   }),
   actions: {

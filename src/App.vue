@@ -21,6 +21,9 @@ const allMoves = [
   { id: 5, label: "かみくだく", type: "あく", power: 80, accuracy: 100, pp: 15 },
   { id: 6, label: "きりさく", type: "ノーマル", power: 80, accuracy: 100, pp: 15 },
   { id: 7, label: "ムーンフォース", type: "フェアリー", power: 90, accuracy: 100, pp: 15 },
+  { id: 8, label: "つっぱり", type: "かくとう", power: 15, accuracy: 100, pp: 20 },
+  { id: 9, label: "かえんほうしゃ", type: "ほのお", power: 90, accuracy: 100, pp: 15 },
+  { id: 10, label: "フレアドライブ", type: "ほのお", power: 120, accuracy: 100, pp: 15 },
 ]
 provide('allMoves', allMoves)
 
