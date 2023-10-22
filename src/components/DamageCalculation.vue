@@ -23,7 +23,7 @@ const enemyStatusRank = ref({
     spe: 0,
 })
 
-const gen = Generations.get(5)
+const gen = Generations.get(9)
 const getMoveType = (moveName) => {
     const move = new Move(gen, moveName)
     return move.type

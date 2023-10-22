@@ -14,7 +14,7 @@ const enemyPokemonsStore = useEnemyPokemonsStore()
 const store = props.isEnemy ? enemyPokemonsStore : myPokemonsStore
 const { handleChangeMove } = store
 
-const gen = Generations.get(5)
+const gen = Generations.get(9)
 const getMoveType = (moveName) => {
     const move = new Move(gen, moveName)
     return move.type

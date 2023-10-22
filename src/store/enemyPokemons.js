@@ -63,6 +63,26 @@ export const useEnemyPokemonsStore = defineStore("enemyPokemons", {
           },
         },
       },
+      {
+        id: 3,
+        pokemon: {
+          pid: 908,
+          name: "meowscarada",
+          level: 50,
+          nature: "adamant",
+          evs: { hp: 0, atk: 252, def: 0, spa: 0, spd: 0, spe: 0 },
+          ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
+          item: "choice scarf",
+          abilityId: 0,
+          moveIds: { slot1: 7, slot2: 2, slot3: 3, slot4: 4 },
+          moves: {
+            slot1: "dragon claw",
+            slot2: "earthquake",
+            slot3: "fire blast",
+            slot4: "stone edge",
+          },
+        },
+      },
     ],
   }),
   actions: {

@@ -6,7 +6,7 @@ const props = defineProps({
     pokemon: Object,
 });
 
-const gen = Generations.get(5)
+const gen = Generations.get(9)
 const pokemon = new Pokemon(gen, props.pokemon.pokemon.name, {
     level: props.pokemon.pokemon.level,
     nature: props.pokemon.pokemon.nature,

@@ -40,7 +40,7 @@ const handleChangeStatus = () => {
     emit('changeStatus')
 }
 
-const gen = Generations.get(5)
+const gen = Generations.get(9)
 const pokemon = computed(() => {
     return new Pokemon(gen, props.pokemon.pokemon.name, {
         level: props.pokemon.pokemon.level,

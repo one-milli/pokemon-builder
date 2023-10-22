@@ -13,7 +13,7 @@ const props = defineProps({
 const attacker = props.attacker.pokemon
 const defender = props.defender.pokemon
 
-const gen = Generations.get(5);
+const gen = Generations.get(9);
 const result = computed(() => {
     return calculate(
         gen,
