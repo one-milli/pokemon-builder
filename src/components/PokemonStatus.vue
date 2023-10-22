@@ -9,6 +9,15 @@ const props = defineProps({
     pokemon: Object,
 })
 
+const labelConversion = {
+    hp: 'H',
+    atk: 'A',
+    def: 'B',
+    spa: 'C',
+    spd: 'D',
+    spe: 'S',
+}
+
 const evsTotal = computed(() => {
     const stats = Object.values(props.pokemon.pokemon.evs)
     return stats.reduce((sum, val) => sum + val, 0)
@@ -39,9 +48,9 @@ const pokemon = computed(() => {
     </div>
     <div class="segment">
         <div>種族値</div>
-        <template v-for="(stat, index) in status" :key="index">
-            <span>{{ stat.label }} :</span>
-            <span>{{ stat.base }}</span>
+        <template v-for="(stat, key, index) in pokemon.species.baseStats" :key="index">
+            <span>{{ labelConversion[key] }} :</span>
+            <span>{{ stat }}</span>
         </template>
     </div>
     <div class="segment">
@@ -67,10 +76,6 @@ const pokemon = computed(() => {
         <input type="number" min="0" max="252" step="4" v-model="props.pokemon.pokemon.evs.spd">
         <span>S</span>
         <input type="number" min="0" max="252" step="4" v-model="props.pokemon.pokemon.evs.spe">
-        <template v-for="(stat, index) in status" :key="index">
-            <span>{{ stat.label }}</span>
-            <input type="number" min="0" max="252" step="4" v-model="stat.ev">
-        </template>
         <span class="totalEv">合計{{ evsTotal }}</span>
         <span class="remainEv">余り{{ 510 - evsTotal }}</span>
     </div>
