@@ -12,7 +12,7 @@ export const useMyPokemonsStore = defineStore("myPokemons", {
           nature: "adamant",
           evs: { hp: 0, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 },
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
-          item: "choice band",
+          item: "Choice Band",
           abilityId: 0,
           moveIds: { slot1: 1, slot2: 2, slot3: 3, slot4: 4 },
           moves: {
@@ -32,7 +32,7 @@ export const useMyPokemonsStore = defineStore("myPokemons", {
           nature: "bold",
           evs: { hp: 252, atk: 0, def: 252, spa: 0, spd: 0, spe: 0 },
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
-          item: "choice scarf",
+          item: "Choice Scarf",
           abilityId: 0,
           moveIds: { slot1: 7, slot2: 2, slot3: 3, slot4: 4 },
           moves: {

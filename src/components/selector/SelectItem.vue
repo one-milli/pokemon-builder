@@ -6,11 +6,11 @@ const props = defineProps({
 });
 
 const items = ref([
-    'choice band',
-    'choice specs',
-    'choice scarf',
-    'life orb',
-    'leftovers',
+    'Choice Band',
+    'Choice Specs',
+    'Choice Scarf',
+    'Life Orb',
+    'Leftovers',
 ])
 
 </script>
