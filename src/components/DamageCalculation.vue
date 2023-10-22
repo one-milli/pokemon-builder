@@ -1,13 +1,12 @@
 <script setup>
 import { computed, inject, onMounted, ref } from 'vue'
 import HpBar from './HpBar.vue';
+import { calculate, Generations, Pokemon, Move } from '@smogon/calc'
 
 const props = defineProps({
     myPokemon: Object,
     enemyPokemon: Object,
 })
-
-const allMoves = inject('allMoves')
 
 const statusRank = ref({
     atk: 0,
@@ -24,29 +23,19 @@ const enemyStatusRank = ref({
     spe: 0,
 })
 
-const findMove = (id) => {
-    return allMoves.find((move) => move.id == id)
+const gen = Generations.get(5)
+const getMoveType = (moveName) => {
+    const move = new Move(gen, moveName)
+    return move.type
 }
-
-/* const myMoves = computed(() => {
-    return Object.keys(props.myPokemon.pokemon.moveIds).map((key) => findMove(props.myPokemon.pokemon.moveIds[key]))
-}) */
-const myMoves = [
-    { id: 1, label: "focus blast", name: "きあいだま", type: "かくとう", power: 120, accuracy: 70, pp: 5 },
-    { id: 2, label: "focus blast", name: "きあいだま", type: "かくとう", power: 120, accuracy: 70, pp: 5 },
-    { id: 3, label: "focus blast", name: "きあいだま", type: "かくとう", power: 120, accuracy: 70, pp: 5 },
-    { id: 4, label: "focus blast", name: "きあいだま", type: "かくとう", power: 120, accuracy: 70, pp: 5 },
-]
-
-/* const enemyMoves = computed(() => {
-    return Object.keys(props.enemyPokemon.pokemon.moveIds).map((key) => findMove(props.enemyPokemon.pokemon.moveIds[key]))
-}) */
-const enemyMoves = [
-    { id: 1, label: "focus blast", name: "きあいだま", type: "かくとう", power: 120, accuracy: 70, pp: 5 },
-    { id: 2, label: "focus blast", name: "きあいだま", type: "かくとう", power: 120, accuracy: 70, pp: 5 },
-    { id: 3, label: "focus blast", name: "きあいだま", type: "かくとう", power: 120, accuracy: 70, pp: 5 },
-    { id: 4, label: "focus blast", name: "きあいだま", type: "かくとう", power: 120, accuracy: 70, pp: 5 },
-]
+const getMovePower = (moveName) => {
+    const move = new Move(gen, moveName)
+    return move.bp
+}
+const getMoveCategory = (moveName) => {
+    const move = new Move(gen, moveName)
+    return move.category
+}
 </script>
 
 <template>
@@ -80,14 +69,14 @@ const enemyMoves = [
     <div>与ダメージ</div>
     <div class="moves">
         <div class="move4">
-            <div class="move" v-for="(move, index) in myMoves" :key="index">
-                <div class="type">{{ move.type }}</div>
-                <span>{{ move.name }}</span>
-                <span>威力: {{ move.power }}</span>
+            <div class="move" v-for="(move, index) in props.myPokemon.pokemon.moves" :key="index">
+                <div class="type">{{ getMoveType(move) }}</div>
+                <span>{{ move }}</span>
+                <span>威力: {{ getMovePower(move) }}</span>
             </div>
         </div>
         <div>
-            <div class="move" v-for="(move, index) in myMoves" :key="index">
+            <div class="move" v-for="(move, index) in props.myPokemon.pokemon.moves" :key="index">
                 <HpBar :attacker="props.myPokemon" :defender="props.enemyPokemon" :move="move" :attackerBoost="statusRank"
                     :defenderBoost="enemyStatusRank" />
             </div>
@@ -96,14 +85,14 @@ const enemyMoves = [
     <div>被ダメージ</div>
     <div class="moves">
         <div class="move4">
-            <div class="move" v-for="(move, index) in enemyMoves" :key="index">
-                <div class="type">{{ move.type }}</div>
-                <span>{{ move.name }}</span>
-                <span>威力: {{ move.power }}</span>
+            <div class="move" v-for="(move, index) in props.enemyPokemon.pokemon.moves" :key="index">
+                <div class="type">{{ getMoveType(move) }}</div>
+                <span>{{ move }}</span>
+                <span>威力: {{ getMovePower(move) }}</span>
             </div>
         </div>
         <div>
-            <div class="move" v-for="(move, index) in enemyMoves" :key="index">
+            <div class="move" v-for="(move, index) in props.enemyPokemon.pokemon.moves" :key="index">
                 <HpBar :attacker="props.enemyPokemon" :defender="props.myPokemon" :move="move"
                     :attackerBoost="enemyStatusRank" :defenderBoost="statusRank" />
             </div>

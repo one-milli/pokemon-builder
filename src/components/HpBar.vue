@@ -5,42 +5,47 @@ import { calculate, Generations, Pokemon, Move } from '@smogon/calc'
 const props = defineProps({
     attacker: Object,
     defender: Object,
-    move: Object,
+    move: String,
     attackerBoost: Object,
     defenderBoost: Object,
 })
 
 const attacker = props.attacker.pokemon
 const defender = props.defender.pokemon
-const move = props.move.label
 
 const gen = Generations.get(5);
 const result = computed(() => {
     return calculate(
         gen,
         new Pokemon(gen, attacker.name, {
-            item: attacker.item,
+            level: attacker.level,
             nature: attacker.nature,
             evs: attacker.evs,
+            item: attacker.item,
             boosts: props.attackerBoost,
-            level: attacker.level,
         }),
         new Pokemon(gen, defender.name, {
-            item: defender.item,
+            level: defender.level,
             nature: defender.nature,
             evs: defender.evs,
+            item: defender.item,
             boosts: props.defenderBoost,
-            level: defender.level,
         }),
-        new Move(gen, move)
+        new Move(gen, props.move)
     )
 })
 
 const maxDamage = computed(() => {
-    return Math.max(...result.value.damage)
+    if (Array.isArray(result.value.damage))
+        return Math.max(...result.value.damage)
+    else
+        return result.value.damage
 })
 const minDamage = computed(() => {
-    return Math.min(...result.value.damage)
+    if (Array.isArray(result.value.damage))
+        return Math.min(...result.value.damage)
+    else
+        return result.value.damage
 })
 
 const maxHp = computed(() => {

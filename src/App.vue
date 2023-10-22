@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, provide, ref } from 'vue'
+import { onMounted, provide, computed, ref } from 'vue'
 import PokemonCard from './components/PokemonCard.vue'
 import FourMoves from './components/FourMoves.vue'
 import DamageCalculation from './components/DamageCalculation.vue'
@@ -55,7 +55,7 @@ onMounted(async () => {
   <template v-for="enemyPokemon in enemyPokemons">
     <PokemonCard :pokemon="enemyPokemon" :isEnemy="true">
       <FourMoves :pokemon="enemyPokemon" :isEnemy="true" />
-      <!-- <DamageCalculation :myPokemon="myPokemons[myPokemonId]" :enemyPokemon="enemyPokemon" /> -->
+      <DamageCalculation :myPokemon="myPokemons[myPokemonId]" :enemyPokemon="enemyPokemon" />
     </PokemonCard>
   </template>
 </template>
