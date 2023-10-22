@@ -3,6 +3,7 @@ import { computed, inject, onMounted, ref } from 'vue'
 import SelectMove from './selector/SelectMove.vue'
 import { useMyPokemonsStore } from '../store/myPokemons'
 import { useEnemyPokemonsStore } from '../store/enemyPokemons';
+import { calculate, Generations, Pokemon, Move } from '@smogon/calc'
 
 const props = defineProps({
     pokemon: Object,
@@ -13,26 +14,30 @@ const enemyPokemonsStore = useEnemyPokemonsStore()
 const store = props.isEnemy ? enemyPokemonsStore : myPokemonsStore
 const { handleChangeMove } = store
 
-const allMoves = inject('allMoves')
-
-const findMove = (id) => {
-    return allMoves.find((move) => move.id == id)
+const gen = Generations.get(5)
+const getMoveType = (moveName) => {
+    const move = new Move(gen, moveName)
+    return move.type
 }
-const myMoves = computed(() => {
-    return Object.keys(props.pokemon.pokemon.moveIds).map((key) => findMove(props.pokemon.pokemon.moveIds[key]))
-})
+const getMovePower = (moveName) => {
+    const move = new Move(gen, moveName)
+    return move.bp
+}
+const getMoveCategory = (moveName) => {
+    const move = new Move(gen, moveName)
+    return move.category
+}
 </script>
 
 <template>
     <div class="moves">
         <div>わざ</div>
         <div>
-            <div class="move" v-for="(move, index) in myMoves" :key="index">
-                <div class="type">{{ move.type }}</div>
-                <SelectMove :allMoves="allMoves" :selectedMoveId="props.pokemon.pokemon.moveIds[`slot${index + 1}`]"
-                    @changeMove="(newMove) => handleChangeMove(newMove, index + 1, props.pokemon.id)" />
+            <div class="move" v-for="(move, key, index) in props.pokemon.pokemon.moves" :key="index">
+                <div class="type">{{ getMoveType(move) }}</div>
+                <SelectMove :pokemon="props.pokemon" :slot="key" />
                 <div>
-                    <span>威力 {{ move.power }}</span>
+                    <span>威力 {{ getMovePower(move) }}</span>
                 </div>
             </div>
         </div>

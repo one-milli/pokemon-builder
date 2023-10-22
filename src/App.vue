@@ -49,12 +49,12 @@ onMounted(async () => {
 
 <template>
   <PokemonCard :pokemon="myPokemons[myPokemonId]">
-    <!-- <FourMoves :pokemon="myPokemons[myPokemonId]" /> -->
+    <FourMoves :pokemon="myPokemons[myPokemonId]" />
   </PokemonCard>
   <h2>VS</h2>
   <template v-for="enemyPokemon in enemyPokemons">
     <PokemonCard :pokemon="enemyPokemon" :isEnemy="true">
-      <!-- <FourMoves :pokemon="enemyPokemon" :isEnemy="true" /> -->
+      <FourMoves :pokemon="enemyPokemon" :isEnemy="true" />
       <!-- <DamageCalculation :myPokemon="myPokemons[myPokemonId]" :enemyPokemon="enemyPokemon" /> -->
     </PokemonCard>
   </template>

@@ -15,6 +15,12 @@ export const useEnemyPokemonsStore = defineStore("enemyPokemons", {
           item: "choice scarf",
           abilityId: 0,
           moveIds: { slot1: 7, slot2: 2, slot3: 3, slot4: 4 },
+          moves: {
+            slot1: "dragon claw",
+            slot2: "earthquake",
+            slot3: "fire blast",
+            slot4: "stone edge",
+          },
         },
       },
       {
@@ -29,6 +35,12 @@ export const useEnemyPokemonsStore = defineStore("enemyPokemons", {
           item: "choice scarf",
           abilityId: 0,
           moveIds: { slot1: 7, slot2: 2, slot3: 3, slot4: 4 },
+          moves: {
+            slot1: "dragon claw",
+            slot2: "earthquake",
+            slot3: "fire blast",
+            slot4: "stone edge",
+          },
         },
       },
       {
@@ -43,6 +55,12 @@ export const useEnemyPokemonsStore = defineStore("enemyPokemons", {
           item: "choice scarf",
           abilityId: 0,
           moveIds: { slot1: 7, slot2: 2, slot3: 3, slot4: 4 },
+          moves: {
+            slot1: "dragon claw",
+            slot2: "earthquake",
+            slot3: "fire blast",
+            slot4: "stone edge",
+          },
         },
       },
     ],
