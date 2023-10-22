@@ -19,7 +19,7 @@ onMounted(() => {
 })
 
 const iconSrc = computed(() => {
-    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${props.pokemon.pokemon.id}.png`
+    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${props.pokemon.pokemon.pid}.png`
 })
 </script>
 

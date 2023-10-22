@@ -1,23 +1,32 @@
 <script setup>
 import { ref } from "vue";
+import { calculate, Generations, Pokemon, Move } from '@smogon/calc'
 
 const props = defineProps({
-    abilities: Array,
-    selectedAbility: Object,
+    pokemon: Object,
 });
 
-const selectedAbility = ref(props.selectedAbility);
+const gen = Generations.get(5)
+const pokemon = new Pokemon(gen, props.pokemon.pokemon.name, {
+    level: props.pokemon.pokemon.level,
+    nature: props.pokemon.pokemon.nature,
+    evs: props.pokemon.pokemon.evs,
+    ivs: props.pokemon.pokemon.ivs,
+    item: props.pokemon.pokemon.item,
+})
+
+const abilities = pokemon.species.abilities
 
 const emit = defineEmits();
 const handleChangeAbility = () => {
-    emit("changeAbility", selectedAbility.value);
+    emit("changeAbility");
 };
 </script>
 
 <template>
-    <select v-model="selectedAbility" @change="handleChangeAbility">
-        <option v-for="ability in props.abilities" :key="ability.label" :value="ability">
-            {{ ability.label }}
+    <select v-model="props.pokemon.pokemon.abilityId" @change="handleChangeAbility">
+        <option v-for="(value, key, index) in abilities" :key="key" :value="key">
+            {{ value }}
         </option>
     </select>
 </template>

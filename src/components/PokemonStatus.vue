@@ -5,6 +5,7 @@ import SelectItem from './selector/SelectItem.vue'
 import SelectNature from './selector/SelectNature.vue'
 import { useMyPokemonsStore } from '../store/myPokemons'
 import { useEnemyPokemonsStore } from '../store/enemyPokemons';
+import { calculate, Generations, Pokemon, Move } from '@smogon/calc'
 
 const props = defineProps({
     pokemon: Object,
@@ -19,7 +20,8 @@ const { updateStatus } = store
 const status = ref(props.pokemon.pokemon.status)
 
 const evsTotal = computed(() => {
-    return status.value.reduce((sum, stat) => sum + stat.ev, 0)
+    const stats = Object.values(props.pokemon.pokemon.evs)
+    return stats.reduce((sum, val) => sum + val, 0)
 })
 
 const handleChangeNature = (newNature) => {
@@ -37,6 +39,17 @@ const emit = defineEmits(['changeStatus'])
 const handleChangeStatus = () => {
     emit('changeStatus')
 }
+
+const gen = Generations.get(5)
+const pokemon = computed(() => {
+    return new Pokemon(gen, props.pokemon.pokemon.name, {
+        level: props.pokemon.pokemon.level,
+        nature: props.pokemon.pokemon.nature,
+        evs: props.pokemon.pokemon.evs,
+        ivs: props.pokemon.pokemon.ivs,
+        item: props.pokemon.pokemon.item,
+    })
+})
 </script>
 
 <template>
@@ -49,8 +62,7 @@ const handleChangeStatus = () => {
         <div>性格</div>
         <SelectNature :pokemon="props.pokemon" @changeNature="handleChangeNature" />
         <div>特性</div>
-        <SelectAbility :abilities="props.pokemon.pokemon.abilities" :selectedAbility="props.pokemon.pokemon.selectedAbility"
-            @changeAbility="handleChangeAbility" />
+        <SelectAbility :pokemon="props.pokemon" @changeAbility="handleChangeAbility" />
     </div>
     <div class="segment">
         <div>種族値</div>
@@ -61,15 +73,32 @@ const handleChangeStatus = () => {
     </div>
     <div class="segment">
         <div>実数値</div>
-        <span>H :</span><span>{{ props.pokemon.pokemon.status[0].calc }}</span>
-        <span>A :</span><span>{{ props.pokemon.pokemon.status[1].calc }}</span>
-        <span>B :</span><span>{{ props.pokemon.pokemon.status[2].calc }}</span>
-        <span>C :</span><span>{{ props.pokemon.pokemon.status[3].calc }}</span>
-        <span>D :</span><span>{{ props.pokemon.pokemon.status[4].calc }}</span>
-        <span>S :</span><span>{{ props.pokemon.pokemon.status[5].calc }}</span>
+        <span>H :</span><span>{{ pokemon.rawStats.hp }}</span>
+        <span>A :</span><span>{{ pokemon.rawStats.atk }}</span>
+        <span>B :</span><span>{{ pokemon.rawStats.def }}</span>
+        <span>C :</span><span>{{ pokemon.rawStats.spa }}</span>
+        <span>D :</span><span>{{ pokemon.rawStats.spd }}</span>
+        <span>S :</span><span>{{ pokemon.rawStats.spe }}</span>
     </div>
     <div class="segment">
         <div>努力値</div>
+        <span>H</span>
+        <input type="number" min="0" max="252" step="4" v-model="props.pokemon.pokemon.evs.hp" @change="handleChangeStatus">
+        <span>A</span>
+        <input type="number" min="0" max="252" step="4" v-model="props.pokemon.pokemon.evs.atk"
+            @change="handleChangeStatus">
+        <span>B</span>
+        <input type="number" min="0" max="252" step="4" v-model="props.pokemon.pokemon.evs.def"
+            @change="handleChangeStatus">
+        <span>C</span>
+        <input type="number" min="0" max="252" step="4" v-model="props.pokemon.pokemon.evs.spa"
+            @change="handleChangeStatus">
+        <span>D</span>
+        <input type="number" min="0" max="252" step="4" v-model="props.pokemon.pokemon.evs.spd"
+            @change="handleChangeStatus">
+        <span>S</span>
+        <input type="number" min="0" max="252" step="4" v-model="props.pokemon.pokemon.evs.spe"
+            @change="handleChangeStatus">
         <template v-for="(stat, index) in status" :key="index">
             <span>{{ stat.label }}</span>
             <input type="number" min="0" max="252" step="4" v-model="stat.ev" @change="handleChangeStatus">
@@ -79,15 +108,7 @@ const handleChangeStatus = () => {
     </div>
     <div>
         <div>もちもの</div>
-        <SelectItem :selectedItem="props.pokemon.pokemon.selectedItem" @changeItem="handleChangeItem" />
-        <span>
-            (
-            <template v-for="st in props.pokemon.pokemon.selectedItem.status">
-                {{ st + " " }}
-            </template>
-            {{ props.pokemon.pokemon.selectedItem.boost }}倍
-            )
-        </span>
+        <SelectItem :pokemon="props.pokemon" />
     </div>
 </template>
 

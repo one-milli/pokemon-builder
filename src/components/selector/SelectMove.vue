@@ -1,28 +1,24 @@
 <script setup>
-import { computed, inject, ref } from 'vue'
 
 const props = defineProps({
-    selectedMoveId: Number
+    pokemon: Object,
 })
 
-const allMoves = inject('allMoves')
-const selectedMoveId = ref(props.selectedMoveId)
-
-const emit = defineEmits()
-const selectedMove = computed({
-    get: () => props.selectedMoveId,
-    set: (value) => {
-        selectedMoveId.value = value;
-        emit('changeMove', value);
-    }
-})
+const moves = [
+    'Tackle',
+    'Tail Whip',
+    'Water Gun',
+    'Focus Blast',
+]
 
 </script>
 
 <template>
     <div>
-        <select v-model="selectedMove">
-            <option v-for="move in allMoves" :key="move.id" :value="move.id">{{ move.label }}</option>
+        <select v-model="props.pokemon.pokemon.moveIds.slot1">
+            <option v-for="(move, index) in moves" :key="index" :value="move">
+                {{ move }}
+            </option>
         </select>
     </div>
 </template>

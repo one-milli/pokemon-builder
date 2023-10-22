@@ -1,31 +1,50 @@
 <script setup>
 import { onMounted, computed, ref } from 'vue'
+import { calculate, Generations, Pokemon, Move } from '@smogon/calc'
 
 const props = defineProps({
     attacker: Object,
     defender: Object,
     move: Object,
-    attackerStatusRank: Object,
-    defenderStatusRank: Object,
+    attackerBoost: Object,
+    defenderBoost: Object,
 })
 
-const attackerAttack = computed(() => {
-    return props.attacker.pokemon.status[1].calc * (props.attackerStatusRank.A + 2) / 2
-})
-const defenderDefense = computed(() => {
-    return props.defender.pokemon.status[2].calc * (props.defenderStatusRank.D + 2) / 2
+const attacker = props.attacker.pokemon
+const defender = props.defender.pokemon
+const move = props.move.label
+
+const gen = Generations.get(5);
+const result = computed(() => {
+    return calculate(
+        gen,
+        new Pokemon(gen, attacker.name, {
+            item: attacker.item,
+            nature: attacker.nature,
+            evs: attacker.evs,
+            boosts: props.attackerBoost,
+            level: attacker.level,
+        }),
+        new Pokemon(gen, defender.name, {
+            item: defender.item,
+            nature: defender.nature,
+            evs: defender.evs,
+            boosts: props.defenderBoost,
+            level: defender.level,
+        }),
+        new Move(gen, move)
+    )
 })
 
 const maxDamage = computed(() => {
-    //fix
-    return Math.floor(Math.floor(Math.floor(props.attacker.pokemon.level * 2 / 5 + 2) * props.move.power * attackerAttack.value / defenderDefense.value) / 50 + 2)
+    return Math.max(...result.value.damage)
 })
 const minDamage = computed(() => {
-    return Math.floor(maxDamage.value * 0.85)
+    return Math.min(...result.value.damage)
 })
 
 const maxHp = computed(() => {
-    return props.defender.pokemon.status[0].calc
+    return result.value.defender.rawStats.hp
 })
 
 const hpPercentage = computed(() => {
@@ -56,7 +75,7 @@ const gaugeColorClass = computed(() => {
     </div>
     <span>{{ String(minDamage) + "~" + String(maxDamage) + " / " + String(maxHp) }}</span>
     <span>&nbsp;</span>
-    <span>({{ String(Math.floor(100 * minDamage / maxHp)) + "~" + String(Math.floor(100 * maxDamage / maxHp))
+    <span>({{ String(Math.floor(1000 * minDamage / maxHp) / 10) + "~" + String(Math.floor(1000 * maxDamage / maxHp) / 10)
         + "%" }})</span>
 </template>
 

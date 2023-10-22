@@ -6,55 +6,30 @@ export const useMyPokemonsStore = defineStore("myPokemons", {
       {
         id: 0,
         pokemon: {
-          id: 445,
-          name: "ガブリアス",
+          pid: 445,
+          name: "garchomp",
           level: 50,
-          status: [
-            { label: "H", calc: 0, base: 108, ev: 0, iv: 31 },
-            { label: "A", calc: 0, base: 130, ev: 0, iv: 31 },
-            { label: "B", calc: 0, base: 95, ev: 0, iv: 31 },
-            { label: "C", calc: 0, base: 80, ev: 0, iv: 31 },
-            { label: "D", calc: 0, base: 85, ev: 0, iv: 31 },
-            { label: "S", calc: 0, base: 102, ev: 0, iv: 31 },
-          ],
-          abilities: [
-            { label: "すながくれ", type: 0 },
-            { label: "さめはだ", type: 0 },
-          ],
-          selectedAbility: { label: "さめはだ", type: 0 },
-          selectedItem: {
-            label: "いのちのたま",
-            status: ["A", "C"],
-            boost: 1.3,
-            conditionId: 1,
-          },
-          selectedNature: { label: "いじっぱり", boost: "A", drop: "C" },
+          nature: "adamant",
+          evs: { hp: 0, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 },
+          ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
+          item: "choice scarf",
+          abilityId: 0,
           moveIds: { slot1: 1, slot2: 2, slot3: 3, slot4: 4 },
         },
       },
       {
         id: 1,
         pokemon: {
-          name: "クレセリア",
+          pid: 488,
+          name: "cresselia",
           level: 50,
-          status: [
-            { label: "H", base: 120, ev: 0, iv: 31 },
-            { label: "A", base: 70, ev: 0, iv: 31 },
-            { label: "B", base: 110, ev: 0, iv: 31 },
-            { label: "C", base: 75, ev: 0, iv: 31 },
-            { label: "D", base: 120, ev: 0, iv: 31 },
-            { label: "S", base: 85, ev: 0, iv: 31 },
-          ],
-          abilities: [{ label: "ふゆう", type: 1 }],
-          selectedAbility: { label: "ふゆう", type: 1 },
-          selectedItem: {
-            label: "とつげきチョッキ",
-            status: ["D"],
-            boost: 1.5,
-            conditionId: 1,
-          },
-          selectedNature: { label: "ずぶとい", boost: "B", drop: "A" },
+          nature: "bold",
+          evs: { hp: 252, atk: 0, def: 252, spa: 0, spd: 0, spe: 0 },
+          ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
+          item: "choice scarf",
+          abilityId: 0,
           moveIds: { slot1: 7, slot2: 2, slot3: 3, slot4: 4 },
+          statusRank: { atk: 0, def: 1, spa: 0, spd: 0, spe: 0 },
         },
       },
     ],
@@ -73,18 +48,7 @@ export const useMyPokemonsStore = defineStore("myPokemons", {
         ) * natureMag
       );
     },
-    updateStatus(id) {
-      this.myPokemons[id].pokemon.status.forEach((status) => {
-        status.calc = this.calcStatus(
-          status.label,
-          status.base,
-          status.ev,
-          status.iv,
-          this.myPokemons[id].pokemon.level,
-          this.myPokemons[id].pokemon.selectedNature
-        );
-      });
-    },
+    updateStatus(id) {},
     handleChangeMove(newMove, slot, id) {
       this.myPokemons[id].pokemon.moveIds["slot" + slot] = newMove;
     },
