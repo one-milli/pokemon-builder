@@ -5,13 +5,14 @@ const props = defineProps({
     pokemon: Object,
 });
 
-const items = [
+const items = ref([
     'choice band',
     'choice specs',
     'choice scarf',
     'life orb',
     'leftovers',
-]
+])
+
 </script>
 
 <template>

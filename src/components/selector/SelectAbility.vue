@@ -17,14 +17,10 @@ const pokemon = new Pokemon(gen, props.pokemon.pokemon.name, {
 
 const abilities = pokemon.species.abilities
 
-const emit = defineEmits();
-const handleChangeAbility = () => {
-    emit("changeAbility");
-};
 </script>
 
 <template>
-    <select v-model="props.pokemon.pokemon.abilityId" @change="handleChangeAbility">
+    <select v-model="props.pokemon.pokemon.abilityId">
         <option v-for="(value, key, index) in abilities" :key="key" :value="key">
             {{ value }}
         </option>

@@ -1,18 +1,11 @@
 <script setup>
 import { computed, inject, onMounted, ref } from 'vue'
 import SelectMove from './selector/SelectMove.vue'
-import { useMyPokemonsStore } from '../store/myPokemons'
-import { useEnemyPokemonsStore } from '../store/enemyPokemons';
 import { calculate, Generations, Pokemon, Move } from '@smogon/calc'
 
 const props = defineProps({
     pokemon: Object,
-    isEnemy: Boolean,
 })
-const myPokemonsStore = useMyPokemonsStore()
-const enemyPokemonsStore = useEnemyPokemonsStore()
-const store = props.isEnemy ? enemyPokemonsStore : myPokemonsStore
-const { handleChangeMove } = store
 
 const gen = Generations.get(9)
 const getMoveType = (moveName) => {

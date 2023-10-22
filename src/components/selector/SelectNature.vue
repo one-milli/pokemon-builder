@@ -29,14 +29,10 @@ const natures = ref([
     'serious',
 ])
 
-const emit = defineEmits()
-const handleChangeNature = () => {
-    emit('changeNature')
-}
 </script>
 
 <template>
-    <select v-model="props.pokemon.pokemon.nature" @change="handleChangeNature">
+    <select v-model="props.pokemon.pokemon.nature">
         <option v-for="(nature, index) in natures" :key="index" :value="nature">
             {{ nature }}
         </option>

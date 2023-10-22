@@ -1,21 +1,9 @@
 <script setup>
 import { computed, inject, onMounted, ref } from 'vue'
 import PokemonStatus from './PokemonStatus.vue'
-import { useMyPokemonsStore } from '../store/myPokemons'
-import { useEnemyPokemonsStore } from '../store/enemyPokemons';
 
 const props = defineProps({
     pokemon: Object,
-    isEnemy: Boolean,
-})
-
-const myPokemonsStore = useMyPokemonsStore()
-const enemyPokemonsStore = useEnemyPokemonsStore()
-const store = props.isEnemy ? enemyPokemonsStore : myPokemonsStore
-const { updateStatus } = store
-
-onMounted(() => {
-    updateStatus(props.pokemon.id)
 })
 
 const iconSrc = computed(() => {
@@ -29,8 +17,7 @@ const iconSrc = computed(() => {
             <img :src="iconSrc" :alt="props.pokemon.pokemon.name">
         </div>
         <div class="details">
-            <PokemonStatus :pokemon="props.pokemon" :isEnemy="props.isEnemy"
-                @changeStatus="updateStatus(props.pokemon.id)" />
+            <PokemonStatus :pokemon="props.pokemon" />
             <slot></slot>
         </div>
         <div class="icon">

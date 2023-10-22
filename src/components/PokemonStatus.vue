@@ -3,42 +3,16 @@ import { computed, ref } from 'vue'
 import SelectAbility from './selector/SelectAbility.vue';
 import SelectItem from './selector/SelectItem.vue'
 import SelectNature from './selector/SelectNature.vue'
-import { useMyPokemonsStore } from '../store/myPokemons'
-import { useEnemyPokemonsStore } from '../store/enemyPokemons';
 import { calculate, Generations, Pokemon, Move } from '@smogon/calc'
 
 const props = defineProps({
     pokemon: Object,
-    isEnemy: Boolean,
 })
-
-const myPokemonsStore = useMyPokemonsStore()
-const enemyPokemonsStore = useEnemyPokemonsStore()
-const store = props.isEnemy ? enemyPokemonsStore : myPokemonsStore
-const { updateStatus } = store
-
-const status = ref(props.pokemon.pokemon.status)
 
 const evsTotal = computed(() => {
     const stats = Object.values(props.pokemon.pokemon.evs)
     return stats.reduce((sum, val) => sum + val, 0)
 })
-
-const handleChangeNature = (newNature) => {
-    props.pokemon.pokemon.selectedNature = newNature
-    updateStatus(props.pokemon.id)
-}
-const handleChangeItem = (newItem) => {
-    props.pokemon.pokemon.selectedItem = newItem
-}
-const handleChangeAbility = (newAbility) => {
-    props.pokemon.pokemon.selectedAbility = newAbility
-}
-
-const emit = defineEmits(['changeStatus'])
-const handleChangeStatus = () => {
-    emit('changeStatus')
-}
 
 const gen = Generations.get(9)
 const pokemon = computed(() => {
@@ -56,13 +30,12 @@ const pokemon = computed(() => {
     <div class="name">{{ props.pokemon.pokemon.name }}</div>
     <div class="segment">
         <div>
-            Lv.<input type="number" min="0" max="100" v-model="props.pokemon.pokemon.level"
-                @change="updateStatus(props.pokemon.id)">
+            Lv.<input type="number" min="0" max="100" v-model="props.pokemon.pokemon.level">
         </div>
         <div>性格</div>
-        <SelectNature :pokemon="props.pokemon" @changeNature="handleChangeNature" />
+        <SelectNature :pokemon="props.pokemon" />
         <div>特性</div>
-        <SelectAbility :pokemon="props.pokemon" @changeAbility="handleChangeAbility" />
+        <SelectAbility :pokemon="props.pokemon" />
     </div>
     <div class="segment">
         <div>種族値</div>
@@ -83,25 +56,20 @@ const pokemon = computed(() => {
     <div class="segment">
         <div>努力値</div>
         <span>H</span>
-        <input type="number" min="0" max="252" step="4" v-model="props.pokemon.pokemon.evs.hp" @change="handleChangeStatus">
+        <input type="number" min="0" max="252" step="4" v-model="props.pokemon.pokemon.evs.hp">
         <span>A</span>
-        <input type="number" min="0" max="252" step="4" v-model="props.pokemon.pokemon.evs.atk"
-            @change="handleChangeStatus">
+        <input type="number" min="0" max="252" step="4" v-model="props.pokemon.pokemon.evs.atk">
         <span>B</span>
-        <input type="number" min="0" max="252" step="4" v-model="props.pokemon.pokemon.evs.def"
-            @change="handleChangeStatus">
+        <input type="number" min="0" max="252" step="4" v-model="props.pokemon.pokemon.evs.def">
         <span>C</span>
-        <input type="number" min="0" max="252" step="4" v-model="props.pokemon.pokemon.evs.spa"
-            @change="handleChangeStatus">
+        <input type="number" min="0" max="252" step="4" v-model="props.pokemon.pokemon.evs.spa">
         <span>D</span>
-        <input type="number" min="0" max="252" step="4" v-model="props.pokemon.pokemon.evs.spd"
-            @change="handleChangeStatus">
+        <input type="number" min="0" max="252" step="4" v-model="props.pokemon.pokemon.evs.spd">
         <span>S</span>
-        <input type="number" min="0" max="252" step="4" v-model="props.pokemon.pokemon.evs.spe"
-            @change="handleChangeStatus">
+        <input type="number" min="0" max="252" step="4" v-model="props.pokemon.pokemon.evs.spe">
         <template v-for="(stat, index) in status" :key="index">
             <span>{{ stat.label }}</span>
-            <input type="number" min="0" max="252" step="4" v-model="stat.ev" @change="handleChangeStatus">
+            <input type="number" min="0" max="252" step="4" v-model="stat.ev">
         </template>
         <span class="totalEv">合計{{ evsTotal }}</span>
         <span class="remainEv">余り{{ 510 - evsTotal }}</span>
