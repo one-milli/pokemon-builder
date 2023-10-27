@@ -48,14 +48,16 @@ onMounted(async () => {
 </script>
 
 <template>
-  <PokemonCard :pokemon="myPokemons[myPokemonId]">
-    <FourMoves :pokemon="myPokemons[myPokemonId]" />
-  </PokemonCard>
-  <h2>VS</h2>
-  <template v-for="enemyPokemon in enemyPokemons">
-    <PokemonCard :pokemon="enemyPokemon">
-      <FourMoves :pokemon="enemyPokemon" />
-      <DamageCalculation :myPokemon="myPokemons[myPokemonId]" :enemyPokemon="enemyPokemon" />
+  <div class="m-auto">
+    <PokemonCard :pokemon="myPokemons[myPokemonId]">
+      <FourMoves :pokemon="myPokemons[myPokemonId]" />
     </PokemonCard>
-  </template>
+    <h2>VS</h2>
+    <template v-for="enemyPokemon in enemyPokemons">
+      <PokemonCard :pokemon="enemyPokemon">
+        <FourMoves :pokemon="enemyPokemon" />
+        <DamageCalculation :myPokemon="myPokemons[myPokemonId]" :enemyPokemon="enemyPokemon" />
+      </PokemonCard>
+    </template>
+  </div>
 </template>
