@@ -12,11 +12,11 @@ const iconSrc = computed(() => {
 </script>
 
 <template>
-    <div class="mypokemon">
-        <div class="icon">
+    <div class="flex border-2 rounded-xl m-10 p-4 text-left">
+        <div class="m-2">
             <img :src="iconSrc" :alt="props.pokemon.pokemon.name">
         </div>
-        <div class="details">
+        <div class="m-2">
             <PokemonStatus :pokemon="props.pokemon" />
             <slot></slot>
         </div>
@@ -24,41 +24,3 @@ const iconSrc = computed(() => {
         </div>
     </div>
 </template>
-
-<style scoped>
-div {
-    text-align: left;
-}
-
-span {
-    margin: 0 5px;
-}
-
-.mypokemon {
-    display: flex;
-    flex-direction: row;
-    margin: 3em;
-    padding: 1em;
-    border: solid;
-}
-
-.icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 150px;
-    height: 150px;
-    color: #fff;
-    line-height: 50px;
-    font-size: 30px;
-}
-
-.icon img {
-    width: 120px;
-    height: 120px;
-}
-
-.details input {
-    width: 4em;
-}
-</style>

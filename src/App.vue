@@ -52,7 +52,7 @@ onMounted(async () => {
     <PokemonCard :pokemon="myPokemons[myPokemonId]">
       <FourMoves :pokemon="myPokemons[myPokemonId]" />
     </PokemonCard>
-    <h2>VS</h2>
+    <div class="text-2xl font-bold">VS</div>
     <template v-for="enemyPokemon in enemyPokemons">
       <PokemonCard :pokemon="enemyPokemon">
         <FourMoves :pokemon="enemyPokemon" />

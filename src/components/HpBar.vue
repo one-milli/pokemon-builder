@@ -64,18 +64,18 @@ const minDamagePercentage = computed(() => {
 
 const gaugeColorClass = computed(() => {
     if ((maxHp.value - maxDamage.value) / maxHp.value >= 0.5)
-        return "gauge-bar current-hp safe"
+        return "absolute h-full right-0 z-0 rounded bg-green-600"
     else if ((maxHp.value - maxDamage.value) / maxHp.value >= 0.2)
-        return "gauge-bar current-hp caution"
+        return "absolute h-full right-0 z-0 rounded bg-yellow-400"
     else
-        return "gauge-bar current-hp danger"
+        return "absolute h-full right-0 z-0 rounded bg-red-600"
 }) 
 </script>
 
 <template>
-    <div class="gauge-container">
-        <div class="gauge-bar max-damage" :style="{ width: maxDamagePercentage }"></div>
-        <div class="gauge-bar min-damage" :style="{ width: minDamagePercentage }"></div>
+    <div class="w-40 h-5 mx-2 my-1 relative">
+        <div class="absolute h-full right-0 bg-gray-500 z-10 rounded-r" :style="{ width: maxDamagePercentage }"></div>
+        <div class="absolute h-full right-0 bg-white z-20 rounded-r" :style="{ width: minDamagePercentage }"></div>
         <div :class="gaugeColorClass" :style="{ width: hpPercentage }"></div>
     </div>
     <span>{{ String(minDamage) + "~" + String(maxDamage) + " / " + String(maxHp) }}</span>
@@ -83,49 +83,3 @@ const gaugeColorClass = computed(() => {
     <span>({{ String(Math.floor(1000 * minDamage / maxHp) / 10) + "~" + String(Math.floor(1000 * maxDamage / maxHp) / 10)
         + "%" }})</span>
 </template>
-
-<style scoped>
-.gauge-container {
-    width: 200px;
-    height: 20px;
-    margin: 3px 10px;
-    background-color: #ddd;
-    position: relative;
-    border-radius: 6px;
-}
-
-.gauge-bar {
-    height: 100%;
-    position: absolute;
-    right: 0;
-}
-
-.max-damage {
-    background-color: gray;
-    z-index: 9;
-    border-radius: 0 4px 4px 0;
-}
-
-.min-damage {
-    background-color: white;
-    z-index: 10;
-    border-radius: 0 4px 4px 0;
-}
-
-.current-hp {
-    z-index: 8;
-    border-radius: 3px;
-}
-
-.safe {
-    background-color: green;
-}
-
-.caution {
-    background-color: yellow;
-}
-
-.danger {
-    background-color: red;
-}
-</style>
