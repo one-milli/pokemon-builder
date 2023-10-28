@@ -12,15 +12,15 @@ const iconSrc = computed(() => {
 </script>
 
 <template>
-    <div class="flex border-2 rounded-xl m-10 p-4 text-left">
+    <div class="flex border-2 rounded-xl m-8 p-4 text-left">
         <div class="m-2">
-            <img :src="iconSrc" :alt="props.pokemon.pokemon.name">
+            <img :src="iconSrc" :alt="props.pokemon.pokemon.name" class="w-36">
         </div>
         <div class="m-2">
             <PokemonStatus :pokemon="props.pokemon" />
             <slot></slot>
         </div>
-        <div class="icon">
+        <div class="w-40">
         </div>
     </div>
 </template>

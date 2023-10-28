@@ -64,19 +64,35 @@ const minDamagePercentage = computed(() => {
 
 const gaugeColorClass = computed(() => {
     if ((maxHp.value - maxDamage.value) / maxHp.value >= 0.5)
-        return "absolute h-full right-0 z-0 rounded bg-green-600"
+        return "absolute w-full h-full right-0 z-0 rounded bg-green-600"
     else if ((maxHp.value - maxDamage.value) / maxHp.value >= 0.2)
-        return "absolute h-full right-0 z-0 rounded bg-yellow-400"
+        return "absolute w-full h-full right-0 z-0 rounded bg-yellow-400"
     else
-        return "absolute h-full right-0 z-0 rounded bg-red-600"
-}) 
+        return "absolute w-full h-full right-0 z-0 rounded bg-red-600"
+})
+
+const maxDamageClass = computed(() => {
+    if (Math.min(maxDamage.value / maxHp.value * 100, 100) == 100) {
+        return "absolute h-full right-0 bg-gray-500 z-10 rounded"
+    } else {
+        return "absolute h-full right-0 bg-gray-500 z-10 rounded-r"
+    }
+})
+
+const minDamageClass = computed(() => {
+    if (Math.min(minDamage.value / maxHp.value * 100, 100) == 100) {
+        return "absolute h-full right-0 bg-white z-20 rounded"
+    } else {
+        return "absolute h-full right-0 bg-white z-20 rounded-r"
+    }
+})
 </script>
 
 <template>
     <div class="w-40 h-5 mx-2 my-1 relative">
-        <div class="absolute h-full right-0 bg-gray-500 z-10 rounded-r" :style="{ width: maxDamagePercentage }"></div>
-        <div class="absolute h-full right-0 bg-white z-20 rounded-r" :style="{ width: minDamagePercentage }"></div>
-        <div :class="gaugeColorClass" :style="{ width: hpPercentage }"></div>
+        <div :class="maxDamageClass" :style="{ width: maxDamagePercentage }"></div>
+        <div :class="minDamageClass" :style="{ width: minDamagePercentage }"></div>
+        <div :class="gaugeColorClass"></div>
     </div>
     <span>{{ String(minDamage) + "~" + String(maxDamage) + " / " + String(maxHp) }}</span>
     <span>&nbsp;</span>
