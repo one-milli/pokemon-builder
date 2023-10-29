@@ -36,10 +36,10 @@ const pokemon = computed(() => {
 </script>
 
 <template>
-    <div class="text-2xl font-bold">{{ props.pokemon.pokemon.name }}</div>
+    <div class="text-2xl font-bold capitalize">{{ props.pokemon.pokemon.name }}</div>
     <div class="flex">
         <div>
-            Lv.<input type="number" min="0" max="100" v-model="props.pokemon.pokemon.level" class="w-11">
+            Lv.<input type="number" min="1" max="100" v-model="props.pokemon.pokemon.level" class="w-11">
         </div>
         <div>性格</div>
         <SelectNature :pokemon="props.pokemon" />

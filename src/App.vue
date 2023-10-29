@@ -1,11 +1,12 @@
 <script setup>
 import { onMounted, provide, computed, ref } from 'vue'
-import PokemonCard from './components/PokemonCard.vue'
-import FourMoves from './components/FourMoves.vue'
-import DamageCalculation from './components/DamageCalculation.vue'
 import { useMyPokemonsStore } from './store/myPokemons'
 import { useEnemyPokemonsStore } from './store/enemyPokemons'
 import { storeToRefs } from 'pinia'
+import MainHeader from './components/MainHeader.vue'
+import PokemonCard from './components/PokemonCard.vue'
+import FourMoves from './components/FourMoves.vue'
+import DamageCalculation from './components/DamageCalculation.vue'
 
 //DB代わり
 const myPokemonsStore = useMyPokemonsStore()
@@ -49,6 +50,8 @@ onMounted(async () => {
 
 <template>
   <div class="m-auto">
+    <MainHeader />
+    <div class="m-6">&nbsp;</div>
     <PokemonCard :pokemon="myPokemons[myPokemonId]">
       <FourMoves :pokemon="myPokemons[myPokemonId]" />
     </PokemonCard>

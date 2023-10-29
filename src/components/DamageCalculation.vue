@@ -68,11 +68,11 @@ const getMoveCategory = (moveName) => {
     </span>
     <div>与ダメージ</div>
     <div class="flex">
-        <div class="mr-5">
+        <div>
             <div class="flex" v-for="(move, index) in props.myPokemon.pokemon.moves" :key="index">
                 <div class="w-11 border rounded-md text-xxs text-center mx-2 my-0.5 py-0.5">{{ getMoveType(move) }}</div>
-                <span>{{ move }}</span>
-                <span>威力: {{ getMovePower(move) }}</span>
+                <span class="w-32">{{ move }}</span>
+                <span class="w-20">威力: {{ getMovePower(move) }}</span>
             </div>
         </div>
         <div>
@@ -84,11 +84,11 @@ const getMoveCategory = (moveName) => {
     </div>
     <div>被ダメージ</div>
     <div class="flex">
-        <div class="mr-5">
+        <div>
             <div class="flex" v-for="(move, index) in props.enemyPokemon.pokemon.moves" :key="index">
                 <div class="w-11 border rounded-md text-xxs text-center mx-2 my-0.5 py-0.5">{{ getMoveType(move) }}</div>
-                <span>{{ move }}</span>
-                <span>威力: {{ getMovePower(move) }}</span>
+                <span class="w-32">{{ move }}</span>
+                <span class="w-20">威力: {{ getMovePower(move) }}</span>
             </div>
         </div>
         <div>

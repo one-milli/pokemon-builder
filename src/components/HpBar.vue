@@ -89,12 +89,12 @@ const minDamageClass = computed(() => {
 </script>
 
 <template>
-    <div class="w-40 h-5 mx-2 my-1 relative">
+    <div class="w-40 h-5 mx-3 my-1 relative">
         <div :class="maxDamageClass" :style="{ width: maxDamagePercentage }"></div>
         <div :class="minDamageClass" :style="{ width: minDamagePercentage }"></div>
         <div :class="gaugeColorClass"></div>
     </div>
-    <span>{{ String(minDamage) + "~" + String(maxDamage) + " / " + String(maxHp) }}</span>
+    <span class="w-28">{{ String(minDamage) + "~" + String(maxDamage) + " / " + String(maxHp) }}</span>
     <span>&nbsp;</span>
     <span>({{ String(Math.floor(1000 * minDamage / maxHp) / 10) + "~" + String(Math.floor(1000 * maxDamage / maxHp) / 10)
         + "%" }})</span>
