@@ -1,5 +1,5 @@
 <script setup>
-import { computed, inject, onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import HpBar from './HpBar.vue';
 import { calculate, Generations, Pokemon, Move } from '@smogon/calc'
 

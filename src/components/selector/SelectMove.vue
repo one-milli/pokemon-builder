@@ -14,6 +14,9 @@ const moves = [
     'dragon claw',
     'fire blast',
     'stone edge',
+    'ice beam',
+    'moonblast',
+    'psychic',
 ]
 
 </script>

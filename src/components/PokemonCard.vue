@@ -12,7 +12,7 @@ const iconSrc = computed(() => {
 </script>
 
 <template>
-    <div class="flex border-2 rounded-xl m-8 p-4 text-left">
+    <div class="flex border-2 rounded-xl p-4 text-left w-3/5 mx-auto my-6">
         <div class="m-2">
             <img :src="iconSrc" :alt="props.pokemon.pokemon.name" class="w-36">
         </div>

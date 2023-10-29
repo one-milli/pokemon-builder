@@ -49,7 +49,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="m-auto">
+  <div class="mx-auto">
     <MainHeader />
     <div class="m-6">&nbsp;</div>
     <PokemonCard :pokemon="myPokemons[myPokemonId]">
