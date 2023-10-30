@@ -3,6 +3,7 @@ import { computed, onMounted, ref } from 'vue'
 import HpBar from './HpBar.vue';
 import { calculate, Generations, Pokemon, Move } from '@smogon/calc'
 import TypeTranslate from '../translate/TypeTranslate'
+import MoveCategoryTranslate from '../translate/MoveCategoryTranslate'
 
 const props = defineProps({
     myPokemon: Object,
@@ -35,7 +36,7 @@ const getMovePower = (moveName) => {
 }
 const getMoveCategory = (moveName) => {
     const move = new Move(gen, moveName)
-    return move.category
+    return MoveCategoryTranslate[move.category]
 }
 </script>
 
@@ -71,7 +72,9 @@ const getMoveCategory = (moveName) => {
     <div class="flex">
         <div>
             <div class="flex" v-for="(move, index) in props.myPokemon.pokemon.moves" :key="index">
-                <div class="w-11 border rounded-md text-xxs text-center mx-2 my-0.5 py-0.5">{{ getMoveType(move) }}</div>
+                <div class="w-11 border rounded-md text-xxs text-center mx-1 my-0.5 py-0.5">{{ getMoveType(move) }}</div>
+                <div class="w-11 border rounded-md text-xxs text-center mx-1 my-0.5 py-0.5">{{ getMoveCategory(move) }}
+                </div>
                 <span class="w-32">{{ move }}</span>
                 <span class="w-20">威力: {{ getMovePower(move) }}</span>
             </div>
@@ -87,7 +90,9 @@ const getMoveCategory = (moveName) => {
     <div class="flex">
         <div>
             <div class="flex" v-for="(move, index) in props.enemyPokemon.pokemon.moves" :key="index">
-                <div class="w-11 border rounded-md text-xxs text-center mx-2 my-0.5 py-0.5">{{ getMoveType(move) }}</div>
+                <div class="w-11 border rounded-md text-xxs text-center mx-1 my-0.5 py-0.5">{{ getMoveType(move) }}</div>
+                <div class="w-11 border rounded-md text-xxs text-center mx-1 my-0.5 py-0.5">{{ getMoveCategory(move) }}
+                </div>
                 <span class="w-32">{{ move }}</span>
                 <span class="w-20">威力: {{ getMovePower(move) }}</span>
             </div>
