@@ -2,6 +2,7 @@
 import { computed, onMounted, ref } from 'vue'
 import HpBar from './HpBar.vue';
 import { calculate, Generations, Pokemon, Move } from '@smogon/calc'
+import TypeTranslate from '../translate/TypeTranslate'
 
 const props = defineProps({
     myPokemon: Object,
@@ -26,7 +27,7 @@ const enemyStatusRank = ref({
 const gen = Generations.get(9)
 const getMoveType = (moveName) => {
     const move = new Move(gen, moveName)
-    return move.type
+    return TypeTranslate[move.type]
 }
 const getMovePower = (moveName) => {
     const move = new Move(gen, moveName)

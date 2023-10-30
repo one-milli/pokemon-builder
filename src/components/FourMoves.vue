@@ -2,6 +2,7 @@
 import { computed, inject, onMounted, ref } from 'vue'
 import SelectMove from './selector/SelectMove.vue'
 import { calculate, Generations, Pokemon, Move } from '@smogon/calc'
+import TypeTranslate from '../translate/TypeTranslate'
 
 const props = defineProps({
     pokemon: Object,
@@ -10,7 +11,7 @@ const props = defineProps({
 const gen = Generations.get(9)
 const getMoveType = (moveName) => {
     const move = new Move(gen, moveName)
-    return move.type
+    return TypeTranslate[move.type]
 }
 const getMovePower = (moveName) => {
     const move = new Move(gen, moveName)
