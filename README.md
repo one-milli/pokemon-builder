@@ -1,7 +1,5 @@
 # pokemon-builder
 
-## TODO
+## デモページ
 
-- ダメージ計算ロジック
-- ルーティング
-- DB 接続
+https://one-milli.github.io/pokemon-builder/
