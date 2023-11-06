@@ -1,31 +1,26 @@
 <script setup>
+import { onMounted, ref } from 'vue';
 
 const props = defineProps({
     pokemon: Object,
     slot: String,
 })
 
-const moves = [
-    'tackle',
-    'tail whip',
-    'water gun',
-    'focus blast',
-    'earthquake',
-    'dragon claw',
-    'fire blast',
-    'stone edge',
-    'ice beam',
-    'moonblast',
-    'psychic',
-]
+const moves = ref(null)
+
+onMounted(async () => {
+    const response = await fetch('https://pokeapi.co/api/v2/pokemon/' + props.pokemon.pokemon.name)
+    const result = await response.json()
+    moves.value = result.moves
+})
 
 </script>
 
 <template>
     <div>
         <select v-model="props.pokemon.pokemon.moves[props.slot]">
-            <option v-for="(move, index) in moves" :key="index" :value="move">
-                {{ move }}
+            <option v-for="(move, index) in moves" :key="index" :value="move.move.name">
+                {{ move.move.name }}
             </option>
         </select>
     </div>
