@@ -2,6 +2,7 @@
 import { computed, onMounted, ref } from 'vue'
 import HpBar from './HpBar.vue';
 import { calculate, Generations, Pokemon, Move } from '@smogon/calc'
+import PokemonMoveTranslate from '../translate/PokemonMoveTranslate'
 import TypeTranslate from '../translate/TypeTranslate'
 import MoveCategoryTranslate from '../translate/MoveCategoryTranslate'
 
@@ -75,7 +76,7 @@ const getMoveCategory = (moveName) => {
                 <div class="w-11 border rounded-md text-xxs text-center mx-1 my-0.5 py-0.5">{{ getMoveType(move) }}</div>
                 <div class="w-11 border rounded-md text-xxs text-center mx-1 my-0.5 py-0.5">{{ getMoveCategory(move) }}
                 </div>
-                <span class="w-32">{{ move }}</span>
+                <span class="w-32">{{ PokemonMoveTranslate[move] }}</span>
                 <span class="w-20">威力: {{ getMovePower(move) }}</span>
             </div>
         </div>
@@ -93,7 +94,7 @@ const getMoveCategory = (moveName) => {
                 <div class="w-11 border rounded-md text-xxs text-center mx-1 my-0.5 py-0.5">{{ getMoveType(move) }}</div>
                 <div class="w-11 border rounded-md text-xxs text-center mx-1 my-0.5 py-0.5">{{ getMoveCategory(move) }}
                 </div>
-                <span class="w-32">{{ move }}</span>
+                <span class="w-32">{{ PokemonMoveTranslate[move] }}</span>
                 <span class="w-20">威力: {{ getMovePower(move) }}</span>
             </div>
         </div>
