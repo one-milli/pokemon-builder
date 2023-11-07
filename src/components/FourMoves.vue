@@ -72,8 +72,8 @@ const getTypeColor = (moveName) => {
 </script>
 
 <template>
-    <div>
-        <div class="flex" v-for="(move, key, index) in props.pokemon.pokemon.moves" :key="index">
+    <div class="grid grid-cols-2">
+        <div class="flex mb-1" v-for="(move, key, index) in props.pokemon.pokemon.moves" :key="index">
             <div class="w-11 border rounded-md text-xxs text-center mx-1 my-0.5 py-0.5" :class="getTypeColor(move)">{{
                 getMoveType(move) }}</div>
             <div class="w-11 border rounded-md text-xxs text-center mx-1 my-0.5 py-0.5">{{ getMoveCategory(move) }}

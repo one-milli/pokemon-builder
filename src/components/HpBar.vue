@@ -80,7 +80,7 @@ const maxDamageClass = computed(() => {
 })
 
 const minDamageClass = computed(() => {
-    if (Math.min(minDamage.value / maxHp.value * 100, 100) == 100) {
+    if (Math.min(minDamage.value / maxHp.value * 100, 99) == 99) {
         return "absolute h-full right-0 bg-white z-20 rounded"
     } else {
         return "absolute h-full right-0 bg-white z-20 rounded-r"
@@ -94,8 +94,12 @@ const minDamageClass = computed(() => {
         <div :class="minDamageClass" :style="{ width: minDamagePercentage }"></div>
         <div :class="gaugeColorClass"></div>
     </div>
-    <span class="w-28">{{ String(minDamage) + "~" + String(maxDamage) + " / " + String(maxHp) }}</span>
-    <span>&nbsp;</span>
-    <span>({{ String(Math.floor(1000 * minDamage / maxHp) / 10) + "~" + String(Math.floor(1000 * maxDamage / maxHp) / 10)
-        + "%" }})</span>
+    <span v-if="maxDamage == 0">ダメージなし</span>
+    <span v-else>
+        <span class="w-28">{{ String(minDamage) + "~" + String(maxDamage) + " / " + String(maxHp) }}</span>
+        <span>&nbsp;</span>
+        <span>({{ String(Math.floor(1000 * minDamage / maxHp) / 10) + "~" + String(Math.floor(1000 * maxDamage / maxHp) /
+            10)
+            + "%" }})</span>
+    </span>
 </template>

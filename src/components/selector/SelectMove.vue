@@ -18,7 +18,7 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div>
+    <div class="mx-1">
         <select v-model="props.pokemon.pokemon.moves[props.slot]">
             <option v-for="(move, index) in moves" :key="index" :value="move.move.name">
                 {{ PokemonMoveTranslate[move.move.name] }}

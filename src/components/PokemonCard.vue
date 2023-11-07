@@ -27,10 +27,10 @@ const pokemon = computed(() => {
 <template>
     <div class="flex justify-between border-2 rounded-xl p-4 text-left w-2/3 mx-auto my-6">
         <div class="flex justify-start m-2 w-full">
-            <div class="m-2">
-                <img :src="iconSrc" :alt="props.pokemon.pokemon.name" class="w-36">
+            <div class="w-1/4">
+                <img :src="iconSrc" :alt="props.pokemon.pokemon.name" class="w-40">
             </div>
-            <div>
+            <div class="w-full">
                 <PokemonStatus :pokemon="props.pokemon" />
                 <slot></slot>
             </div>

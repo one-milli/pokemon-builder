@@ -37,7 +37,7 @@ const pokemon = computed(() => {
 </script>
 
 <template>
-    <div class="flex">
+    <div class="flex mb-1">
         <div class="text-2xl font-bold">{{ PokemonNameTranslate[props.pokemon.pokemon.name] }}</div>
         <div class="ml-4 mt-1">(
             <template v-for="(stat, key, index) in pokemon.species.baseStats" :key="index">
@@ -46,25 +46,18 @@ const pokemon = computed(() => {
             )
         </div>
     </div>
-    <div class="flex">
+    <div class="flex mb-1">
         <div>
             Lv.<input type="number" min="1" max="100" v-model="props.pokemon.pokemon.level" class="w-11">
         </div>
-        <div>性格</div>
+        <div class="ml-2">性格</div>
         <SelectNature :pokemon="props.pokemon" />
-        <div>特性</div>
+        <div class="ml-2">特性</div>
         <SelectAbility :pokemon="props.pokemon" />
-        <div>持ち物</div>
+        <div class="ml-2">持ち物</div>
         <SelectItem :pokemon="props.pokemon" />
     </div>
-    <div class="flex">
-        <div>種族値</div>
-        <template v-for="(stat, key, index) in pokemon.species.baseStats" :key="index">
-            <span class="mx-1">{{ labelConversion[key] }} :</span>
-            <span class="w-8">{{ stat }}</span>
-        </template>
-    </div>
-    <div class="flex">
+    <div class="flex mb-1">
         <div>努力値</div>
         <span class="mx-1">H</span>
         <input type="number" min="0" max="252" step="4" v-model="props.pokemon.pokemon.evs.hp" class="w-12">
