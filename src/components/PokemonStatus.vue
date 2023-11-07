@@ -46,6 +46,8 @@ const pokemon = computed(() => {
         <SelectNature :pokemon="props.pokemon" />
         <div>特性</div>
         <SelectAbility :pokemon="props.pokemon" />
+        <div>持ち物</div>
+        <SelectItem :pokemon="props.pokemon" />
     </div>
     <div class="flex">
         <div>種族値</div>
@@ -79,9 +81,5 @@ const pokemon = computed(() => {
         <input type="number" min="0" max="252" step="4" v-model="props.pokemon.pokemon.evs.spe" class="w-12">
         <span class="w-16 mx-1">合計{{ evsTotal }}</span>
         <span class="w-16 mx-1">余り{{ 510 - evsTotal }}</span>
-    </div>
-    <div class="flex">
-        <div class="mr-2">もちもの</div>
-        <SelectItem :pokemon="props.pokemon" />
     </div>
 </template>
