@@ -37,7 +37,15 @@ const pokemon = computed(() => {
 </script>
 
 <template>
-    <div class="text-2xl font-bold">{{ PokemonNameTranslate[props.pokemon.pokemon.name] }}</div>
+    <div class="flex">
+        <div class="text-2xl font-bold">{{ PokemonNameTranslate[props.pokemon.pokemon.name] }}</div>
+        <div class="ml-4 mt-1">(
+            <template v-for="(stat, key, index) in pokemon.species.baseStats" :key="index">
+                <span class="mx-1">{{ stat }}</span>
+            </template>
+            )
+        </div>
+    </div>
     <div class="flex">
         <div>
             Lv.<input type="number" min="1" max="100" v-model="props.pokemon.pokemon.level" class="w-11">
