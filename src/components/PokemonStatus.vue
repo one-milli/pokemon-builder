@@ -1,9 +1,10 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import SelectAbility from './selector/SelectAbility.vue';
 import SelectItem from './selector/SelectItem.vue'
 import SelectNature from './selector/SelectNature.vue'
 import { calculate, Generations, Pokemon, Move } from '@smogon/calc'
+import PokemonNameTranslate from '../translate/PokemonNameTranslate'
 
 const props = defineProps({
     pokemon: Object,
@@ -36,7 +37,7 @@ const pokemon = computed(() => {
 </script>
 
 <template>
-    <div class="text-2xl font-bold capitalize">{{ props.pokemon.pokemon.name }}</div>
+    <div class="text-2xl font-bold">{{ PokemonNameTranslate[props.pokemon.pokemon.name] }}</div>
     <div class="flex">
         <div>
             Lv.<input type="number" min="1" max="100" v-model="props.pokemon.pokemon.level" class="w-11">
