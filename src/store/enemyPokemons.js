@@ -50,7 +50,7 @@ export const useEnemyPokemonsStore = defineStore("enemyPokemons", {
           name: "emboar",
           level: 50,
           nature: "timid",
-          evs: { hp: 144, atk: 252, def: 60, spa: 0, spd: 0, spe: 52 },
+          evs: { hp: 144, atk: 0, def: 60, spa: 252, spd: 0, spe: 52 },
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
           item: "Choice Specs",
           abilityId: 0,
