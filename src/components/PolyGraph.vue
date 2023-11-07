@@ -6,7 +6,8 @@ import { valueToPoint } from '../util.js'
 
 const props = defineProps({
     values: Object,
-    className: String
+    className: String,
+    nature: String,
 })
 
 const originX = 120
@@ -59,13 +60,13 @@ const labelConversion = {
 <template>
     <g>
         <polygon :points="points" :class="props.className" />
-        <circle :cx="originX" :cy="originY" :r="radius" class="fill-transparent stroke-gray-500" />
+        <circle :cx="originX" :cy="originY" :r="radius" class="fill-transparent stroke-gray-300" />
         <AxisLabel v-for="(val, key, index) in orderedValues" :index="index" :key="index" :originX="originX"
             :originY="originY" :label="key">
             {{ labelConversion[key] }}
         </AxisLabel>
         <AxisLabelValue v-if="props.className == 'rv'" v-for="(val, key, index) in orderedValues" :index="index"
-            :key="index" :originX="originX" :originY="originY" :label="key">
+            :key="index" :originX="originX" :originY="originY" :label="key" :nature="props.nature">
             {{ val }}
         </AxisLabelValue>
     </g>

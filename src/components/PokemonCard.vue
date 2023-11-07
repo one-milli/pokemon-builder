@@ -37,8 +37,8 @@ const pokemon = computed(() => {
         </div>
         <div class="w-64">
             <svg width="250" height="270" class="mt-2">
-                <PolyGraph :values="pokemon.rawStats" :className="'rv'" />
-                <PolyGraph :values="props.pokemon.pokemon.evs" :className="'ev'" />
+                <PolyGraph :values="pokemon.rawStats" :className="'rv'" :nature="props.pokemon.pokemon.nature" />
+                <PolyGraph :values="props.pokemon.pokemon.evs" :className="'ev'" :nature="props.pokemon.pokemon.nature" />
             </svg>
         </div>
     </div>
