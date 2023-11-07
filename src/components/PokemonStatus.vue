@@ -57,15 +57,6 @@ const pokemon = computed(() => {
         </template>
     </div>
     <div class="flex">
-        <div>実数値</div>
-        <span class="mx-1">H :</span><span class="w-8">{{ pokemon.rawStats.hp }}</span>
-        <span class="mx-1">A :</span><span class="w-8">{{ pokemon.rawStats.atk }}</span>
-        <span class="mx-1">B :</span><span class="w-8">{{ pokemon.rawStats.def }}</span>
-        <span class="mx-1">C :</span><span class="w-8">{{ pokemon.rawStats.spa }}</span>
-        <span class="mx-1">D :</span><span class="w-8">{{ pokemon.rawStats.spd }}</span>
-        <span class="mx-1">S :</span><span class="w-8">{{ pokemon.rawStats.spe }}</span>
-    </div>
-    <div class="flex">
         <div>努力値</div>
         <span class="mx-1">H</span>
         <input type="number" min="0" max="252" step="4" v-model="props.pokemon.pokemon.evs.hp" class="w-12">
