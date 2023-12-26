@@ -4,6 +4,9 @@ import SelectMove from './selector/SelectMove.vue'
 import { calculate, Generations, Pokemon, Move } from '@smogon/calc'
 import TypeTranslate from '../translate/TypeTranslate'
 import MoveCategoryTranslate from '../translate/MoveCategoryTranslate'
+import physical from './icons/physical.vue'
+import special from './icons/special.vue'
+import status from './icons/status.vue'
 
 const props = defineProps({
     pokemon: Object,
@@ -23,7 +26,7 @@ const getMovePower = (moveName) => {
 }
 const getMoveCategory = (moveName) => {
     const move = new Move(gen, moveName)
-    return MoveCategoryTranslate[move.category]
+    return move.category
 }
 
 const getTypeColor = (moveName) => {
@@ -74,10 +77,17 @@ const getTypeColor = (moveName) => {
 <template>
     <div class="grid grid-cols-2">
         <div class="flex mb-1" v-for="(move, key, index) in props.pokemon.pokemon.moves" :key="index">
+            <div class="icon" v-if="getMoveCategory(move) === 'Physical'">
+                <physical></physical>
+            </div>
+            <div class="icon" v-if="getMoveCategory(move) === 'Special'">
+                <special></special>
+            </div>
+            <div class="icon" v-if="getMoveCategory(move) === 'Status'">
+                <status></status>
+            </div>
             <div class="w-11 border rounded-md text-xxs text-center mx-1 my-0.5 py-0.5" :class="getTypeColor(move)">{{
                 getMoveType(move) }}</div>
-            <div class="w-11 border rounded-md text-xxs text-center mx-1 my-0.5 py-0.5">{{ getMoveCategory(move) }}
-            </div>
             <SelectMove :pokemon="props.pokemon" :slot="key" />
             <div>
                 <span class="mx-2">威力 {{ getMovePower(move) }}</span>

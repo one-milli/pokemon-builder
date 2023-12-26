@@ -5,6 +5,9 @@ import { calculate, Generations, Pokemon, Move } from '@smogon/calc'
 import PokemonMoveTranslate from '../translate/PokemonMoveTranslate'
 import TypeTranslate from '../translate/TypeTranslate'
 import MoveCategoryTranslate from '../translate/MoveCategoryTranslate'
+import physical from './icons/physical.vue'
+import special from './icons/special.vue'
+import status from './icons/status.vue'
 
 const props = defineProps({
     myPokemon: Object,
@@ -40,7 +43,7 @@ const getMovePower = (moveName) => {
 }
 const getMoveCategory = (moveName) => {
     const move = new Move(gen, moveName)
-    return MoveCategoryTranslate[move.category]
+    return move.category
 }
 
 const getTypeColor = (moveName) => {
@@ -122,10 +125,17 @@ const getTypeColor = (moveName) => {
     <div class="flex">
         <div>
             <div class="flex" v-for="(move, index) in props.myPokemon.pokemon.moves" :key="index">
+                <div class="icon" v-if="getMoveCategory(move) === 'Physical'">
+                    <physical></physical>
+                </div>
+                <div class="icon" v-if="getMoveCategory(move) === 'Special'">
+                    <special></special>
+                </div>
+                <div class="icon" v-if="getMoveCategory(move) === 'Status'">
+                    <status></status>
+                </div>
                 <div class="w-11 border rounded-md text-xxs text-center mx-1 my-0.5 py-0.5" :class="getTypeColor(move)">{{
                     getMoveType(move) }}</div>
-                <div class="w-11 border rounded-md text-xxs text-center mx-1 my-0.5 py-0.5">{{ getMoveCategory(move) }}
-                </div>
                 <span class="w-32">{{ PokemonMoveTranslate[move] }}</span>
                 <span class="w-20">威力: {{ getMovePower(move) }}</span>
             </div>
@@ -141,10 +151,17 @@ const getTypeColor = (moveName) => {
     <div class="flex">
         <div>
             <div class="flex" v-for="(move, index) in props.enemyPokemon.pokemon.moves" :key="index">
+                <div class="icon" v-if="getMoveCategory(move) === 'Physical'">
+                    <physical></physical>
+                </div>
+                <div class="icon" v-if="getMoveCategory(move) === 'Special'">
+                    <special></special>
+                </div>
+                <div class="icon" v-if="getMoveCategory(move) === 'Status'">
+                    <status></status>
+                </div>
                 <div class="w-11 border rounded-md text-xxs text-center mx-1 my-0.5 py-0.5" :class="getTypeColor(move)">{{
                     getMoveType(move) }}</div>
-                <div class="w-11 border rounded-md text-xxs text-center mx-1 my-0.5 py-0.5">{{ getMoveCategory(move) }}
-                </div>
                 <span class="w-32">{{ PokemonMoveTranslate[move] }}</span>
                 <span class="w-20">威力: {{ getMovePower(move) }}</span>
             </div>
