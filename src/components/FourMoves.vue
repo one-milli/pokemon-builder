@@ -41,25 +41,25 @@ const getTypeColor = (moveName) => {
     } else if (type === 'Electric') {
         return 'bg-yellow-400'
     } else if (type === 'Grass') {
-        return 'bg-green-400'
+        return 'bg-green-500'
     } else if (type === 'Ice') {
-        return 'bg-blue-200'
+        return 'bg-blue-300'
     } else if (type === 'Fighting') {
         return 'bg-red-600'
     } else if (type === 'Poison') {
-        return 'bg-purple-400'
+        return 'bg-purple-800'
     } else if (type === 'Ground') {
         return 'bg-yellow-600'
     } else if (type === 'Flying') {
-        return 'bg-blue-300'
+        return 'bg-blue-400'
     } else if (type === 'Psychic') {
-        return 'bg-purple-600'
+        return 'bg-pink-700'
     } else if (type === 'Bug') {
-        return 'bg-green-600'
+        return 'bg-green-700'
     } else if (type === 'Rock') {
-        return 'bg-gray-600'
+        return 'bg-yellow-800'
     } else if (type === 'Ghost') {
-        return 'bg-purple-800'
+        return 'bg-purple-600'
     } else if (type === 'Dragon') {
         return 'bg-indigo-700'
     } else if (type === 'Dark') {
@@ -86,8 +86,9 @@ const getTypeColor = (moveName) => {
             <div class="icon" v-if="getMoveCategory(move) === 'Status'">
                 <status></status>
             </div>
-            <div class="w-11 border rounded-md text-xxs text-center mx-1 my-0.5 py-0.5" :class="getTypeColor(move)">{{
-                getMoveType(move) }}</div>
+            <div class="w-11 border rounded-md font-extrabold text-xxs text-center mx-1 my-0.5 py-0.5"
+                :class="getTypeColor(move)">{{
+                    getMoveType(move) }}</div>
             <SelectMove :pokemon="props.pokemon" :slot="key" />
             <div>
                 <span class="mx-2">威力 {{ getMovePower(move) }}</span>
