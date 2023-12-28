@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, provide, computed, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useMyPokemonsStore } from './store/myPokemons'
 import { useEnemyPokemonsStore } from './store/enemyPokemons'
 import { storeToRefs } from 'pinia'
@@ -38,11 +38,13 @@ onMounted(async () => {
 <template>
   <div class="mx-auto">
     <MainHeader />
-    <div class="m-6">&nbsp;</div>
+    <div class="h-4 m-6"></div>
     <PokemonCard :pokemon="myPokemons[myPokemonId]" :deletable="false">
       <FourMoves :pokemon="myPokemons[myPokemonId]" />
     </PokemonCard>
-    <div class="text-2xl font-bold">VS</div>
+    <div class="flex items-center justify-center h-12 mb-6">
+      <div class="text-2xl font-bold">VS</div>
+    </div>
     <template v-for="enemyPokemon in enemyPokemons">
       <PokemonCard :pokemon="enemyPokemon" :deletable="true">
         <FourMoves :pokemon="enemyPokemon" />

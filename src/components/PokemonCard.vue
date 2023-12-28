@@ -27,7 +27,7 @@ const pokemon = computed(() => {
 </script>
 
 <template>
-    <div class="pokemon-card flex justify-between border-2 rounded-xl p-4 text-left w-2/3 mx-auto my-6 min-w-max">
+    <div class="pokemon-card flex justify-between border-2 rounded-xl p-4 text-left w-2/3 mx-auto mb-6 min-w-max">
         <div class="flex justify-start m-2 w-full">
             <div class="w-1/4">
                 <img :src="iconSrc" :alt="props.pokemon.pokemon.name" class="w-40">
@@ -43,7 +43,7 @@ const pokemon = computed(() => {
                 <PolyGraph :values="props.pokemon.pokemon.evs" :className="'ev'" :nature="props.pokemon.pokemon.nature" />
             </svg>
         </div>
-        <DeleteButton v-if="deletable" />
+        <DeleteButton v-if="deletable" :buildId="props.pokemon.id" />
     </div>
 </template>
 

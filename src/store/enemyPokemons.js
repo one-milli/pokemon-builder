@@ -103,5 +103,11 @@ export const useEnemyPokemonsStore = defineStore("enemyPokemons", {
     handleChangeMove(newMove, slot, id) {
       this.enemyPokemons[id].pokemon.moveIds["slot" + slot] = newMove;
     },
+    handleDeletePokemon(id) {
+      const deleteIndex = this.enemyPokemons.findIndex(
+        (pokemon) => pokemon.id === id
+      );
+      this.enemyPokemons.splice(deleteIndex, 1);
+    },
   },
 });
