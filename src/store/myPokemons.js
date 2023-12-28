@@ -60,9 +60,5 @@ export const useMyPokemonsStore = defineStore("myPokemons", {
         ) * natureMag
       );
     },
-    updateStatus(id) {},
-    handleChangeMove(newMove, slot, id) {
-      this.myPokemons[id].pokemon.moveIds["slot" + slot] = newMove;
-    },
   },
 });

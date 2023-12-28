@@ -14,7 +14,6 @@ export const useEnemyPokemonsStore = defineStore("enemyPokemons", {
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
           item: "Assault Vest",
           abilityId: 0,
-          moveIds: { slot1: 7, slot2: 2, slot3: 3, slot4: 4 },
           moves: {
             slot1: "moonblast",
             slot2: "psychic",
@@ -34,7 +33,6 @@ export const useEnemyPokemonsStore = defineStore("enemyPokemons", {
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
           item: "Choice Band",
           abilityId: 0,
-          moveIds: { slot1: 7, slot2: 2, slot3: 3, slot4: 4 },
           moves: {
             slot1: "dragon-claw",
             slot2: "earthquake",
@@ -54,7 +52,6 @@ export const useEnemyPokemonsStore = defineStore("enemyPokemons", {
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
           item: "Choice Specs",
           abilityId: 0,
-          moveIds: { slot1: 7, slot2: 2, slot3: 3, slot4: 4 },
           moves: {
             slot1: "heat-crash",
             slot2: "earthquake",
@@ -74,7 +71,6 @@ export const useEnemyPokemonsStore = defineStore("enemyPokemons", {
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
           item: "Choice Scarf",
           abilityId: 0,
-          moveIds: { slot1: 7, slot2: 2, slot3: 3, slot4: 4 },
           moves: {
             slot1: "flower-trick",
             slot2: "play-rough",
@@ -99,9 +95,27 @@ export const useEnemyPokemonsStore = defineStore("enemyPokemons", {
         ) * natureMag
       );
     },
-    updateStatus(id) {},
-    handleChangeMove(newMove, slot, id) {
-      this.enemyPokemons[id].pokemon.moveIds["slot" + slot] = newMove;
+    handleAddPokemon(pid, pokemon_name) {
+      const newPokemon = {
+        id: this.enemyPokemons.length,
+        pokemon: {
+          pid: pid,
+          name: pokemon_name,
+          level: 50,
+          nature: "adamant",
+          evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
+          item: "Life Orb",
+          abilityId: 0,
+          moves: {
+            slot1: "",
+            slot2: "",
+            slot3: "",
+            slot4: "",
+          },
+        },
+      };
+      this.enemyPokemons.push(newPokemon);
     },
     handleDeletePokemon(id) {
       const deleteIndex = this.enemyPokemons.findIndex(
