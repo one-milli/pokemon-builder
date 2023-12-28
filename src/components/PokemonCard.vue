@@ -25,7 +25,7 @@ const pokemon = computed(() => {
 </script>
 
 <template>
-    <div class="flex justify-between border-2 rounded-xl p-4 text-left w-4/5 mx-auto my-6">
+    <div class="pokemon-card flex justify-between border-2 rounded-xl p-4 text-left w-2/3 mx-auto my-6 min-w-max">
         <div class="flex justify-start m-2 w-full">
             <div class="w-1/4">
                 <img :src="iconSrc" :alt="props.pokemon.pokemon.name" class="w-40">
@@ -43,3 +43,9 @@ const pokemon = computed(() => {
         </div>
     </div>
 </template>
+
+<style scoped>
+.pokemon-card {
+    min-width: 1153px;
+}
+</style>

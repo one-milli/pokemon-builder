@@ -92,9 +92,9 @@ const getTypeColor = (moveName) => {
 </script>
 
 <template>
-    <div class="mt-4">
-        <span class="font-bold mr-1">ランク補正</span>
-        <span class="mr-3">
+    <div class="flex mt-4">
+        <div class="font-bold mr-1">ランク補正</div>
+        <div class="mr-3">
             <span class="mx-1">自分</span>
             <span class="mx-1">A</span>
             <input type="number" min="-6" max="6" v-model="statusRank.atk" class="w-8">
@@ -106,8 +106,8 @@ const getTypeColor = (moveName) => {
             <input type="number" min="-6" max="6" v-model="statusRank.spd" class="w-8">
             <span class="mx-1">S</span>
             <input type="number" min="-6" max="6" v-model="statusRank.spe" class="w-8">
-        </span>
-        <span>
+        </div>
+        <div>
             <span class="mx-1">相手</span>
             <span class="mx-1">A</span>
             <input type="number" min="-6" max="6" v-model="enemyStatusRank.atk" class="w-8">
@@ -119,7 +119,7 @@ const getTypeColor = (moveName) => {
             <input type="number" min="-6" max="6" v-model="enemyStatusRank.spd" class="w-8">
             <span class="mx-1">S</span>
             <input type="number" min="-6" max="6" v-model="enemyStatusRank.spe" class="w-8">
-        </span>
+        </div>
     </div>
     <div class="font-bold">与ダメージ</div>
     <div class="flex">
