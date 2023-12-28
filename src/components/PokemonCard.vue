@@ -2,10 +2,12 @@
 import { computed, inject, onMounted, ref } from 'vue'
 import PokemonStatus from './PokemonStatus.vue'
 import PolyGraph from './PolyGraph.vue'
+import DeleteButton from './DeleteButton.vue'
 import { calculate, Generations, Pokemon, Move } from '@smogon/calc'
 
 const props = defineProps({
     pokemon: Object,
+    deletable: Boolean,
 })
 
 const iconSrc = computed(() => {
@@ -41,6 +43,7 @@ const pokemon = computed(() => {
                 <PolyGraph :values="props.pokemon.pokemon.evs" :className="'ev'" :nature="props.pokemon.pokemon.nature" />
             </svg>
         </div>
+        <DeleteButton v-if="deletable" />
     </div>
 </template>
 

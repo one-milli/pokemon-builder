@@ -7,6 +7,7 @@ import MainHeader from './components/MainHeader.vue'
 import PokemonCard from './components/PokemonCard.vue'
 import FourMoves from './components/FourMoves.vue'
 import DamageCalculation from './components/DamageCalculation.vue'
+import AddForm from './components/AddForm.vue'
 
 //DB代わり
 const myPokemonsStore = useMyPokemonsStore()
@@ -38,15 +39,16 @@ onMounted(async () => {
   <div class="mx-auto">
     <MainHeader />
     <div class="m-6">&nbsp;</div>
-    <PokemonCard :pokemon="myPokemons[myPokemonId]">
+    <PokemonCard :pokemon="myPokemons[myPokemonId]" :deletable="false">
       <FourMoves :pokemon="myPokemons[myPokemonId]" />
     </PokemonCard>
     <div class="text-2xl font-bold">VS</div>
     <template v-for="enemyPokemon in enemyPokemons">
-      <PokemonCard :pokemon="enemyPokemon">
+      <PokemonCard :pokemon="enemyPokemon" :deletable="true">
         <FourMoves :pokemon="enemyPokemon" />
         <DamageCalculation :myPokemon="myPokemons[myPokemonId]" :enemyPokemon="enemyPokemon" />
       </PokemonCard>
     </template>
+    <AddForm />
   </div>
 </template>
