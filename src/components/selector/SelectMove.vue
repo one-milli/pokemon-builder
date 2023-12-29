@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 import PokemonMoveTranslate from '../../translate/PokemonMoveTranslate'
 
 const props = defineProps({

@@ -1,16 +1,20 @@
 <script setup>
-import { calculate, Generations, Pokemon, Move } from '@smogon/calc'
+import { ref, watch } from 'vue'
+import { Generations, Pokemon } from '@smogon/calc'
 
 const props = defineProps({
     pokemon: Object,
 });
 
 const gen = Generations.get(9)
-const pokemon = new Pokemon(gen, props.pokemon.pokemon.name, {
-    level: props.pokemon.pokemon.level,
-})
+const abilities = ref(null)
 
-const abilities = pokemon.species.abilities
+watch(() => props.pokemon.pokemon.name, () => {
+    const pokemon = new Pokemon(gen, props.pokemon.pokemon.name, {
+        level: props.pokemon.pokemon.level,
+    })
+    abilities.value = pokemon.species.abilities
+}, { immediate: true })
 
 </script>
 
