@@ -1,18 +1,44 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import { useEnemyPokemonsStore } from '../store/enemyPokemons'
+import PokemonNameTranslate from '../translate/PokemonNameTranslate'
 
 const enemyPokemonsStore = useEnemyPokemonsStore()
 const searchQuery = ref('')
 const selectedOption = ref(0)
-const options = ref([
-    { id: 1, name: 'bulbasaur', name_ja: 'フシギダネ' },
-    { id: 2, name: 'ivysaur', name_ja: 'フシギソウ' },
-    { id: 3, name: 'venusaur', name_ja: 'フシギバナ' },
-    { id: 4, name: 'charmander', name_ja: 'ヒトカゲ' },
-    { id: 5, name: 'charmeleon', name_ja: 'リザード' },
-])
 const filteredOptions = ref([])
+const options = ref([])
+
+const allPokemonCnt = 1292
+const allPokemonData = ref([])
+
+onMounted(async () => {
+    const cachedPokemons = sessionStorage.getItem('allPokemonData')
+
+    if (cachedPokemons) {
+        const parsed = JSON.parse(cachedPokemons)
+        allPokemonData.value = parsed.results
+        allPokemonData.value.forEach((pokemon, index) => {
+            options.value[index] = {
+                id: index + 1,
+                name: pokemon.name,
+                name_ja: PokemonNameTranslate[pokemon.name] || '',
+            }
+        })
+    } else {
+        const response = await fetch('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=' + String(allPokemonCnt))
+        const result = await response.json()
+        sessionStorage.setItem('allPokemonData', JSON.stringify(result))
+        allPokemonData.value = result.results
+        allPokemonData.value.forEach((pokemon, index) => {
+            options.value[index] = {
+                id: index + 1,
+                name: pokemon.name,
+                name_ja: PokemonNameTranslate[pokemon.name] || '',
+            }
+        })
+    }
+})
 
 watch(searchQuery, (newValue) => {
     const katakanaQuery = hiraganaToKatakana(newValue)

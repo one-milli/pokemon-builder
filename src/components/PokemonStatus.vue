@@ -1,9 +1,9 @@
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed } from 'vue'
 import SelectAbility from './selector/SelectAbility.vue';
 import SelectItem from './selector/SelectItem.vue'
 import SelectNature from './selector/SelectNature.vue'
-import { calculate, Generations, Pokemon, Move } from '@smogon/calc'
+import { Generations, Pokemon } from '@smogon/calc'
 import PokemonNameTranslate from '../translate/PokemonNameTranslate'
 
 const props = defineProps({

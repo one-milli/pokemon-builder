@@ -16,23 +16,6 @@ const enemyPokemonsStore = useEnemyPokemonsStore()
 const { enemyPokemons } = storeToRefs(enemyPokemonsStore)
 
 const myPokemonId = ref(0)
-
-const allPokemonCnt = 1292
-const allPokemonData = ref(null)
-
-onMounted(async () => {
-  const cachedPokemons = sessionStorage.getItem('allPokemonData')
-
-  if (cachedPokemons) {
-    const parsed = JSON.parse(cachedPokemons)
-    allPokemonData.value = parsed.results
-  } else {
-    const response = await fetch('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=' + String(allPokemonCnt))
-    const result = await response.json()
-    sessionStorage.setItem('allPokemonData', JSON.stringify(result))
-    allPokemonData.value = result.results
-  }
-})
 </script>
 
 <template>
