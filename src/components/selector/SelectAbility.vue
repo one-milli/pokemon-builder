@@ -20,6 +20,7 @@ watch(() => props.pokemon.pokemon.name, () => {
 
 <template>
     <select v-model="props.pokemon.pokemon.abilityId">
+        <option value="" disabled>特性</option>
         <option v-for="(value, key, index) in abilities" :key="key" :value="key">
             {{ value }}
         </option>

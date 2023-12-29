@@ -33,6 +33,7 @@ const natures = ref([
 
 <template>
     <select v-model="props.pokemon.pokemon.nature">
+        <option value="" disabled>性格</option>
         <option v-for="(nature, index) in natures" :key="index" :value="nature.en">
             {{ nature.ja }}
         </option>

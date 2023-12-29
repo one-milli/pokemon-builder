@@ -20,6 +20,7 @@ const items = ref([
 
 <template>
     <select v-model="props.pokemon.pokemon.item">
+        <option value="" disabled>持ち物</option>
         <option v-for="(item, index) in items" :key="index" :value="item.en">
             {{ item.ja }}
         </option>

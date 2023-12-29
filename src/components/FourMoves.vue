@@ -73,7 +73,7 @@ const getTypeColor = (moveName) => {
 </script>
 
 <template>
-    <div class="grid grid-cols-2 max-w-2xl">
+    <div class="grid grid-cols-2 max-w-xl">
         <div class="flex mb-1" v-for="(move, key, index) in props.pokemon.pokemon.moves" :key="index">
             <div class="icon" v-if="getMoveCategory(move) === 'Physical'">
                 <physical></physical>
@@ -89,7 +89,7 @@ const getTypeColor = (moveName) => {
                     getMoveType(move) }}</div>
             <SelectMove :pokemon="props.pokemon" :slot="key" />
             <div>
-                <span class="mx-2">威力 {{ getMovePower(move) }}</span>
+                <span class="mx-2">{{ '(' + getMovePower(move) + ')' }}</span>
             </div>
         </div>
     </div>

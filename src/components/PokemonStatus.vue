@@ -47,25 +47,21 @@ const pokemon = computed(() => {
         </div>
     </div>
     <div class="flex mb-1">
-        <div>
+        <div class="mr-2">
             Lv.<input type="number" min="1" max="100" v-model="props.pokemon.pokemon.level" class="w-11">
         </div>
-        <div class="ml-2">性格</div>
-        <SelectNature :pokemon="props.pokemon" />
-        <div class="ml-2">特性</div>
-        <SelectAbility :pokemon="props.pokemon" />
-        <div class="ml-2">持ち物</div>
-        <SelectItem :pokemon="props.pokemon" />
+        <SelectAbility :pokemon="props.pokemon" class="mr-2" />
+        <SelectNature :pokemon="props.pokemon" class="mr-2" />
+        <SelectItem :pokemon="props.pokemon" class="mr-2" />
     </div>
     <div class="flex mb-1">
-        <div>努力値</div>
         <template v-for="(stat, key, index) in props.pokemon.pokemon.evs" :key="index">
             <div class="flex">
-                <span class="mx-1">{{ labelConversion[key] }}</span>
-                <input type="number" min="0" max="252" step="4" v-model="props.pokemon.pokemon.evs[key]" class="w-12">
+                <span class="mr-1">{{ labelConversion[key] }}</span>
+                <input type="number" min="0" max="252" step="4" v-model="props.pokemon.pokemon.evs[key]" class="w-12 mr-1">
             </div>
         </template>
-        <span class="w-16 mx-1">合計{{ evsTotal }}</span>
-        <span class="w-16 mx-1">余り{{ 510 - evsTotal }}</span>
+        <span class="w-16 mr-1">合計{{ evsTotal }}</span>
+        <span class="w-16 mr-1">余り{{ 510 - evsTotal }}</span>
     </div>
 </template>

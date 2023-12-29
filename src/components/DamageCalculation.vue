@@ -38,7 +38,7 @@ const getMovePower = (moveName) => {
     if (move.bp === 0) {
         return '-'
     }
-    return move.bp
+    return move.bp || '-'
 }
 const getMoveCategory = (moveName) => {
     const move = new Move(gen, moveName)
@@ -136,8 +136,8 @@ const getTypeColor = (moveName) => {
                 <div class="w-11 border rounded-md font-extrabold text-xxs text-center mx-1 my-0.5 py-0.5"
                     :class="getTypeColor(move)">{{
                         getMoveType(move) }}</div>
-                <span class="w-32">{{ PokemonMoveTranslate[move] }}</span>
-                <span class="w-20">威力: {{ getMovePower(move) }}</span>
+                <span class="w-28">{{ PokemonMoveTranslate[move] }}</span>
+                <span class="w-12">{{ '(' + getMovePower(move) + ')' }}</span>
             </div>
         </div>
         <div>
@@ -163,8 +163,8 @@ const getTypeColor = (moveName) => {
                 <div class="w-11 border rounded-md font-extrabold text-xxs text-center mx-1 my-0.5 py-0.5"
                     :class="getTypeColor(move)">{{
                         getMoveType(move) }}</div>
-                <span class="w-32">{{ PokemonMoveTranslate[move] }}</span>
-                <span class="w-20">威力: {{ getMovePower(move) }}</span>
+                <span class="w-28">{{ PokemonMoveTranslate[move] }}</span>
+                <span class="w-12">{{ '(' + getMovePower(move) + ')' }}</span>
             </div>
         </div>
         <div>
