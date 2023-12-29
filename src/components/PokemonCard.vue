@@ -1,9 +1,9 @@
 <script setup>
-import { computed, inject, onMounted, ref } from 'vue'
+import { computed } from 'vue'
 import PokemonStatus from './PokemonStatus.vue'
 import PolyGraph from './PolyGraph.vue'
 import DeleteButton from './DeleteButton.vue'
-import { calculate, Generations, Pokemon, Move } from '@smogon/calc'
+import { Generations, Pokemon } from '@smogon/calc'
 
 const props = defineProps({
     pokemon: Object,

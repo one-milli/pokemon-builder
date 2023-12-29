@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, computed, ref } from 'vue'
+import { onMounted, computed } from 'vue'
 import { calculate, Generations, Pokemon, Move } from '@smogon/calc'
 
 const props = defineProps({

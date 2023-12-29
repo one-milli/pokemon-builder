@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref, onMounted } from 'vue'
+import { computed } from 'vue'
 import AxisLabel from './AxisLabel.vue'
 import AxisLabelValue from './AxisLabelValue.vue'
 import { valueToPoint } from '../util.js'

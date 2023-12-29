@@ -1,9 +1,7 @@
 <script setup>
-import { computed, inject, onMounted, ref } from 'vue'
 import SelectMove from './selector/SelectMove.vue'
-import { calculate, Generations, Pokemon, Move } from '@smogon/calc'
+import { Generations, Move } from '@smogon/calc'
 import TypeTranslate from '../translate/TypeTranslate'
-import MoveCategoryTranslate from '../translate/MoveCategoryTranslate'
 import physical from './icons/physical.vue'
 import special from './icons/special.vue'
 import status from './icons/status.vue'
