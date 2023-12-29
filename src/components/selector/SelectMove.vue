@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import PokemonMoveTranslate from '../../translate/PokemonMoveTranslate'
 
 const props = defineProps({
@@ -9,11 +9,11 @@ const props = defineProps({
 
 const moves = ref(null)
 
-onMounted(async () => {
+watch(() => props.pokemon.pokemon.name, async () => {
     const response = await fetch('https://pokeapi.co/api/v2/pokemon/' + props.pokemon.pokemon.name)
     const result = await response.json()
     moves.value = result.moves
-})
+}, { immediate: true })
 
 </script>
 
