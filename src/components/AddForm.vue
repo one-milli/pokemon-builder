@@ -47,7 +47,7 @@ watch(searchQuery, (newValue) => {
     } else {
         filteredOptions.value = options.value.filter(option =>
             option.name_ja.startsWith(katakanaQuery) || option.name_ja.startsWith(newValue)
-        )
+        ).slice(0, 10)
     }
 })
 
@@ -73,7 +73,7 @@ const hiraganaToKatakana = (str) => {
 </script>
 
 <template>
-    <div class="w-2/3 mx-auto mb-80 gap-4 p-4 border-2 border-gray-300 rounded-xl">
+    <div class="w-2/3 mx-auto mb-96 gap-4 p-4 border-2 border-gray-300 rounded-xl">
         <div class="flex">
             <div class="flex-1 mr-3">
                 <input type="text" v-model="searchQuery" class="p-2 w-full h-11 border border-gray-300 rounded"
