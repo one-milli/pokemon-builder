@@ -59,18 +59,12 @@ const pokemon = computed(() => {
     </div>
     <div class="flex mb-1">
         <div>努力値</div>
-        <span class="mx-1">H</span>
-        <input type="number" min="0" max="252" step="4" v-model="props.pokemon.pokemon.evs.hp" class="w-12">
-        <span class="mx-1">A</span>
-        <input type="number" min="0" max="252" step="4" v-model="props.pokemon.pokemon.evs.atk" class="w-12">
-        <span class="mx-1">B</span>
-        <input type="number" min="0" max="252" step="4" v-model="props.pokemon.pokemon.evs.def" class="w-12">
-        <span class="mx-1">C</span>
-        <input type="number" min="0" max="252" step="4" v-model="props.pokemon.pokemon.evs.spa" class="w-12">
-        <span class="mx-1">D</span>
-        <input type="number" min="0" max="252" step="4" v-model="props.pokemon.pokemon.evs.spd" class="w-12">
-        <span class="mx-1">S</span>
-        <input type="number" min="0" max="252" step="4" v-model="props.pokemon.pokemon.evs.spe" class="w-12">
+        <template v-for="(stat, key, index) in props.pokemon.pokemon.evs" :key="index">
+            <div class="flex">
+                <span class="mx-1">{{ labelConversion[key] }}</span>
+                <input type="number" min="0" max="252" step="4" v-model="props.pokemon.pokemon.evs[key]" class="w-12">
+            </div>
+        </template>
         <span class="w-16 mx-1">合計{{ evsTotal }}</span>
         <span class="w-16 mx-1">余り{{ 510 - evsTotal }}</span>
     </div>
