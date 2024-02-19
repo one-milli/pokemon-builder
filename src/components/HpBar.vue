@@ -10,8 +10,8 @@ const props = defineProps({
     defenderBoost: Object,
 })
 
-const attacker = props.attacker.pokemon
-const defender = props.defender.pokemon
+const attacker = props.attacker
+const defender = props.defender
 
 const gen = Generations.get(9);
 const result = computed(() => {

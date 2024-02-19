@@ -74,7 +74,7 @@ const getTypeColor = (moveName) => {
 
 <template>
     <div class="grid grid-cols-2 max-w-xl">
-        <div class="flex mb-1" v-for="(move, key, index) in props.pokemon.pokemon.moves" :key="index">
+        <div class="flex mb-1" v-for="(move, key, index) in props.pokemon.moves" :key="index">
             <div class="icon" v-if="getMoveCategory(move) === 'Physical'">
                 <physical></physical>
             </div>

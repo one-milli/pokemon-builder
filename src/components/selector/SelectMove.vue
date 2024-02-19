@@ -9,8 +9,8 @@ const props = defineProps({
 
 const moves = ref(null)
 
-watch(() => props.pokemon.pokemon.name, async () => {
-    const response = await fetch('https://pokeapi.co/api/v2/pokemon/' + props.pokemon.pokemon.name)
+watch(() => props.pokemon.name, async () => {
+    const response = await fetch('https://pokeapi.co/api/v2/pokemon/' + props.pokemon.name)
     const result = await response.json()
     moves.value = result.moves
 }, { immediate: true })
@@ -19,7 +19,7 @@ watch(() => props.pokemon.pokemon.name, async () => {
 
 <template>
     <div class="mx-1">
-        <select v-model="props.pokemon.pokemon.moves[props.slot]">
+        <select v-model="props.pokemon.moves[props.slot]">
             <option v-for="(move, index) in moves" :key="index" :value="move.move.name">
                 {{ PokemonMoveTranslate[move.move.name] }}
             </option>

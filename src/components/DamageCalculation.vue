@@ -123,7 +123,7 @@ const getTypeColor = (moveName) => {
     <div class="font-bold">与ダメージ</div>
     <div class="flex">
         <div>
-            <div class="flex" v-for="(move, index) in props.myPokemon.pokemon.moves" :key="index">
+            <div class="flex" v-for="(move, index) in props.myPokemon.moves" :key="index">
                 <div class="icon" v-if="getMoveCategory(move) === 'Physical'">
                     <physical></physical>
                 </div>
@@ -141,7 +141,7 @@ const getTypeColor = (moveName) => {
             </div>
         </div>
         <div>
-            <div class="flex" v-for="(move, index) in props.myPokemon.pokemon.moves" :key="index">
+            <div class="flex" v-for="(move, index) in props.myPokemon.moves" :key="index">
                 <HpBar :attacker="props.myPokemon" :defender="props.enemyPokemon" :move="move" :attackerBoost="statusRank"
                     :defenderBoost="enemyStatusRank" />
             </div>
@@ -150,7 +150,7 @@ const getTypeColor = (moveName) => {
     <div class="font-bold">被ダメージ</div>
     <div class="flex">
         <div>
-            <div class="flex" v-for="(move, index) in props.enemyPokemon.pokemon.moves" :key="index">
+            <div class="flex" v-for="(move, index) in props.enemyPokemon.moves" :key="index">
                 <div class="icon" v-if="getMoveCategory(move) === 'Physical'">
                     <physical></physical>
                 </div>
@@ -168,7 +168,7 @@ const getTypeColor = (moveName) => {
             </div>
         </div>
         <div>
-            <div class="flex" v-for="(move, index) in props.enemyPokemon.pokemon.moves" :key="index">
+            <div class="flex" v-for="(move, index) in props.enemyPokemon.moves" :key="index">
                 <HpBar :attacker="props.enemyPokemon" :defender="props.myPokemon" :move="move"
                     :attackerBoost="enemyStatusRank" :defenderBoost="statusRank" />
             </div>
